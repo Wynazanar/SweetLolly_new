@@ -1,0 +1,229 @@
+:root {
+    --card: var(--card-background, #ffffff);
+    --border: var(--ui-border, rgba(129, 82, 170, .18));
+    --text: var(--foreground, #2e2540);
+    --muted: var(--ui-muted, #786b8b);
+    --accent: var(--ui-accent, #a84fec);
+    --shadow: var(--ui-shadow, 0 18px 55px rgba(86, 55, 135, .14));
+    --soft-shadow: var(--ui-soft-shadow, 0 10px 32px rgba(86, 55, 135, .09));
+}
+
+body.dark,
+html[data-theme="dark"] {
+    --card: var(--card-background, #222532);
+    --border: rgba(255, 255, 255, .10);
+    --text: #fff;
+    --muted: #b9afc9;
+    --accent: #c58cff;
+    --shadow: 0 18px 55px rgba(0, 0, 0, .30);
+    --soft-shadow: 0 10px 32px rgba(0, 0, 0, .20);
+}
+
+/* ==================== GRID ==================== */
+.games-good-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* ==================== CARD ==================== */
+.game-good-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--soft-shadow);
+    text-decoration: none !important;
+    color: var(--text);
+    transition: .18s;
+}
+
+.game-good-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+/* ==================== MEDIA ==================== */
+.game-good-media {
+    aspect-ratio: 16/10;
+    background: #090612;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.game-good-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .25s;
+}
+
+.game-good-media.is-icon img {
+    width: 80%;
+    height: 86%;
+    object-fit: contain;
+    filter: drop-shadow(0 16px 18px rgba(0, 0, 0, .35));
+}
+
+.game-good-card:hover .game-good-media img {
+    transform: scale(1.04);
+}
+
+/* ==================== BODY ==================== */
+.game-good-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Категория — фиксированная высота (чтобы заголовки не скакали) */
+.game-good-body > p:first-child {
+    font-size: 12px !important;
+    margin: 0 0 8px 0 !important;
+    min-height: 19px;
+    line-height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-good-body h3 {
+    font-size: 22px;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.game-good-body p.body-text {
+    flex: 1;
+    margin-bottom: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* Теги */
+.game-good-tags {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin: 4px 0 12px 0;
+}
+
+.game-good-tags span {
+    border-radius: 999px;
+    background: rgba(168, 79, 236, .10);
+    border: 1px solid var(--border);
+    font-weight: 800;
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+/* Кнопка "Открыть" */
+.game-good-body b {
+    margin-top: auto;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ==================== ОСТАЛЬНОЕ ==================== */
+.games-good-gallery {
+    margin: 28px 0;
+}
+
+.games-good-title {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.games-good-title p {
+    color: var(--muted);
+}
+
+.game-good-body span {
+    width: max-content;
+    border-radius: 999px;
+    background: rgba(168, 79, 236, .10);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 900;
+    padding: 5px 9px;
+    margin-bottom: 8px;
+}
+
+/* Просмотр галереи */
+.games-good-view {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #090612;
+    box-shadow: var(--shadow);
+}
+
+.games-good-view figure {
+    display: none;
+    margin: 0;
+    background: #090612;
+    text-align: center;
+    cursor: zoom-in;
+}
+
+.games-good-view figure.active {
+    display: block;
+}
+
+.games-good-view figure img {
+    width: 100%;
+    height: min(72vh, 620px);
+    object-fit: contain;
+    background: #090612;
+    display: block;
+}
+
+.games-good-view figcaption {
+    padding: 12px;
+    color: #fff;
+    background: rgba(255, 255, 255, .06);
+    font-weight: 900;
+}
+
+/* ==================== АДАПТИВ ==================== */
+
+@media (max-width: 1024px) {
+    .games-good-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+    
+    .game-good-body {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .games-good-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    
+    .game-good-card {
+        border-radius: 18px;
+    }
+    
+    .game-good-media {
+        aspect-ratio: 16/9;
+    }
+    
+    .game-good-body {
+        padding: 14px;
+    }
+    
+    .game-good-body h3 {
+        font-size: 20px;
+    }
+}
