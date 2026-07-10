@@ -26,4 +26,15 @@
 		{
 			return $this->findOne("SELECT * FROM minigames WHERE name = '$game';");
 		}
+
+		public function getRules()
+		{
+			return $this->findMany("
+				SELECT * FROM rules ORDER BY id");
+		}
+
+		public function getRuleCategories()
+		{
+			return $this->findMany("SELECT * FROM rules_categories ORDER BY id");
+		}
 	}

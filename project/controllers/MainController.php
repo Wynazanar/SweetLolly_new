@@ -33,4 +33,18 @@
 				"game" => $gameInfo
 			]);
 		}
+
+		public function rules()
+		{
+			$this->title = 'Правила | SweetLolly';
+
+			$page = new Page();
+			$rules = $page->getRules();
+			$ruleCategories = $page->getRuleCategories();
+
+			return $this->render('rules/index', [
+				"rules" => $rules,
+				"ruleCategories" => $ruleCategories,
+			]);
+		}
 	}

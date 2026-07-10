@@ -20,6 +20,9 @@
     --menu-hover-shadow: rgba(255, 122, 200, 0.28);
 
     --card-background: #ffffff;
+
+    --hero-background: radial-gradient(circle at 14% 10%, rgba(255, 255, 255, .42), transparent 25%), linear-gradient(135deg, rgba(255, 222, 184, .80), rgba(255, 214, 235, .82), rgba(229, 214, 255, .86));
+    --hero-border: rgba(0, 0, 0, 0.25);
 }
 
 body {
@@ -46,7 +49,9 @@ body.dark {
     --foreground: #fff;
     --card-background: #222532;
 
-
+    --hero-background: linear-gradient(180deg,rgba(31,26,43,.88),rgba(18,15,27,.94));
+    --hero-border: rgba(255, 255, 255, 0.15);
+    
     background: radial-gradient(circle at 14% -5%, rgba(255, 122, 200, 0.18), transparent 32%), radial-gradient(circle at 88% 0%, rgba(123, 63, 211, 0.18), transparent 36%), linear-gradient(rgb(16, 9, 29) 0%, rgb(23, 16, 33) 48%, rgb(9, 6, 16) 100%);
 }
 
@@ -132,7 +137,7 @@ header {
   display: block;
   width: 230px;
   height: 180px;
-  background: url('/lollipopmc/assets/lollipoplogo.png') center/contain no-repeat;
+  /* background: url('/lollipopmc/assets/lollipoplogo.png') center/contain no-repeat; */
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .15));
   flex: 0 0 auto
 }
@@ -235,9 +240,50 @@ header {
 
 
 
+.beauty-hero {
+    background: var(--hero-background);
+    border: 1px solid var(--hero-border);
+    border-radius: 22px;
+    padding: 32px;
+    margin: 24px 0px;
+    position: relative;
+    overflow: hidden;
+}
 
+.beauty-eyebrow, .candy-kicker, .cosmetics-kicker, .help-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    font-weight: 900;
+    font-size: 13px;
+    background: rgba(168, 79, 236, .10);
+    border: 1px solid var(--hero-border);
+    border-radius: 999px;
+    padding: 7px 11px;
+    margin-bottom: 12px;
+}
 
+.beauty-hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
 
+.beauty-hero p {
+    font-size: 18px;
+    line-height: 1.65;
+    max-width: 780px;
+    color: var(--footer-gray-color);
+}
+
+.beauty-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
 
 
 
