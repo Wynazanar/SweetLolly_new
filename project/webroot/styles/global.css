@@ -3,6 +3,8 @@
 :root {
     --font-family: "Open Sans", sans-serif;
     --foreground: #3c2448;
+    --ui-accent: #c58cff;
+    --accent: #c879ff;
 
     --header-background: #fff8fce0;
     --header-buttons: #ffffff;
@@ -20,9 +22,22 @@
     --menu-hover-shadow: rgba(255, 122, 200, 0.28);
 
     --card-background: #ffffff;
+    --card: rgba(255, 255, 255, 0.8);
+    --card2: #fbf9ff;
+    --border: rgba(81, 42, 126, 0.18);
+    --lolli-grad: linear-gradient(90deg,#ffb06b,#ff7ab8,#a84fec);
+    --ui-grad: linear-gradient(90deg, #ffb06b 0%, #ce7cae 42%, #a248f6 100%);
 
     --hero-background: radial-gradient(circle at 14% 10%, rgba(255, 255, 255, .42), transparent 25%), linear-gradient(135deg, rgba(255, 222, 184, .80), rgba(255, 214, 235, .82), rgba(229, 214, 255, .86));
     --hero-border: rgba(0, 0, 0, 0.25);
+
+    /* Дополнительные переменные */
+    --ui-surface-2: #fbf7ff;
+    --ui-border: rgba(129, 82, 170, .18);
+    --muted: #786b8b;
+    --text: #2e2540;
+    --shadow: 0 18px 55px rgba(86, 55, 135, .14);
+    --soft-shadow: 0 10px 32px rgba(86, 55, 135, .09);
 }
 
 body {
@@ -30,7 +45,6 @@ body {
 }
 
 body.dark {
-
     --header-background: rgba(22, 18, 31, 0.78);
     --header-buttons: rgba(255, 255, 255, 0.1);
     --header-buttons-shadow: rgba(255, 255, 255, 0.30);
@@ -48,10 +62,19 @@ body.dark {
 
     --foreground: #fff;
     --card-background: #222532;
+    --card: rgba(34, 37, 50, 0.8);
+    --card2: #2a2e3d;
+    --border: rgba(202, 137, 255, .22);
 
     --hero-background: linear-gradient(180deg,rgba(31,26,43,.88),rgba(18,15,27,.94));
     --hero-border: rgba(255, 255, 255, 0.15);
-    
+
+    --ui-surface-2: #2a2e3d;
+    --muted: #b9afc9;
+    --text: #fff;
+    --shadow: 0 18px 55px rgba(0, 0, 0, .30);
+    --soft-shadow: 0 10px 32px rgba(0, 0, 0, .20);
+
     background: radial-gradient(circle at 14% -5%, rgba(255, 122, 200, 0.18), transparent 32%), radial-gradient(circle at 88% 0%, rgba(123, 63, 211, 0.18), transparent 36%), linear-gradient(rgb(16, 9, 29) 0%, rgb(23, 16, 33) 48%, rgb(9, 6, 16) 100%);
 }
 
@@ -92,7 +115,6 @@ header {
     background: var(--header-buttons);
     border-radius: 500px;
     padding: 6px 15px;
-
     box-shadow: 0px 0px 2px var(--header-buttons-shadow);
 }
 
@@ -116,8 +138,6 @@ header {
     user-select: none;
 }
 
-
-
 .hero-nav {
     color: var(--foreground);
     padding-bottom: 28px;
@@ -137,7 +157,6 @@ header {
   display: block;
   width: 230px;
   height: 180px;
-  /* background: url('/lollipopmc/assets/lollipoplogo.png') center/contain no-repeat; */
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .15));
   flex: 0 0 auto
 }
@@ -162,12 +181,6 @@ header {
   cursor: pointer;
   backdrop-filter: blur(8px)
 }
-
-
-
-
-
-
 
 .main-menu {
     display: flex;
@@ -226,19 +239,9 @@ header {
 }
 
 @keyframes menuPop {
-    from {
-        transform: scale(0.95);
-        opacity: 0.7;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+    from { transform: scale(0.95); opacity: 0.7; }
+    to { transform: scale(1); opacity: 1; }
 }
-
-
-
-
 
 .beauty-hero {
     background: var(--hero-background);
@@ -263,6 +266,11 @@ header {
     border-radius: 999px;
     padding: 7px 11px;
     margin-bottom: 12px;
+    color: var(--ui-accent);
+}
+
+.beauty-eyebrow svg {
+    fill: var(--ui-accent);
 }
 
 .beauty-hero h1 {
@@ -285,23 +293,38 @@ header {
     margin-top: 18px;
 }
 
+.beauty-btn {
+    background: var(--ui-grad);
+    color: #fff;
+    font-weight: 900;
+    padding: 12px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: .18s ease;
+}
 
+.beauty-btn svg {
+    fill: #fff;
+}
 
+.beauty-btn:hover {
+    transform: translateY(-2px);
+}
 
+.beauty-btn.secondary {
+    color: var(--foreground);
+    background: var(--card);
+    border: 1px solid var(--border);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.beauty-btn.secondary svg {
+    fill: var(--foreground);
+}
 
 footer {
     margin-top: 50px;

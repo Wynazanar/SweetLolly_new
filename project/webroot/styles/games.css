@@ -1,22 +1,64 @@
-:root {
-    --card: var(--card-background, #ffffff);
-    --border: var(--ui-border, rgba(129, 82, 170, .18));
-    --text: var(--foreground, #2e2540);
-    --muted: var(--ui-muted, #786b8b);
-    --accent: var(--ui-accent, #a84fec);
-    --shadow: var(--ui-shadow, 0 18px 55px rgba(86, 55, 135, .14));
-    --soft-shadow: var(--ui-soft-shadow, 0 10px 32px rgba(86, 55, 135, .09));
+.games-good-ip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(168, 79, 236, .10);
+    border: 1px solid var(--border);
 }
 
-body.dark,
-html[data-theme="dark"] {
-    --card: var(--card-background, #222532);
-    --border: rgba(255, 255, 255, .10);
-    --text: #fff;
-    --muted: #b9afc9;
-    --accent: #c58cff;
-    --shadow: 0 18px 55px rgba(0, 0, 0, .30);
-    --soft-shadow: 0 10px 32px rgba(0, 0, 0, .20);
+.games-good-ip code {
+    color: var(--accent);
+    font-weight: 900;
+}
+
+.games-good-ip button {
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 13px;
+    background: linear-gradient(90deg, #ffbc73, #ff7ac8, #8b57ff);
+    color: #fff;
+    font-weight: 900;
+}
+
+.games-good-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+}
+
+.games-good-filter button {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 9px 16px;
+    font-weight: 900;
+}
+
+.games-good-filter button.active {
+    background: linear-gradient(90deg, #ffbc73, #ff7ac8, #8b57ff);
+    color: #fff;
+    border-color: transparent;
+}
+
+.toast-copy {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    background: var(--lolli-grad);
+    color: #fff;
+    border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .24);
+    font-weight: 900;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: .18s;
 }
 
 /* ==================== GRID ==================== */
@@ -81,7 +123,7 @@ html[data-theme="dark"] {
     flex: 1;
 }
 
-/* Категория — фиксированная высота (чтобы заголовки не скакали) */
+/* Категория — фиксированная высота */
 .game-good-body > p:first-child {
     font-size: 12px !important;
     margin: 0 0 8px 0 !important;

@@ -1,38 +1,3 @@
-:root {
-    --card: #fff;
-    --card2: #fbf9ff;
-    --border: rgba(0,0,0,0.15);
-    --lolli-grad: linear-gradient(90deg,#ffb06b,#ff7ab8,#a84fec);
-    --border: rgba(81, 42, 126, 0.18);
-    --ui-grad: linear-gradient(90deg, #ffb06b 0%, #ce7cae 42%, #a248f6 100%);
-}
-
-body.dark {
-    --card: #222532;
-    --card2: #2a2e3d;
-    --border: rgba(202, 137, 255, .22);
-}
-
-.beauty-btn {
-    background: var(--ui-grad);
-    color: #fff;
-    font-weight: 900;
-    padding: 12px 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    cursor: pointer;
-    border-radius: 999px;
-    transition: .18s ease;
-    border: 1px solid var(--border);
-}
-
-.beauty-btn.secondary {
-    color: var(--foreground);
-    background: var(--card);
-}
-
 .rules-search {
     display: flex;
     gap: 10px;
@@ -56,6 +21,10 @@ body.dark {
     padding: 24px;
     margin-bottom: 18px;
     scroll-margin-top: 16px;
+}
+
+.rules-section svg {
+    fill: #c879ff;
 }
 
 .rules-section h2 {
@@ -142,6 +111,14 @@ body.dark {
     align-items: start;
 }
 
+.rules-layout a {
+    transition: all 0.18s ease;
+}
+
+.rules-layout a:hover {
+    transform: scale(1.025);
+}
+
 .rules-sidebar a {
     display: block;
     align-items: center;
@@ -150,6 +127,20 @@ body.dark {
     color: var(--foreground);
     text-decoration: none;
     font-weight: 800;
+    transition: all 0.16s ease;
+}
+
+.rules-section svg {
+    transition: all 0.16s ease;
+}
+
+.rules-sidebar a:hover {
+    background: rgba(168, 79, 236, 0.10);
+    color: #c879ff;
+}
+
+.rules-sidebar a:hover svg {
+    fill: #c879ff;
 }
 
 .rules-sidebar a svg {
@@ -182,6 +173,11 @@ body.dark {
     color: var(--accent);
     font-weight: 900;
     text-decoration: none;
+    transition: all 0.18s ease;
+}
+
+.rules-toc a:hover {
+    transform: translateY(-2px);
 }
 
 .rules-warning {
@@ -190,4 +186,22 @@ body.dark {
     border-radius: 18px;
     padding: 18px;
     margin: 16px 0;
+}
+
+.rules-section .muted {
+    color: var(--footer-gray-color);
+    margin-bottom: 16px;
+}
+
+.rule-note {
+    border-left: 4px solid #c879ff;
+    background: var(--card2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--footer-gray-color);
+    line-height: 1.6;
+}
+
+.rule-note b {
+    color: var(--footer-gray-color);
 }

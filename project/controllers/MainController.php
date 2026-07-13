@@ -16,9 +16,11 @@
 
 			$page = new Page();
 			$games = $page->getAllGames();
+			$gameCategories = $page->getAllGameCategories();
 			
 			return $this->render('games/index', [
-				"games" => $games
+				"games" => $games,
+				"gameCategories" => $gameCategories
 			]);
 		}
 		
@@ -45,6 +47,18 @@
 			return $this->render('rules/index', [
 				"rules" => $rules,
 				"ruleCategories" => $ruleCategories,
+			]);
+		}
+
+		public function donats()
+		{
+			$this->title = "Донат | SweetLolly";
+
+			$page = new Page();
+			$subs = $page->getAllSubs();
+
+			return $this->render('donats/index', [
+				"subs" => $subs,
 			]);
 		}
 	}

@@ -61,6 +61,14 @@ try {
                                             FOREIGN KEY (category_id) REFERENCES rules_categories(id) ON DELETE CASCADE
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
+    $sql[] = "CREATE TABLE IF NOT EXISTS subs(
+                                            id INT AUTO_INCREMENT PRIMARY KEY,
+                                            name VARCHAR(350) NOT NULL,
+                                            priceMonth DECIMAL(7,2) NOT NULL,
+                                            priceAlways DECIMAL(7,2) NOT NULL,
+                                            discount INT DEFAULT 0,
+                                            path_image VARCHAR(500) NOT NULL
+                                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
 
 
@@ -433,6 +441,75 @@ try {
         }
     } catch (Throwable $e) {
         echo "<p style='color: orange'>⚠️ Ошибка синдирования правил: " . htmlspecialchars($e->getMessage()) . "</p>";
+    }
+
+    try {
+        $subCount = db()->query('SELECT COUNT(*) as c FROM subs')->fetch()['c'] ?? 0;
+
+        if ($subCount == 0) {
+            $subsData = [
+                [
+                    'name' => 'Lapis Candy',
+                    'priceMonth' => 99,
+                    'priceAlways' => 299,
+                    'discount' => 50,
+                    'path_image' => 'bg-lapis.jpg'
+                ],
+                [
+                    'name' => 'Gold Candy',
+                    'priceMonth' => 299,
+                    'priceAlways' => 899,
+                    'discount' => 130,
+                    'path_image' => 'bg-gold.jpg'
+                ],
+                [
+                    'name' => 'Diamond Candy',
+                    'priceMonth' => 549,
+                    'priceAlways' => 1399,
+                    'discount' => 200,
+                    'path_image' => 'bg-diamond.jpg'
+                ],
+                [
+                    'name' => 'Emerald Candy',
+                    'priceMonth' => 999,
+                    'priceAlways' => 2249,
+                    'discount' => 300,
+                    'path_image' => 'bg-emerald.jpg'
+                ],
+                [
+                    'name' => 'God Of Candy',
+                    'priceMonth' => 1499,
+                    'priceAlways' => 5499,
+                    'discount' => 500,
+                    'path_image' => 'bg-god.jpg'
+                ],
+                [
+                    'name' => 'Sponsor',
+                    'priceMonth' => 2799,
+                    'priceAlways' => 22999,
+                    'discount' => 800,
+                    'path_image' => 'bg-sponsor.jpg'
+                ],
+            ];
+
+            $stmt = db()->prepare("INSERT INTO subs 
+                    (name, priceMonth, priceAlways, discount, path_image) 
+                    VALUES (?, ?, ?, ?, ?)");
+
+                foreach ($subsData as $sub) {
+                    $stmt->execute([
+                        $sub['name'],
+                        $sub['priceMonth'],
+                        $sub['priceAlways'],
+                        $sub['discount'],
+                        $sub['path_image']
+                    ]);
+                }
+                echo "<p>✅ Добавлено " . count($subsData) . " подписок.</p>";
+        }
+    }
+    catch (Throwable $e) {
+        echo "<p style='color: orange'>⚠️ Ошибка синдирования подписок: " . htmlspecialchars($e->getMessage()) . "</p>";
     }
 
     echo '<meta charset="utf-8"><style>body{font-family:Arial;background:#151322;color:#eee;padding:40px}a{color:#ff65ad}</style>';

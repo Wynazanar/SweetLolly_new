@@ -7,5 +7,6 @@
 		new Route('/games/:game/', 'main', 'gameInfo'),
 
 		new Route('/rules/', 'main', 'rules'),
+		new Route('/candies/','main', 'donats'),
 	];
 	
