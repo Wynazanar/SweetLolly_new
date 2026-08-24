@@ -17,10 +17,10 @@
 				<a href="/SweetLolly_new/" class="logo">SWEETLOLLY</a>
 				<div class="user-theme">
 					<div class="theme-toggle" data-theme-toggle>🌙</div>
-					<div class="user">
+					<button class="user">
 						<img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
 						<p>Гость</p>
-					</div>
+</button>
 					<script src="/SweetLolly_new/project/webroot/scripts/theme.js"></script>
 				</div>
 			</div>
