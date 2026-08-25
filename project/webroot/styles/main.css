@@ -59,6 +59,7 @@
     padding: 20px;
     border-radius: 20px;
     border: 1px solid var(--hero-border);
+    transition: all 0.2s ease-in-out;
 }
 
 .beauty-grid .beauty-card h3 {
@@ -73,4 +74,12 @@
 
 .beauty-grid .beauty-card svg {
     fill: var(--accent);
+}
+
+.beauty-grid .beauty-card:hover {
+    transform: translateY(-2px);
+}
+
+.beauty-grid .beauty-card:hover h3 {
+    text-decoration: underline;
 }
