@@ -1,0 +1,76 @@
+.status-dot {
+    width: 8px;
+    height: 8px;
+    margin-right: 2px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #36c978;
+    box-shadow: 0 0 0 4px rgba(54, 201, 120, .15);
+}
+
+.copy-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin: 12px 0;
+}
+
+.muted {
+    color: var(--footer-gray-color);
+}
+
+.copy-box code {
+    font-size: 20px;
+    color: var(--accent);
+    font-weight: 900;
+    background: transparent;
+}
+
+.copy-box button {
+    border: 0;
+    border-radius: 999px;
+    background: var(--ui-grad);
+    color: #fff;
+    font-weight: 900;
+    padding: 12px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.beauty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.beauty-grid .beauty-card {
+    background: linear-gradient(180deg, rgba(31, 26, 43, .88), rgba(18, 15, 27, .94)) !important;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, .38), var(--lolli-glow) !important;
+    color: var(--lolli-text) !important;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--hero-border);
+}
+
+.beauty-grid .beauty-card h3 {
+    font-weight: 800;
+    font-size: 22px;
+    margin-block: 4px 8px;
+}
+
+.beauty-grid .beauty-card p {
+    color: var(--footer-gray-color);
+}
+
+.beauty-grid .beauty-card svg {
+    fill: var(--accent);
+}

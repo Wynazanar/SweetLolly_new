@@ -16,7 +16,8 @@
       <a class="beauty-pill" href="../">← Все режимы</a>
     </div>
 
-    <section class="mode-detail-hero" style="--cover:url('/SweetLolly_new/project/webroot/images/<?= $game['path_image'] ?>')">
+    <section class="mode-detail-hero"
+      style="--cover:url('/SweetLolly_new/project/webroot/images/<?= $game['path_image'] ?>')">
       <div class="mode-detail-content">
         <span class="modes-kicker">
           <?= htmlspecialchars($game['icon']) ?>
@@ -50,7 +51,7 @@
             if (is_string($peculiarities)) {
               $peculiarities = json_decode($peculiarities, true) ?? [];
             }
-            foreach ($peculiarities as $key=>$peculiarity): ?>
+            foreach ($peculiarities as $key => $peculiarity): ?>
               <li><b> <?= $key + 1 ?>. </b> <?= htmlspecialchars($peculiarity) ?> </li>
             <?php endforeach ?>
           </ul>
@@ -78,12 +79,12 @@
               <b>Тип</b>
               <span>
                 <?php
-                  $tags = $game->tags ?? $game['tags'] ?? [];
-                  if (is_string($tags)) {
-                    $tags = json_decode($tags, true) ?? [];
-                  }
-                  $tagsString = implode(', ', array_map('htmlspecialchars', $tags));
-                  echo $tagsString;
+                $tags = $game->tags ?? $game['tags'] ?? [];
+                if (is_string($tags)) {
+                  $tags = json_decode($tags, true) ?? [];
+                }
+                $tagsString = implode(', ', array_map('htmlspecialchars', $tags));
+                echo $tagsString;
                 ?>
               </span>
             </div>
@@ -95,19 +96,24 @@
         <section class="mode-detail-card">
           <h2>Похожие</h2>
           <?php
-                  $similars = $game->similar ?? $game['similar'] ?? [];
-                  if (is_string($similars)) {
-                    $similars = json_decode($similars, true) ?? [];
-                  }
-                  foreach ($similars as $similar): ?>
-                    <a class="beauty-pill" href="/SweetLolly_new/games/<?= $similar ?>/"> <?= $similar ?> </a>
-                  <?php endforeach ?>
+          $similars = $game->similar ?? $game['similar'] ?? [];
+          if (is_string($similars)) {
+            $similars = json_decode($similars, true) ?? [];
+          }
+          foreach ($similars as $similar): ?>
+            <a class="beauty-pill" href="/SweetLolly_new/games/<?= $similar ?>/"> <?= $similar ?> </a>
+          <?php endforeach ?>
         </section>
       </aside>
+
     </div>
+      <section class="mode-detail-hero"
+        style="--cover:url('/SweetLolly_new/project/webroot/images/<?= $game['path_image'] ?>')">
+        <div class="mode-detail-content">
+          
+        </div>
+      </section>
   </div>
 </main>
-
 </body>
-
 </html>

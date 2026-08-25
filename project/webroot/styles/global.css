@@ -38,6 +38,13 @@
     --text: #2e2540;
     --shadow: 0 18px 55px rgba(86, 55, 135, .14);
     --soft-shadow: 0 10px 32px rgba(86, 55, 135, .09);
+
+
+    --button-gradient: linear-gradient(90deg,#ffb06b,#ff7ab8,#a84fec);
+    --button-secondary: rgb(251, 247, 255, 0.8);
+    --button-secondary-border: rgb(129, 82, 170, 0.1804);
+    --button-color: #A84FEC;
+    --button-shadow: 0px 4px 16px rgba(155, 99, 255, 0.2588);
 }
 
 body {
@@ -74,6 +81,11 @@ body.dark {
     --text: #fff;
     --shadow: 0 18px 55px rgba(0, 0, 0, .30);
     --soft-shadow: 0 10px 32px rgba(0, 0, 0, .20);
+
+    --button-secondary: rgb(34, 37, 50, 0.8);
+    --button-secondary-border: rgba(255, 255, 255, 0.1098);
+    --button-color: #ffffff;
+    --button-shadow: 0px 4px 16px rgba(168, 79, 236, 0.2588);
 
     background: radial-gradient(circle at 14% -5%, rgba(255, 122, 200, 0.18), transparent 32%), radial-gradient(circle at 88% 0%, rgba(123, 63, 211, 0.18), transparent 36%), linear-gradient(rgb(16, 9, 29) 0%, rgb(23, 16, 33) 48%, rgb(9, 6, 16) 100%);
 }
@@ -294,7 +306,7 @@ header {
 }
 
 .beauty-btn {
-    background: var(--ui-grad);
+    background: var(--button-gradient);
     color: #fff;
     font-weight: 900;
     padding: 12px 18px;
@@ -306,6 +318,7 @@ header {
     cursor: pointer;
     border-radius: 999px;
     transition: .18s ease;
+    box-shadow: var(--button-shadow);
 }
 
 .beauty-btn svg {
@@ -317,13 +330,14 @@ header {
 }
 
 .beauty-btn.secondary {
-    color: var(--foreground);
-    background: var(--card);
-    border: 1px solid var(--border);
+    box-shadow: none;
+    color: var(--button-color);
+    background: var(--button-secondary);
+    border: 1px solid var(--button-secondary-border);
 }
 
 .beauty-btn.secondary svg {
-    fill: var(--foreground);
+    fill: var(--button-color);
 }
 
 footer {
@@ -369,4 +383,12 @@ footer {
 .footer-top .row li a:hover {
     color: var(--foreground);
     font-weight: 500;
+}
+
+.site-logo {
+    transition: all 0.6s ease-in-out;
+}
+
+.site-logo:hover {
+    transform: rotate(360deg);
 }
