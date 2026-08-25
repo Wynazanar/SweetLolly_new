@@ -8,5 +8,7 @@
 
 		new Route('/rules/', 'main', 'rules'),
 		new Route('/candies/','main', 'donats'),
+
+		new Route('/profile/:player/', 'main', 'player')
 	];
 	

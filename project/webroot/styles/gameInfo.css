@@ -156,3 +156,201 @@
     margin: 3px;
     text-decoration: none !important;
 }
+
+/* ===== Gallery ===== */
+.games-good-gallery {
+  margin: 40px 0 60px;
+}
+
+.games-good-title {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.games-good-title h2 {
+  font-weight: 900;
+  font-size: 32px;
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+
+.games-good-title p {
+  color: var(--footer-gray-color);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Основной контейнер */
+.games-good-view {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #0c0814;
+  box-shadow: var(--shadow);
+}
+
+/* Слайды */
+.gg-slides {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #090612;
+}
+
+.games-good-view figure {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: none;
+  cursor: zoom-in;
+}
+
+.games-good-view figure.active {
+  display: block;
+  z-index: 2;
+}
+
+.games-good-view figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Подпись */
+.games-good-view figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 24px 20px;
+  background: linear-gradient(to top, rgba(9, 6, 18, 0.92), transparent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Стрелки */
+.gg-arr {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(12, 8, 22, 0.72);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  padding: 0;
+}
+
+.gg-arr:hover {
+  background: rgba(168, 79, 236, 0.55);
+  border-color: rgba(192, 109, 255, 0.6);
+}
+
+.gg-arr.prev { left: 16px; }
+.gg-arr.next { right: 16px; }
+
+.gg-arr svg {
+  display: block;
+  pointer-events: none;
+}
+
+/* Миниатюры */
+.games-good-thumbs {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+}
+
+.games-good-thumbs button {
+  position: relative;
+  border: none;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16 / 10;
+  background: #1a1228;
+}
+
+.games-good-thumbs button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.65;
+}
+
+.games-good-thumbs button:hover img {
+  opacity: 0.9;
+}
+
+.games-good-thumbs button.active {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.games-good-thumbs button.active img {
+  opacity: 1;
+}
+
+.games-good-thumbs button.active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 2px rgba(192, 109, 255, 0.7);
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .games-good-title h2 {
+    font-size: 26px;
+  }
+
+  .gg-arr {
+    width: 42px;
+    height: 42px;
+  }
+
+  .gg-arr.prev { left: 10px; }
+  .gg-arr.next { right: 10px; }
+
+  .gg-arr svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .games-good-view figcaption {
+    font-size: 15px;
+    padding: 14px 16px 16px;
+  }
+
+  .games-good-thumbs {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .games-good-thumbs button {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gg-slides {
+    aspect-ratio: 4 / 3;
+  }
+}

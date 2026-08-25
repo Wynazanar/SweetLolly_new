@@ -12,9 +12,9 @@
 <main style="margin-top: 50px;">
   <div class="container modes-wrap">
 
-    <div class="modes-back">
+    <!-- <div class="modes-back">
       <a class="beauty-pill" href="../">← Все режимы</a>
-    </div>
+    </div> -->
 
     <section class="mode-detail-hero"
       style="--cover:url('/SweetLolly_new/project/webroot/images/<?= $game['path_image'] ?>')">
@@ -107,12 +107,6 @@
       </aside>
 
     </div>
-      <section class="mode-detail-hero"
-        style="--cover:url('/SweetLolly_new/project/webroot/images/<?= $game['path_image'] ?>')">
-        <div class="mode-detail-content">
-          
-        </div>
-      </section>
   </div>
 </main>
 </body>
