@@ -88,7 +88,7 @@
 					</svg>
 					Леденцы
 				</a>
-				<a href="/SweetLolly_new/helps/">
+				<a href="/SweetLolly_new/help/">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
 						viewBox="0 0 24 24">
 						<path
@@ -137,11 +137,7 @@
 			</div>
 		</div>
 		<div class="footer-bottom">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-12 col-md-6">SweetLolly.net © 2022-2026</div>
-				</div>
-			</div>
+			<p>SweetLolly.net © 2022-2026</p>
 		</div>
 	</footer>
 </body>

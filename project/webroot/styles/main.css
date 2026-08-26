@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 .status-dot {
     width: 8px;
     height: 8px;
@@ -29,6 +31,7 @@
     color: var(--accent);
     font-weight: 900;
     background: transparent;
+    font-family: "JetBrains Mono", monospace;
 }
 
 .copy-box button {
@@ -52,10 +55,9 @@
     margin: 20px 0;
 }
 
-.beauty-grid .beauty-card {
-    background: linear-gradient(180deg, rgba(31, 26, 43, .88), rgba(18, 15, 27, .94)) !important;
+.beauty-card {
+    background: var(--card-background);
     box-shadow: 0 22px 70px rgba(0, 0, 0, .38), var(--lolli-glow) !important;
-    color: var(--lolli-text) !important;
     padding: 20px;
     border-radius: 20px;
     border: 1px solid var(--hero-border);
@@ -63,29 +65,68 @@
     position: relative;
 }
 
-.beauty-grid .beauty-card h3 {
+.beauty-card h3 {
     font-weight: 800;
     font-size: 22px;
     margin-block: 4px 8px;
 }
 
-.beauty-grid .beauty-card p {
+.beauty-card p {
     color: var(--footer-gray-color);
 }
 
-.beauty-grid .beauty-card svg {
+.beauty-card svg {
     fill: var(--accent);
     transition: transform 0.25s ease;
 }
 
-.beauty-grid .beauty-card:hover {
+.beauty-card:hover {
     transform: translateY(-2px);
 }
 
-.beauty-grid .beauty-card:hover h3 {
+.beauty-card:hover h3 {
     text-decoration: underline;
 }
 
-.beauty-grid .beauty-card:hover svg {
+.beauty-card:hover svg {
     transform: translateX(4px) scale(1.1);
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 22px;
+}
+
+.lolli-card {
+    background: var(--card-background);
+    border: 1px solid var(--hero-border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 22px;
+}
+
+.beauty-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: rgba(168, 79, 236, .11);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 900;
+    padding: 7px 10px;
+    margin: 3px;
+    transition: all 0.2s ease-in-out;
+}
+
+.beauty-pill:hover {
+    color: white;
+    background: var(--accent);
+}
+
+.notice {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 15px 18px;
 }

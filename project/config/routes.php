@@ -9,6 +9,9 @@
 		new Route('/rules/', 'main', 'rules'),
 		new Route('/candies/','main', 'donats'),
 
+		new Route('/help/','main', 'help'),
+		new Route('/team/','main', 'team'),
+
 		new Route('/profile/:player/', 'main', 'player')
 	];
 	

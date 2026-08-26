@@ -61,4 +61,16 @@
 				"subs" => $subs,
 			]);
 		}
+
+		public function help() {
+			$this->title = "Помощь | SweetLolly";
+
+			return $this->render('help/index');
+		}
+
+		public function team() {
+			$this->title = "Команда проекта | SweetLolly";
+
+			return $this->render('help/index');
+		}
 	}

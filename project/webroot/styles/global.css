@@ -346,6 +346,7 @@ footer {
 
 .footer-top {
     background: var(--card-background);
+    border-block: 1px solid var(--hero-border);
 }
 
 .footer-top .row {
@@ -378,6 +379,8 @@ footer {
 
 .footer-bottom {
     padding-block: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .footer-top .row li a:hover {
