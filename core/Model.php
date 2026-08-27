@@ -3,7 +3,7 @@
 	
 	class Model
 	{
-		private static $link;
+		protected static $link;
 		
 		public function __construct()
 		{

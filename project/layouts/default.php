@@ -1,3 +1,9 @@
+<?php
+
+require_once $projectRoot . '/project/config/auth.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,10 +23,10 @@
 				<a href="/SweetLolly_new/" class="logo">SWEETLOLLY</a>
 				<div class="user-theme">
 					<div class="theme-toggle" data-theme-toggle>🌙</div>
-					<button class="user">
+					<a class="user" href="/SweetLolly_new/login/">
 						<img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
 						<p>Гость</p>
-</button>
+					</a>
 					<script src="/SweetLolly_new/project/webroot/scripts/theme.js"></script>
 				</div>
 			</div>
@@ -141,4 +147,5 @@
 		</div>
 	</footer>
 </body>
+
 </html>

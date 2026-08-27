@@ -1,7 +1,12 @@
 <main>
     <div class="container help-modern2">
-        <section class="beauty-hero"><span class="beauty-eyebrow"><i class="fa fa-info-circle"></i> Центр
-                помощи</span>
+        <section class="beauty-hero">
+            <span class="beauty-eyebrow">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" >
+                    <path d="M12 22c5.51 0 10-4.49 10-10S17.51 2 12 2 2 6.49 2 12s4.49 10 10 10M11 7h2v2h-2zm0 4h2v6h-2z"></path>
+                </svg>
+                Центр помощи
+            </span>
             <h1>Помощь SweetLolly</h1>
             <p>Быстрый старт, аккаунт, баги, жалобы и леденцы — всё в одном месте и в едином стиле сайта.</p>
             <div class="rules-search"><input id="helpSearch" placeholder="Найти помощь: пароль, баг, леденцы, форум...">

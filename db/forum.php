@@ -1,9 +1,11 @@
 <?php
+
 require_once __DIR__ . '/../project/config/connection.php';
 
 if (!function_exists('db')) {
     require_once __DIR__ . '/app/db.php';
 }
+
 try {
     $server = new PDO('mysql:host=' . DB_HOST . ';charset=utf8mb4', DB_USER, DB_PASS, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $server->exec('CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
