@@ -395,3 +395,36 @@ footer {
 .site-logo:hover {
     transform: rotate(360deg);
 }
+
+.user-logged {
+    display: flex;
+    align-items: center;   /* вертикальное выравнивание по центру */
+    gap: 10px;             /* расстояние между ником и кнопкой выхода */
+}
+
+.user-logg-a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-logg-a p {
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    opacity: 0.75;
+    transition: opacity 0.15s;
+}
+
+.logout:hover {
+    opacity: 1;
+}

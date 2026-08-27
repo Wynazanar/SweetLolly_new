@@ -1,0 +1,127 @@
+.auth-match-grid {
+    display: grid;
+    grid-template-columns: minmax(0, .92fr) minmax(310px, .58fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.auth-match-card {
+    background: var(--card) !important;
+    border: 1px solid var(--hero-border) !important;
+    border-radius: 20px;
+    box-shadow: var(--ui-soft-shadow) !important;
+    padding: 26px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-match-card:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;
+    background: var(--lolli-grad);
+}
+
+.auth-match-tabs {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.auth-match-card h2 {
+    font-size: 31px;
+    font-weight: 900;
+    margin-block: 6px 8px;
+}
+
+.muted {
+    color: var(--footer-gray-color);
+    margin-bottom: 16px;
+}
+
+.beauty-btn.secondary.purple {
+    color: var(--ui-accent);
+}
+
+.beauty-btn.secondary.purple svg {
+    fill: var(--ui-accent);
+}
+
+.auth-match-field {
+    position: relative;
+}
+
+.auth-match-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 900;
+}
+
+.auth-match-field svg {
+    position: absolute;
+    left: 14px;
+    bottom: 15px;
+    fill: var(--accent);
+    pointer-events: none;
+}
+
+.auth-match-field input {
+    background: rgba(255, 255, 255, .065);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 13px 15px;
+    font-weight: 700;
+    outline: none;
+    padding-left: 42px;
+    width: 100%;
+    transition: .15s;
+}
+
+.auth-match-field input:focus {
+    border-color: rgba(168, 79, 236, 0.55);
+    box-shadow: 0 0 0 4px rgba(168, 79, 236, 0.1);
+    background: var(--card);
+}
+
+.auth-match-form {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.auth-match-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.auth-match-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 999px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    font-weight: 900;
+    padding: 9px 12px;
+}
+
+.auth-match-links svg {
+    fill: var(--accent);
+}
+
+.auth-match-note {
+    border-left: 4px solid var(--accent);
+    background: var(--card2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    color: var(--footer-gray-color);
+}

@@ -12,7 +12,7 @@
 		new Route('/help/','main', 'help'),
 		new Route('/team/','main', 'team'),
 
-		new Route('/profile/:player/', 'main', 'player'),
+		new Route('/profile/:player/', 'main', 'profile'),
 
 		new Route('/login/',  'auth', 'login'),
 		new Route('/register/','auth', 'register'),

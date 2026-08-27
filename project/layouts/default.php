@@ -1,6 +1,6 @@
 <?php
 if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+	$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 ?>
 
@@ -23,10 +23,27 @@ if (empty($_SESSION['csrf_token'])) {
 				<a href="/SweetLolly_new/" class="logo">SWEETLOLLY</a>
 				<div class="user-theme">
 					<div class="theme-toggle" data-theme-toggle>🌙</div>
-					<a class="user" href="/SweetLolly_new/login/">
-						<img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
-						<p>Гость</p>
-					</a>
+
+					<?php if (!empty($_SESSION['logged_in'])): ?>
+						<div class="user user-logged">
+							<a class="user-logg-a" href="/SweetLolly_new/profile/<?= htmlspecialchars($_SESSION['nickname'] ?? '') ?>/">
+								<img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg" alt="avatar">
+								<p><?= htmlspecialchars($_SESSION['nickname'] ?? 'Игрок') ?></p>
+							</a>
+							<a href="/SweetLolly_new/logout/" class="logout">
+								<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"  
+									transform="scale(-1,1) ">
+									<path d="M15 11H8v2h7v4l6-5-6-5z"/><path d="M5 21h7v-2H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2"/>
+								</svg>
+							</a>
+						</div>
+					<?php else: ?>
+						<a class="user" href="/SweetLolly_new/login/">
+							<!-- <img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg" alt="guest"> -->
+							<p>Войти</p>
+						</a>
+					<?php endif; ?>
+
 					<script src="/SweetLolly_new/project/webroot/scripts/theme.js"></script>
 				</div>
 			</div>

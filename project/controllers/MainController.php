@@ -73,4 +73,12 @@
 
 			return $this->render('help/index');
 		}
+
+		public function profile($nickname) {
+			$this->title = "Профиль игрока | SweetLolly";
+			
+			return $this->render('user/profile', [
+				
+			]);
+		}
 	}
