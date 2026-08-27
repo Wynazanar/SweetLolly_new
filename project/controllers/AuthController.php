@@ -31,8 +31,10 @@ class AuthController extends Controller
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['logged_in'] = true;
 
+                $nickForHTTP = $user['nickname'];
+
                 $this->clearRateLimit($login);
-                header('Location: /SweetLolly_new/');
+                header("Location: /SweetLolly_new/profile/$nickForHTTP/");
                 exit;
             }
 
