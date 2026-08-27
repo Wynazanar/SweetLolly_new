@@ -6,10 +6,10 @@
 }
 
 .auth-match-card {
-    background: var(--card) !important;
-    border: 1px solid var(--hero-border) !important;
+    background: var(--card);
+    border: 1px solid var(--hero-border);
     border-radius: 20px;
-    box-shadow: var(--ui-soft-shadow) !important;
+    box-shadow: var(--ui-soft-shadow);
     padding: 26px;
     position: relative;
     overflow: hidden;
@@ -124,4 +124,75 @@
     padding: 14px 16px;
     margin-top: 16px;
     color: var(--footer-gray-color);
+}
+
+.auth-match-side {
+    display: grid;
+    gap: 14px;
+    background: var(--card);
+}
+
+.auth-match-mini {
+    background: var(--ui-surface);
+    border: 1px solid var(--hero-border);
+    border-radius: 20px;
+    box-shadow: var(--ui-soft-shadow);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.auth-match-mini h3 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.auth-match-benefits {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-match-benefit {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+}
+
+.auth-match-benefit svg {
+    fill: var(--accent);
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.auth-match-benefit b {
+    display: block;
+}
+
+.auth-match-benefit span {
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.auth-match-ip {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    margin-top: 14px;
+}
+
+.auth-match-ip code {
+    background: transparent;
+    color: var(--accent);
+    font-weight: 1000;
+    font-size: 18px;
+    font-family: "JetBrains Mono", monospace;
 }
