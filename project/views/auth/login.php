@@ -69,7 +69,7 @@
                     <button class="beauty-btn" type="submit" style="width: 100%;">Войти</button>
                 </form>
                 <div class="auth-match-links">
-                    <a href="/sweetbcp/lollipopmc/register/">
+                    <a href="/SweetLolly_new/register/">
                         <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M22 11h-3V8h-2v3h-3v2h3v3h2v-3h3zM8 4a4 4 0 1 0 0 8 4 4 0 1 0 0-8M3 20h10c.55 0 1-.45 1-1v-1c0-2.76-2.24-5-5-5H7c-2.76 0-5 2.24-5 5v1c0 .55.45 1 1 1">
@@ -77,7 +77,7 @@
                         </svg>
                         Создать аккаунт
                     </a>
-                    <a href="/sweetbcp/lollipopmc/forum/login/">
+                    <a href="/SweetLolly_new/forum/login/">
                         <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M12 2C6.49 2 2 6.49 2 12c0 2.12.68 4.19 1.93 5.9l-1.75 2.53c-.21.31-.24.7-.06 1.03.17.33.51.54.89.54h9c5.51 0 10-4.49 10-10S17.51 2 12 2M6 9h3v2H6zm7 6H6v-2h7zm5 0h-3v-2h3zm0-4h-7V9h7z">
@@ -85,18 +85,10 @@
                         </svg>
                         Вход на форум
                     </a>
-                    <a href="/sweetbcp/lollipopmc/forum/login/">
-                        <svg width="19" height="19" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 22c5.51 0 10-4.49 10-10S17.51 2 12 2 2 6.49 2 12s4.49 10 10 10M11 7h2v2h-2zm0 4h2v6h-2z">
-                            </path>
-                        </svg>
-                        Помощь
-                    </a>
                 </div>
                 <div class="auth-match-note">
                     <b style="color: var(--footer-gray-color);">Важно:</b>
-                    аккаунт сайта и форумный аккаунт могут отличаться. Для форума используй отдельный вход.
+                    аккаунт сайта и аккаунт форума могут отличаться. Для форума используй отдельный вход.
                 </div>
             </section>
 

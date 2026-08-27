@@ -196,3 +196,7 @@
     font-size: 18px;
     font-family: "JetBrains Mono", monospace;
 }
+
+.login-auth-message div {
+    color: #e74c3c;
+}
