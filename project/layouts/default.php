@@ -1,7 +1,7 @@
 <?php
-
-require_once $projectRoot . '/project/config/auth.php';
-
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <!DOCTYPE html>

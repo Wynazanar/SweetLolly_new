@@ -16,6 +16,8 @@ if (empty($uri) || $uri === '/') {
 }
 
 require_once $projectRoot . '/project/config/connection.php';
+require_once $projectRoot . '/project/config/auth.php';
+require_once $projectRoot . '/project/helpers/Auth.php';
 
 spl_autoload_register(function($class) use ($projectRoot) {
     preg_match('#(.+)\\\\(.+?)$#', $class, $match);

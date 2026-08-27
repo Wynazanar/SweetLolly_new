@@ -12,7 +12,7 @@ class AuthController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->checkCsrf();
 
-            $login    = trim($_POST['login'] ?? '');
+            $login = trim($_POST['login'] ?? '');
             $password = $_POST['password'] ?? '';
 
             if ($this->isRateLimited($login)) {
@@ -21,14 +21,14 @@ class AuthController extends Controller
                 ]);
             }
 
-            $user = (new User)->findByNickname($login);
+            $user = (new User)->findByLogin($login);
 
             if ($user && password_verify($password, $user['password_hash'])) {
-                session_regenerate_id(true); // защита от session fixation
+                session_regenerate_id(true);
 
-                $_SESSION['user_id']   = $user['id'];
-                $_SESSION['username']  = $user['username'];
-                $_SESSION['role']      = $user['role'];
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['nickname'] = $user['nickname'];
+                $_SESSION['email'] = $user['email'];
                 $_SESSION['logged_in'] = true;
 
                 $this->clearRateLimit($login);
@@ -53,27 +53,37 @@ class AuthController extends Controller
             $this->checkCsrf();
 
             $username = trim($_POST['username'] ?? '');
-            $email    = trim($_POST['email'] ?? '');
+            $email = trim($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
-            $confirm  = $_POST['password_confirm'] ?? '';
+            $confirm = $_POST['password_confirm'] ?? '';
 
             $errors = [];
-            if (strlen($username) < 3 || strlen($username) > 32) $errors[] = 'Ник 3–32 символа';
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL))       $errors[] = 'Некорректный email';
-            if (strlen($password) < 8)                            $errors[] = 'Пароль минимум 8 символов';
-            if ($password !== $confirm)                           $errors[] = 'Пароли не совпадают';
+            if (strlen($username) < 3 || strlen($username) > 32)
+                $errors[] = 'Ник 3–32 символа';
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+                $errors[] = 'Некорректный email';
+            if (strlen($password) < 8)
+                $errors[] = 'Пароль минимум 8 символов';
+            if ($password !== $confirm)
+                $errors[] = 'Пароли не совпадают';
 
             if ($errors) {
                 return $this->render('auth/register', ['errors' => $errors]);
             }
 
             try {
-                (new User)->create($username, $password);
+                if ((new User)->exists($username, $email)) {
+                    return $this->render('auth/register', [
+                        'errors' => ['Такой ник или email уже занят']
+                    ]);
+                }
+
+                (new User)->create($username, $email, $password);
                 header('Location: /SweetLolly_new/login/');
                 exit;
             } catch (\Throwable $e) {
                 return $this->render('auth/register', [
-                    'errors' => ['Такой логин или email уже занят']
+                    'errors' => ['Ошибка при регистрации. Попробуйте позже.']
                 ]);
             }
         }
@@ -86,8 +96,15 @@ class AuthController extends Controller
         $_SESSION = [];
         if (ini_get('session.use_cookies')) {
             $p = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $p['path'],
+                $p['domain'],
+                $p['secure'],
+                $p['httponly']
+            );
         }
         session_destroy();
         header('Location: /SweetLolly_new/');
