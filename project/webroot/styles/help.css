@@ -1,0 +1,43 @@
+.beauty-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.help-cards2 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.help-block {
+    margin: 26px 0;
+}
+
+.beauty-card {
+    background: var(--card-2);
+    border: 1px solid var(--hero-border);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, .38), var(--lolli-glow);
+    border-radius: 20px !important;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.help-card2 {
+    text-align: center;
+    text-decoration: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.help-layout2 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: start;
+}
+
+.help-main2, .help-side2 {
+    display: grid;
+    gap: 18px;
+}

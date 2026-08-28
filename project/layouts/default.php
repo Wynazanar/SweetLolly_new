@@ -10,7 +10,6 @@ if (empty($_SESSION['csrf_token'])) {
 <head>
 	<meta charset="UTF-8">
 	<title><?= $title ?></title>
-
 	<link rel="icon" href="/SweetLolly_new/project/webroot/resources/logo.png" type="image/png">
 	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/reset.css">
 	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/global.css">
@@ -38,7 +37,7 @@ if (empty($_SESSION['csrf_token'])) {
 							</a>
 						</div>
 					<?php else: ?>
-						<a class="user" href="/SweetLolly_new/login/">
+						<a class="user" style="height: 42px;" href="/SweetLolly_new/login/">
 							<!-- <img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg" alt="guest"> -->
 							<p>Войти</p>
 						</a>
@@ -54,7 +53,7 @@ if (empty($_SESSION['csrf_token'])) {
 		<div class="container">
 			<div class="hero-row">
 				<a href="SweetLolly_new/" class="site-logo" aria-label="SweetLolly">
-					<img src="/SweetLolly_new/project/webroot/images/logo_s.jpeg">
+					<img src="/SweetLolly_new/project/webroot/resources/logo.png" style="max-width: 80%;">
 				</a>
 				<div class="promo">
 					<div>Присоединись к игрокам<br>уже сейчас!</div>

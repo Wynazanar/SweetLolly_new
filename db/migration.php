@@ -18,7 +18,7 @@ try {
                                             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
     
-    $sql[] = "CREATE TABLE IF NOT EXISTS prefixs(
+    $sql[] = "CREATE TABLE IF NOT EXISTS prefixes(
                                             id INT AUTO_INCREMENT PRIMARY KEY,
                                             name VARCHAR(100) NOT NULL,
                                             description VARCHAR(250),

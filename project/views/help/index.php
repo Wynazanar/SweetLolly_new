@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/help.css">
 <main>
     <div class="container help-modern2">
         <section class="beauty-hero">

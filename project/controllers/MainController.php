@@ -74,11 +74,26 @@
 			return $this->render('help/index');
 		}
 
-		public function profile($nickname) {
-			$this->title = "Профиль игрока | SweetLolly";
-			
+		public function profile($params) {
+			$nickname = urldecode($params['player'] ?? '');
+			$user = (new \Project\Models\User)->findByNickname($nickname);
+
+			if (!$user) {
+				$this->title = "Игрок не найден | SweetLolly";
+				return $this->render('user/profile', [
+					'user' => null,
+					'nickname' => $nickname,
+				]);
+			}
+
+			$this->title = $user['nickname'] . ' | Профиль | SweetLolly';
+
+			$isOwnProfile = !empty($_SESSION['logged_in'])
+				&& ($_SESSION['nickname'] ?? '') === $user['nickname'];
+
 			return $this->render('user/profile', [
-				
+				'user' => $user,
+				'isOwnProfile' => $isOwnProfile,
 			]);
 		}
 	}

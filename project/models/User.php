@@ -18,6 +18,20 @@ class User extends Model
         return $row ?: null;
     }
 
+    public function findByNickname(string $nickname): ?array
+    {
+        $nickname = mysqli_real_escape_string(self::$link, $nickname);
+
+        $row = $this->findOne(
+            "SELECT id, nickname, email, created_at, updated_at 
+            FROM players 
+            WHERE nickname = '$nickname' 
+            LIMIT 1"
+        );
+
+        return $row ?: null;
+    }
+
     public function create(string $nickname, string $email, string $password): int
     {
         $hash     = password_hash($password, PASSWORD_DEFAULT);
