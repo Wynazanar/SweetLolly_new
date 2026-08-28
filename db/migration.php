@@ -17,6 +17,16 @@ try {
                                             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    
+    $sql[] = "CREATE TABLE IF NOT EXISTS prefixs(
+                                            id INT AUTO_INCREMENT PRIMARY KEY,
+                                            name VARCHAR(100) NOT NULL,
+                                            description VARCHAR(250),
+                                            category VARCHAR(100) NOT NULL,
+                                            character VARCHAR(250),
+                                            what_does TEXT,
+                                            tasks JSON,
+                                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS minigames_categories(
                                             id INT AUTO_INCREMENT PRIMARY KEY,
