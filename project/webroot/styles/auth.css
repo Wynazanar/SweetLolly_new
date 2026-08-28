@@ -117,15 +117,6 @@
     fill: var(--accent);
 }
 
-.auth-match-note {
-    border-left: 4px solid var(--accent);
-    background: var(--card2);
-    border-radius: 14px;
-    padding: 14px 16px;
-    margin-top: 16px;
-    color: var(--footer-gray-color);
-}
-
 .auth-match-side {
     display: grid;
     gap: 14px;
@@ -197,6 +188,18 @@
     font-family: "JetBrains Mono", monospace;
 }
 
-.login-auth-message div {
-    color: #e74c3c;
+.auth-match-error {
+    border-left-color: #ff5d82;
+    background: rgba(255, 93, 130, .10);
+    color: #ff5d82;
+    font-weight: 900;
+}
+
+.auth-match-note {
+    border-left: 4px solid var(--accent);
+    background: var(--card2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    color: var(--footer-gray-color);
 }

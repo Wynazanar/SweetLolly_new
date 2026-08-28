@@ -23,9 +23,9 @@ try {
                                             name VARCHAR(100) NOT NULL,
                                             description VARCHAR(250),
                                             category VARCHAR(100) NOT NULL,
-                                            character VARCHAR(250),
+                                            _character VARCHAR(250),
                                             what_does TEXT,
-                                            tasks JSON,
+                                            tasks JSON
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS minigames_categories(

@@ -39,9 +39,9 @@
                         value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
 
                     <?php if (!empty($errors)): ?>
-                        <div class="login-auth-message" style="color: #e74c3c;">
+                        <div class="auth-match-note auth-match-error" style="color: #e74c3c;">
                             <?php foreach ($errors as $err): ?>
-                                <div><?= htmlspecialchars($err) ?></div>
+                                <div style="color: #ff5d82;"><?= htmlspecialchars($err) ?></div>
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
