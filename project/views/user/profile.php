@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/profile.css">
 <main>
     <div class="container">
 
@@ -22,24 +23,10 @@
                     </svg>
                     Профиль игрока
                 </span>
-                <h1 style="display: flex; gap: 8px; align-items: end;">
-                    <?= htmlspecialchars($user['nickname']) ?>
-                    <p>Тут типа роль</p>
-                </h1>
-                <p class="muted">
-                    На сайте с <?= date('d.m.Y', strtotime($user['created_at'])) ?>
-                </p>
-            </section>
-
-
-            <section class="beauty-hero">
-                <span class="beauty-eyebrow">
-                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1"></path>
-                    </svg>
-                    Профиль игрока
-                </span>
-                <h1><?= htmlspecialchars($user['nickname']) ?></h1>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <h1><?= htmlspecialchars($user['nickname']) ?></h1>
+                    <p>[Роль]</p>
+                </div>
                 <p class="muted">
                     На сайте с <?= date('d.m.Y', strtotime($user['created_at'])) ?>
                 </p>
