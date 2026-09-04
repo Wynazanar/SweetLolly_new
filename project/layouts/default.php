@@ -19,7 +19,14 @@ if (empty($_SESSION['csrf_token'])) {
 	<header>
 		<div class="container">
 			<div class="header">
-				<a href="/SweetLolly_new/" class="logo">SWEETLOLLY</a>
+				<a href="/SweetLolly_new/" class="logo">
+					<svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path d="M25.0956 8.23612C26.6282 12.138 26.2493 16.708 23.68 20.4108C21.1107 24.1137 16.9622 26.0683 12.7707 25.9982L25.0956 8.23612Z"/>
+						<path d="M15.8284 0.309587C17.426 0.665061 18.983 1.32942 20.4108 2.32014C21.8384 3.31078 23.0054 4.5367 23.8975 5.90877L10.1714 25.6904C8.57391 25.3349 7.01698 24.6708 5.58931 23.6801C4.16151 22.6894 2.99446 21.4632 2.10229 20.0909L15.8284 0.309587Z"/>
+						<path d="M2.32007 5.58943C4.88929 1.88673 9.03749 -0.0681167 13.2288 0.00181279L0.904213 17.7639C-0.628283 13.8621 -0.249101 9.29214 2.32007 5.58943Z"/>
+					</svg>
+					SWEETLOLLY
+				</a>
 				<div class="user-theme">
 					<div class="theme-toggle" data-theme-toggle>🌙</div>
 
