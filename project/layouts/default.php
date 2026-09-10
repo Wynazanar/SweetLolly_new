@@ -14,7 +14,6 @@ if (empty($_SESSION['csrf_token'])) {
 	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/reset.css">
 	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/global.css">
 </head>
-
 <body>
 	<header>
 		<div class="container">
@@ -170,5 +169,7 @@ if (empty($_SESSION['csrf_token'])) {
 		</div>
 	</footer>
 </body>
+
+<script src="/SweetLolly_new/project/webroot/scripts/test.js"></script>
 
 </html>
