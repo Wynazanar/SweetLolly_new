@@ -1,3 +1,111 @@
-.grid-2col-left {
-    grid-template-columns: minmax(0, 1fr) 320px;
+.grid-2 {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.left-panel {
+    display: grid;
+    row-gap: 10px;
+    justify-items: center;
+    padding: 26px 15px;
+    padding-top: 161px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    position: relative;
+    max-width: 320px;
+    width: 100%;
+}
+
+.right-panel {
+    display: grid;
+    gap: 15px;
+    padding: 25px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    width: 100%;
+}
+
+.avatar {
+    position: absolute;
+    top: -58px;
+    left: 50%;
+    transform: translateX(-50%);
+    user-select: none;
+    width: 209px;
+    height: 209px;
+    background: linear-gradient(#C0A4FF, #8EA9FF);
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid var(--accent);
+}
+
+.avatar::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    inset: 0;
+    left: 0;
+    border: 5px solid white;
+    border-radius: 999px;
+}
+
+.avatar img {
+    margin-top: 17px;
+}
+
+.nickname {
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.player-role-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 99px;
+    background: var(--accent);
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+    width: fit-content;
+    padding: 6px 16px;
+    margin: 0 auto;
+}
+
+.player-role-pill svg {
+    fill: white;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.player-info a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease-in-out;
+}
+
+.player-info svg {
+    fill: var(--footer-gray-color);
+}
+
+.info-titles p {
+    color: var(--footer-gray-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.info-titles h4{
+    font-size: 22px;
+    font-weight: 700;
 }

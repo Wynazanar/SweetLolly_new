@@ -456,3 +456,45 @@ footer {
 .logout:hover {
     opacity: 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.section-title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 55px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    background: var(--footer-gray-color);
+    height: 4px;
+    width: 106px;
+    border-radius: 999px;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
