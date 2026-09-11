@@ -296,6 +296,6 @@ if (empty($_SESSION['csrf_token'])) {
 	</footer>
 </body>
 
-<!-- <script src="/SweetLolly_new/project/webroot/scripts/test.js"></script> -->
+<script src="/SweetLolly_new/project/webroot/scripts/test.js"></script>
 
 </html>

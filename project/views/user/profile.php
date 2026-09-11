@@ -16,71 +16,7 @@
                     <a class="beauty-btn" href="/SweetLolly_new/">На главную</a>
                 </div>
             </section>
-        <?php else: ?>
-            <!-- <section class="beauty-hero">
-                <span class="beauty-eyebrow">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2a5 5 0 1 0 0 10 5 5 0 1 0 0-10M4 22h16c.55 0 1-.45 1-1v-1c0-3.86-3.14-7-7-7h-4c-3.86 0-7 3.14-7 7v1c0 .55.45 1 1 1"></path>
-                    </svg>
-                    Профиль игрока
-                </span>
-                <h1><?= htmlspecialchars($user['nickname'] ?? '') ?></h1>
-            </section>
-
-            <section class="lolli-card" style="margin-bottom: 28px;">
-                <div style="display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap;">
-
-                    <div style="flex: 0 0 auto; text-align: center;">
-                        <img src="https://nmsr.nickac.dev/fullbody/<?= htmlspecialchars($user['unique_id'] ?? $user['uuid'] ?? '—') ?>"
-                             alt="avatar"
-                             style="border-radius: 22px; object-fit: cover; box-shadow: var(--soft-shadow);">
-                    </div>
-
-                    <div style="flex: 1; min-width: 240px;">
-                        <h2 style="font-weight: 800; font-size: 24px; margin-bottom: 16px;">Информация</h2>
-
-                        <div style="display: grid; gap: 12px;">
-                            <div>
-                                <small class="muted">Ник</small><br>
-                                <strong><?= htmlspecialchars($user['nickname'] ?? '—') ?></strong>
-                            </div>
-
-                            <div>
-                                <small class="muted">UUID</small><br>
-                                <strong><?= htmlspecialchars($user['unique_id'] ?? $user['uuid'] ?? '—') ?></strong>
-                            </div>
-
-                            <div>
-                                <small class="muted">Дата регистрации</small><br>
-                                <strong>
-                                    <?php
-                                    $created = $user['creation_date'] ?? $user['created_at'] ?? null;
-                                    echo $created ? date('d.m.Y H:i', strtotime($created)) : '—';
-                                    ?>
-                                </strong>
-                            </div>
-
-                            <div>
-                                <small class="muted">Последний вход</small><br>
-                                <strong>
-                                    <?php
-                                    $last = $user['last_login'] ?? $user['updated_at'] ?? null;
-                                    echo $last ? date('d.m.Y H:i', strtotime($last)) : '—';
-                                    ?>
-                                </strong>
-                            </div>
-                        </div>
-
-                        <?php if (!empty($isOwnProfile)): ?>
-                            <div style="margin-top: 24px;">
-                                <a href="/SweetLolly_new/logout/" class="beauty-btn secondary">Выйти из аккаунта</a>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </section> -->
-
-            
+        <?php else: ?>           
             <div class="container">
                 <h2 class="section-title">Профиль игрока</h2>
                 <div class="grid-2">
@@ -88,7 +24,7 @@
                         <div class="avatar">
                             <img src="https://nmsr.nickac.dev/fullbody/d8cc6cb6-e884-47a0-a35b-80f41699f17c">
                         </div>
-                        <h2 class="nickname">Wynazanar</h2>
+                        <h2 class="nickname"><?= htmlspecialchars($user['nickname'] ?? '') ?></h2>
                         <h3 class="player-role-pill">
                             <svg  xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24" >
                                 <path d="M20.33 3.06a1 1 0 0 0-1.11.32L16 7.4l-3.22-4.02c-.38-.47-1.18-.47-1.56 0L8 7.4 4.78 3.38c-.27-.33-.71-.46-1.11-.32S3 3.58 3 4v11h18V4c0-.42-.27-.8-.67-.94M3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-2H3z"></path>
@@ -103,7 +39,10 @@
                                 </svg>
                                 <div class="info-titles">
                                     <p>Регистрация</p>
-                                    <h4>14.01.2025</h4>
+                                    <h4><?php
+                                    $created = $user['creation_date'] ?? $user['created_at'] ?? null;
+                                    echo $created ? date('d.m.Y', strtotime($created)) : '—';
+                                    ?></h4>
                                 </div>
                             </a>
                             <a href="#">
