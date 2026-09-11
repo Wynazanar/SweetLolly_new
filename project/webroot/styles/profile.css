@@ -101,11 +101,21 @@
 
 .info-titles p {
     color: var(--footer-gray-color);
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .info-titles h4{
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
+}
+
+.right-panel h2 {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.right-panel h3 {
+    font-size: 22px;
+    font-weight: 900;
 }

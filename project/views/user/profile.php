@@ -124,7 +124,7 @@
                                     <h4>TNT Run</h4>
                                 </div>
                             </a>
-                            <!-- <div style="background: var(--border); height: 2px; border-radius: 25px;"></div> -->
+                            <div style="background: var(--border); height: 2px; border-radius: 25px;"></div>
                         </nav>
                     </div>
 

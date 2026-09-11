@@ -384,25 +384,59 @@ footer {
     padding-block: 28px;
 }
 
-.footer-top .row .footer-text {
+.footer-top .row .footer-text * {
     color: var(--footer-gray-color);
 }
 
-.footer-top .row h3 {
-    font-weight: 800;
-    font-size: 29px;
+.footer-text h3 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--footer-gray-color);
     margin-bottom: 10px;
 }
 
-.footer-top .row li a {
-    color: var(--footer-gray-color);
+.footer-text h4 {
+    margin-bottom: 10px;
 }
 
-.lolli-footer li::before {
-    content: "◆";
-    font-size: 10px;
-    color: #c58cff;
-    margin-right: 8px;
+.footer-text p {
+    border-top: 2px solid rgb(109, 88, 118, 0.25);
+    padding-top: 8px;
+}
+
+.footer-navigation h3, .footer-community h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.footer-navigation h3::after, .footer-community h3::after {
+    content: '';
+    position: absolute;
+    background: var(--footer-gray-color);
+    height: 2px;
+    width: 106px;
+    border-radius: 999px;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.footer-nav {
+    display: grid;
+    gap: 8px;
+}
+
+.footer-nav a {
+    color: var(--footer-gray-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-nav svg {
+    fill: var(--footer-gray-color)
 }
 
 .footer-bottom {
