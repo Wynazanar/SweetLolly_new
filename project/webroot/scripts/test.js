@@ -41,4 +41,4 @@ async function login(login, password) {
 }
 
 // Тест
-login("Wynazanar", "123123");
+// login("Wynazanar", "123123");

@@ -76,7 +76,14 @@
 
 		public function profile($params) {
 			$nickname = urldecode($params['player'] ?? '');
-			$user = (new \Project\Models\User)->findByNickname($nickname);
+			// $user = (new \Project\Models\User)->findByNickname($nickname);
+
+			$user = [
+				'nickname'      => $nickname,                    // или из API
+				'unique_id'     => $_SESSION['unique_id'] ?? null,
+				'creation_date' => $_SESSION['creation_date'] ?? null,
+				'last_login'    => $_SESSION['last_login'] ?? null,
+			];
 
 			if (!$user) {
 				$this->title = "Игрок не найден | SweetLolly";
