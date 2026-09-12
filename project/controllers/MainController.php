@@ -2,6 +2,7 @@
 namespace Project\Controllers;
 use \Core\Controller;
 use \Project\Models\Page;
+use \Project\Services\BridgeApi;
 
 class MainController extends Controller
 {
@@ -81,28 +82,61 @@ class MainController extends Controller
 
 	public function profile($params)
 	{
-		$nickname = urldecode($params['player'] ?? '');
-		// $user = (new \Project\Models\User)->findByNickname($nickname);
+		$nickname = trim(urldecode($params['player'] ?? ''));
+		if ($nickname === '') {
+			$this->title = 'Игрок не найден | SweetLolly';
+			return $this->render('user/profile', [
+				'user' => null,
+				'nickname' => '',
+			]);
+		}
 
-		$user = [
-			'nickname' => $nickname,                    // или из API
-			'unique_id' => $_SESSION['unique_id'] ?? null,
-			'creation_date' => $_SESSION['creation_date'] ?? null,
-			'last_login' => $_SESSION['last_login'] ?? null,
-		];
+		$sessionNick = $_SESSION['nickname'] ?? '';
+		$isOwnProfile = !empty($_SESSION['logged_in'])
+			&& $sessionNick !== ''
+			&& strcasecmp($sessionNick, $nickname) === 0;
 
-		if (!$user) {
-			$this->title = "Игрок не найден | SweetLolly";
+		$fallbackUuid = $isOwnProfile ? ($_SESSION['unique_id'] ?? null) : null;
+		$bridge = new BridgeApi();
+		$resolved = $bridge->resolveProfile(
+			$nickname,
+			is_string($fallbackUuid) ? $fallbackUuid : null
+		);
+		$user = $resolved['user'];
+
+		if ($user === null && $isOwnProfile) {
+			$user = $this->profileFromSession($nickname);
+		}
+
+		if ($user === null && !$resolved['bridgeAvailable']) {
+			$this->title = 'Профиль | SweetLolly';
+			return $this->render('user/profile', [
+				'user' => null,
+				'nickname' => $nickname,
+				'bridgeError' => true,
+			]);
+		}
+
+		if ($user === null) {
+			$this->title = 'Игрок не найден | SweetLolly';
 			return $this->render('user/profile', [
 				'user' => null,
 				'nickname' => $nickname,
 			]);
 		}
 
-		$this->title = $user['nickname'] . ' | Профиль | SweetLolly';
+		$uuid = $user['unique_id'] ?? null;
+		$nick = $user['nickname'] ?? $nickname;
+		if (is_string($uuid) && $uuid !== '') {
+			$user['points'] = $bridge->playerPoints($uuid, is_string($nick) ? $nick : null);
+		} elseif (is_string($nick) && $nick !== '') {
+			$user['points'] = $bridge->playerPoints('', $nick);
+		}
 
-		$isOwnProfile = !empty($_SESSION['logged_in'])
-			&& ($_SESSION['nickname'] ?? '') === $user['nickname'];
+		$displayNick = $user['nickname'] ?? $nickname;
+		$user['mojang_uuid'] = $this->getMojangUuid($displayNick);
+
+		$this->title = $user['nickname'] . ' | Профиль | SweetLolly';
 
 		return $this->render('user/profile', [
 			'user' => $user,
@@ -110,37 +144,71 @@ class MainController extends Controller
 		]);
 	}
 
-	function getMojangUuid(string $nickname): ?string
+	private function profileFromSession(string $nickname): ?array
 	{
+		if (empty($_SESSION['logged_in'])) {
+			return null;
+		}
+
+		$sessionNick = $_SESSION['nickname'] ?? '';
+		if ($sessionNick === '' || strcasecmp($sessionNick, $nickname) !== 0) {
+			return null;
+		}
+
+		return [
+			'nickname'      => $sessionNick,
+			'unique_id'     => $_SESSION['unique_id'] ?? null,
+			'email'         => $_SESSION['email'] ?? null,
+			'last_ip'       => null,
+			'last_login'    => $_SESSION['last_login'] ?? null,
+			'creation_date' => $_SESSION['creation_date'] ?? null,
+		];
+	}
+
+	private function getMojangUuid(string $nickname): ?string
+	{
+		$nickname = trim($nickname);
+		if ($nickname === '') {
+			return null;
+		}
+
 		$url = 'https://api.mojang.com/users/profiles/minecraft/' . rawurlencode($nickname);
 		$ch = curl_init($url);
 		curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_TIMEOUT => 5,
-			CURLOPT_HTTPHEADER => ['Accept: application/json'],
+			CURLOPT_TIMEOUT        => 5,
+			CURLOPT_HTTPHEADER     => ['Accept: application/json'],
 		]);
 		$body = curl_exec($ch);
-		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 
-		if ($code !== 200 || !$body) {
-			return null; // ник не премиум или ошибка
-		}
-
-		$data = json_decode($body, true);
-		if (empty($data['id'])) {
+		if ($code !== 200 || !is_string($body) || $body === '') {
 			return null;
 		}
 
-		// id без дефисов → с дефисами
-		// $id = $data['id'];
-		// return sprintf(
-		// 	'%s-%s-%s-%s-%s',
-		// 	substr($id, 0, 8),
-		// 	substr($id, 8, 4),
-		// 	substr($id, 12, 4),
-		// 	substr($id, 16, 4),
-		// 	substr($id, 20, 12)
-		// );
+		$data = json_decode($body, true);
+		if (!is_array($data) || empty($data['id']) || !is_string($data['id'])) {
+			return null;
+		}
+
+		return $this->formatMojangUuid($data['id']);
+	}
+
+	private function formatMojangUuid(string $id): ?string
+	{
+		$compact = strtolower(str_replace('-', '', $id));
+		if (strlen($compact) !== 32 || !ctype_xdigit($compact)) {
+			return null;
+		}
+
+		return sprintf(
+			'%s-%s-%s-%s-%s',
+			substr($compact, 0, 8),
+			substr($compact, 8, 4),
+			substr($compact, 12, 4),
+			substr($compact, 16, 4),
+			substr($compact, 20, 12)
+		);
 	}
 }

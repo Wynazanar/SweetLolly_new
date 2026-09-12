@@ -10,8 +10,13 @@
                     </svg>
                     Профиль игрока
                 </span>
-                <h1>Игрок не найден</h1>
-                <p>Пользователь с ником «<?= htmlspecialchars($nickname ?? '') ?>» не найден.</p>
+                <?php if (!empty($bridgeError)): ?>
+                    <h1>Данные временно недоступны</h1>
+                    <p>Не удалось связаться с сервером игровых данных. Попробуйте позже.</p>
+                <?php else: ?>
+                    <h1>Игрок не найден</h1>
+                    <p>Пользователь с ником «<?= htmlspecialchars($nickname ?? '') ?>» не найден на сервере.</p>
+                <?php endif; ?>
                 <div class="beauty-actions">
                     <a class="beauty-btn" href="/SweetLolly_new/">На главную</a>
                 </div>
@@ -22,7 +27,13 @@
                 <div class="grid-2">
                     <div class="left-panel">
                         <div class="avatar">
-                            <img src="https://nmsr.nickac.dev/fullbody/d8cc6cb6-e884-47a0-a35b-80f41699f17c">
+                            <?php
+                            $skinUuid = $user['mojang_uuid'] ?? $user['unique_id'] ?? '';
+                            $skinUrl = $skinUuid !== ''
+                                ? 'https://nmsr.nickac.dev/fullbody/' . rawurlencode($skinUuid)
+                                : 'https://nmsr.nickac.dev/fullbody/' . rawurlencode($user['nickname'] ?? 'Steve');
+                            ?>
+                            <img src="<?= htmlspecialchars($skinUrl) ?>" alt="">
                         </div>
                         <h2 class="nickname"><?= htmlspecialchars($user['nickname'] ?? '') ?></h2>
                         <h3 class="player-role-pill">
@@ -42,6 +53,22 @@
                                     <h4><?php
                                     $created = $user['creation_date'] ?? $user['created_at'] ?? null;
                                     echo $created ? date('d.m.Y', strtotime($created)) : '—';
+                                    ?></h4>
+                                </div>
+                            </a>
+                            <a href="/SweetLolly_new/candies/">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M21 8H7c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1m-1 8c-1.1 0-2 .9-2 2h-8c0-1.1-.9-2-2-2v-4c1.1 0 2-.9 2-2h8c0 1.1.9 2 2 2z"></path>
+                                    <path d="M18 4H3c-.55 0-1 .45-1 1v11h2V6h14zm-4 8a2 2 0 1 0 0 4 2 2 0 1 0 0-4"></path>
+                                </svg>
+                                <div class="info-titles">
+                                    <p>Леденцы</p>
+                                    <h4><?php
+                                    if (array_key_exists('points', $user) && $user['points'] !== null) {
+                                        echo number_format((int) $user['points'], 0, '', ' ');
+                                    } else {
+                                        echo '—';
+                                    }
                                     ?></h4>
                                 </div>
                             </a>

@@ -42,7 +42,7 @@
                         value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
 
                     <?php if (!empty($error)): ?>
-                        <div class="auth-match-note auth-match-error">Неверный логин или пароль</div>
+                        <div class="auth-match-note auth-match-error"><?= htmlspecialchars($error) ?></div>
                     <?php endif; ?>
 
                     <div class="auth-match-field">

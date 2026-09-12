@@ -2,11 +2,12 @@
 namespace Project\Controllers;
 use Core\Controller;
 use Project\Models\User;
+use Project\Services\BridgeApi;
 
 class AuthController extends Controller
 {
-    private const API_URL = 'http://10.196.46.253:4567/v1/auth/login';
-    private const API_KEY = 'mykey123';
+    /** Временно отключено — включить перед продом */
+    private const RATE_LIMIT_ENABLED = false;
 
     public function login()
     {
@@ -24,24 +25,28 @@ class AuthController extends Controller
                 ]);
             }
 
-            if ($this->isRateLimited($login)) {
+            if (self::RATE_LIMIT_ENABLED && $this->isRateLimited($login)) {
                 return $this->render('auth/login', [
                     'error' => 'Слишком много попыток. Попробуйте через 15 минут.'
                 ]);
             }
 
-            // === Вызов API вместо локальной проверки ===
-            $apiResult = $this->authViaApi($login, $password);
+            $bridge = new BridgeApi();
+            $apiResult = $bridge->login($login, $password);
 
             if ($apiResult === null) {
-                $this->incrementRateLimit($login);
+                if (self::RATE_LIMIT_ENABLED) {
+                    $this->incrementRateLimit($login);
+                }
                 return $this->render('auth/login', [
-                    'error' => 'Ошибка соединения с сервером авторизации'
+                    'error' => $this->bridgeLoginErrorMessage($bridge->getLastError()),
                 ]);
             }
 
             if (empty($apiResult['success'])) {
-                $this->incrementRateLimit($login);
+                if (self::RATE_LIMIT_ENABLED) {
+                    $this->incrementRateLimit($login);
+                }
                 return $this->render('auth/login', [
                     'error' => $apiResult['message'] ?? 'Неверный логин или пароль'
                 ]);
@@ -60,7 +65,9 @@ class AuthController extends Controller
             $_SESSION['last_login']     = $apiResult['last_login'] ?? null;
             $_SESSION['user_id']        = $apiResult['unique_id'] ?? $username;
 
-            $this->clearRateLimit($login);
+            if (self::RATE_LIMIT_ENABLED) {
+                $this->clearRateLimit($login);
+            }
 
             $nickForHTTP = rawurlencode($username);
             header("Location: /SweetLolly_new/profile/$nickForHTTP/");
@@ -68,50 +75,6 @@ class AuthController extends Controller
         }
 
         return $this->render('auth/login');
-    }
-
-    /**
-     * Отправляет логин + пароль (в открытом виде) на API AuthBridge
-     * @return array|null  — ответ API или null при ошибке сети
-     */
-    private function authViaApi(string $login, string $password): ?array
-    {
-        $payload = json_encode([
-            'login'    => $login,
-            'password' => $password
-        ], JSON_UNESCAPED_UNICODE);
-
-        $ch = curl_init(self::API_URL);
-
-        curl_setopt_array($ch, [
-            CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => $payload,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 8,
-            CURLOPT_HTTPHEADER     => [
-                'Content-Type: application/json',
-                'key: ' . self::API_KEY,
-                'Content-Length: ' . strlen($payload)
-            ],
-        ]);
-
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $error    = curl_error($ch);
-        curl_close($ch);
-
-        if ($response === false || $httpCode >= 500) {
-            error_log("Auth API error: $error (HTTP $httpCode)");
-            return null;
-        }
-
-        $data = json_decode($response, true);
-        if (!is_array($data)) {
-            error_log("Auth API invalid JSON: $response");
-            return null;
-        }
-
-        return $data;
     }
 
     public function register()
@@ -178,6 +141,17 @@ class AuthController extends Controller
         session_destroy();
         header('Location: /SweetLolly_new/');
         exit;
+    }
+
+    private function bridgeLoginErrorMessage(?string $code): string
+    {
+        return match ($code) {
+            BridgeApi::ERR_ENDPOINT => 'На сервере не активен плагин AuthBridge (API /v1/auth/login не найден). '
+                . 'Установите jar в plugins/, проверьте config.yml и логи при старте.',
+            BridgeApi::ERR_SERVER => 'Сервер авторизации вернул ошибку. Проверьте консоль Minecraft и AuthBridge.',
+            default => 'Не удалось связаться с сервером авторизации. '
+                . 'Проверьте, что ServerTap доступен по адресу из project/config/bridge.php.',
+        };
     }
 
     // ——— CSRF ———
