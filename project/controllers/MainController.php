@@ -82,6 +82,28 @@ class MainController extends Controller
 
 	public function profile($params)
 	{
+		// ─── DEV MOCK: убрать перед деплоем ───────────────────────────
+		if (getenv('APP_ENV') === 'local' || true) {   // ← уберите "|| true" когда не нужно
+			$this->title = 'Steve | Профиль | SweetLolly';
+			return $this->render('user/profile', [
+				'user' => [
+					'nickname'      => 'Wynazanar',
+					'unique_id'     => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+					'email'         => 'steve@example.com',
+					'last_login'    => '2026-09-13 12:00:00',
+					'creation_date' => '2024-01-01 00:00:00',
+					'points'        => 1500,
+					'friends'       => 5,
+					'favorite_minigame' => 'BedWars',
+					'prefix' 		=> 'Developer',
+					'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
+				],
+				'isOwnProfile' => true,
+			]);
+		}
+	    // ──────────────────────────────────────────────────────────────
+
+
 		$nickname = trim(urldecode($params['player'] ?? ''));
 		if ($nickname === '') {
 			$this->title = 'Игрок не найден | SweetLolly';

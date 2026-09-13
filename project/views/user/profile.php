@@ -21,7 +21,7 @@
                     <a class="beauty-btn" href="/SweetLolly_new/">На главную</a>
                 </div>
             </section>
-        <?php else: ?>           
+        <?php else: ?>
             <div class="container">
                 <h2 class="section-title">Профиль игрока</h2>
                 <div class="grid-2">
@@ -40,7 +40,7 @@
                             <svg  xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24" >
                                 <path d="M20.33 3.06a1 1 0 0 0-1.11.32L16 7.4l-3.22-4.02c-.38-.47-1.18-.47-1.56 0L8 7.4 4.78 3.38c-.27-.33-.71-.46-1.11-.32S3 3.58 3 4v11h18V4c0-.42-.27-.8-.67-.94M3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-2H3z"></path>
                             </svg>
-                            developer
+                            <?= htmlspecialchars($user['prefix'] ?? '') ?>
                         </h3>
                         <nav class="player-info">
                             <div style="background: var(--border); height: 2px; border-radius: 25px; margin-top: 10px;"></div>
@@ -78,7 +78,13 @@
                                 </svg>
                                 <div class="info-titles">
                                     <p>Друзья</p>
-                                    <h4>85</h4>
+                                    <h4><?php
+                                    if (array_key_exists('friends', $user) && $user['friends'] !== null) {
+                                        echo number_format((int) $user['friends'], 0, '', ' ');
+                                    } else {
+                                        echo '—';
+                                    }
+                                    ?></h4>
                                 </div>
                             </a>
                             <a href="#">
@@ -87,10 +93,21 @@
                                 </svg>
                                 <div class="info-titles">
                                     <p>Любимый режим</p>
-                                    <h4>TNT Run</h4>
+                                    <h4><?php
+                                    if (array_key_exists('favorite_minigame', $user) && $user['favorite_minigame'] !== null) {
+                                        echo $user['favorite_minigame'];
+                                    } else {
+                                        echo '—';
+                                    }
+                                    ?></h4>
                                 </div>
                             </a>
-                            <div style="background: var(--border); height: 2px; border-radius: 25px;"></div>
+                            <?php
+                            if ($isOwnProfile) {
+                                echo '<div style="background: var(--border); height: 2px; border-radius: 25px;"></div>';
+                                echo '<a style="text-align: center; background: red;" href="/SweetLolly_new/logout/">Выйти</a>';
+                            }
+                            ?>
                         </nav>
                     </div>
 
