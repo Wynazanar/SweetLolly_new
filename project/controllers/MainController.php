@@ -84,7 +84,7 @@ class MainController extends Controller
 	{
 		// ─── DEV MOCK: убрать перед деплоем ───────────────────────────
 		if (getenv('APP_ENV') === 'local' || true) {   // ← уберите "|| true" когда не нужно
-			$this->title = 'Steve | Профиль | SweetLolly';
+			$this->title = 'Wynazanar | Профиль | SweetLolly';
 			return $this->render('user/profile', [
 				'user' => [
 					'nickname'      => 'Wynazanar',

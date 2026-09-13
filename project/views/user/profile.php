@@ -115,7 +115,23 @@
                         <h2>Статистика</h2>
                         <div class="">Карточки</div>
                         <h3>Статистика по мини-играм</h3>
-                        <div class="">Карточки</div>
+                        <div class="">
+                            <div class="">
+                                <div class="">
+                                    <img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
+                                    <div class="">
+                                        <h3>TNT Run</h3>
+                                        <p>Быстрый. Легкий. Взрывной.</p>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <p>Побед: <b>246</b></p>
+                                    <p>Поражений: <b>189</b></p>
+                                    <p>Лучшее время: <b>00:38.42</b></p>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
