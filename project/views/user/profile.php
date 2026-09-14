@@ -1,3 +1,22 @@
+<?php
+function getDescription($minigame)
+{
+  $descriptions = [
+    'TNT Run' => 'Быстрый. Легкий. Взрывной.',
+    'BedWars' => 'Защита кровати - путь к победе!',
+    'SkyWars' => 'Один выживший. Один победитель.',
+  ];
+
+  foreach ($descriptions as $key => $description) {
+    if (stripos($minigame, $key) !== false) {
+      return $description;
+    }
+  }
+
+  return '';
+}
+?>
+
 <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/profile.css">
 <main>
     <div class="container">
@@ -116,19 +135,35 @@
                         <div class="">Карточки</div>
                         <h3>Статистика по мини-играм</h3>
                         <div class="">
-                            <div class="">
-                                <div class="">
-                                    <img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
+                            <div class="minigames_stats">
+                                <?php foreach ($minigame_stats as $minigame => $stats): ?>
+                                <div class="minigame_stat">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <img style="width: 84px; height: 84px; border-radius: 11px;" src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
+                                        <div class="">
+                                            <h3><?= htmlspecialchars($minigame) ?></h3>
+                                            <p><?= getDescription($minigame) ?></p>
+                                        </div>
+                                    </div>
                                     <div class="">
-                                        <h3>TNT Run</h3>
-                                        <p>Быстрый. Легкий. Взрывной.</p>
+                                        <p>Побед: <b><?= htmlspecialchars($stats['wins']) ?></b></p>
+                                        <p>Поражений: <b><?= htmlspecialchars($stats['loses']) ?></b></p>
+                                        <p>
+                                            <?php
+                                                if (!empty($stats['best_time'])) {
+                                                    $label = 'Лучшее время';
+                                                    $value = $stats['best_time'];
+                                                } else {
+                                                    $label = 'Убийств';
+                                                    $value = $stats['kills'];
+                                                }
+                                                echo $label;
+                                            ?>:
+                                            <b><?= htmlspecialchars($value ?? '0') ?></b>
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <p>Побед: <b>246</b></p>
-                                    <p>Поражений: <b>189</b></p>
-                                    <p>Лучшее время: <b>00:38.42</b></p>
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                             
                         </div>

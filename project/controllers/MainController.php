@@ -91,12 +91,29 @@ class MainController extends Controller
 					'unique_id'     => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
 					'email'         => 'steve@example.com',
 					'last_login'    => '2026-09-13 12:00:00',
-					'creation_date' => '2024-01-01 00:00:00',
+					'creation_date' => '2024-04-21 00:00:00',
 					'points'        => 1500,
 					'friends'       => 5,
 					'favorite_minigame' => 'BedWars',
 					'prefix' 		=> 'Developer',
 					'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
+				],
+				'minigame_stats' => [
+					'TNT Run' => [
+						'wins' => 24,
+						'loses' => 6,
+						'best_time' => '00:45.23'
+					],
+					'BedWars' => [
+						'wins' => 6,
+						'loses' => 12,
+						'kills' => null
+					],
+					'SkyWars' => [
+						'wins' => 9,
+						'loses' => 25,
+						'kills' => 42
+					],
 				],
 				'isOwnProfile' => true,
 			]);

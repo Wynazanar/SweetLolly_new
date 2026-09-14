@@ -120,3 +120,17 @@
     font-size: 22px;
     font-weight: 900;
 }
+
+.minigames_stats {
+    display: grid;
+    gap: 10px;
+}
+
+.minigame_stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid var(--accent);
+    border-radius: 15px;
+}
