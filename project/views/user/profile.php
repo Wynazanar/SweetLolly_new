@@ -124,7 +124,7 @@ function getDescription($minigame)
                             <?php
                             if ($isOwnProfile) {
                                 echo '<div style="background: var(--border); height: 2px; border-radius: 25px;"></div>';
-                                echo '<a style="text-align: center; background: red;" href="/SweetLolly_new/logout/">Выйти</a>';
+                                echo '<a class="logout-btn" href="/SweetLolly_new/logout/">Выйти</a>';
                             }
                             ?>
                         </nav>
@@ -146,16 +146,19 @@ function getDescription($minigame)
                                         </div>
                                     </div>
                                     <div class="">
-                                        <p>Побед: <b><?= htmlspecialchars($stats['wins']) ?></b></p>
-                                        <p>Поражений: <b><?= htmlspecialchars($stats['loses']) ?></b></p>
+                                        <p>Побед: <b><?= htmlspecialchars($stats['wins']) ?? 0 ?></b></p>
+                                        <p>Поражений: <b><?= htmlspecialchars($stats['loses']) ?? 0 ?></b></p>
                                         <p>
                                             <?php
                                                 if (!empty($stats['best_time'])) {
                                                     $label = 'Лучшее время';
                                                     $value = $stats['best_time'];
-                                                } else {
+                                                } else if (!empty($stats['kills'])) {
                                                     $label = 'Убийств';
                                                     $value = $stats['kills'];
+                                                } else {
+                                                    $label = '-';
+                                                    $value = '-';
                                                 }
                                                 echo $label;
                                             ?>:

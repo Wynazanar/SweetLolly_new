@@ -134,3 +134,13 @@
     border: 1px solid var(--accent);
     border-radius: 15px;
 }
+
+.logout-btn {
+    display: block;
+    text-align: center;
+    background: #ef4444;
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 700;
+}

@@ -114,6 +114,28 @@ class MainController extends Controller
 						'loses' => 25,
 						'kills' => 42
 					],
+					'Murder Mystery' => [
+						'wins' => 10,
+						'loses' => 2,
+						'kills' => 5
+					],
+					'Murder Mystery' => [
+						'wins' => 10,
+						'loses' => 2,
+						'kills' => 5
+					],
+					'BuildBattle' => [
+						'wins' => 3,
+						'loses' => 8,
+					],
+					'Arcades' => [
+						'wins' => 10,
+						'loses' => 3,
+					],
+					'BlockParty' => [
+						'wins' => 41,
+						'loses' => 62,
+					],
 				],
 				'isOwnProfile' => true,
 			]);
