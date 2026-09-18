@@ -89,6 +89,7 @@ class MainController extends Controller
 				'user' => [
 					'nickname'      => 'Wynazanar',
 					'unique_id'     => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+					'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
 					'email'         => 'steve@example.com',
 					'last_login'    => '2026-09-13 12:00:00',
 					'creation_date' => '2024-04-21 00:00:00',
@@ -96,37 +97,47 @@ class MainController extends Controller
 					'friends'       => 5,
 					'favorite_minigame' => 'BedWars',
 					'prefix' 		=> 'Developer',
-					'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
 				],
 				'minigame_stats' => [
 					'TNT Run' => [
-						'wins' => 24,
-						'loses' => 6,
-						'best_time' => '00:45.23'
+						'wins' => 6,
+						'loses' => 7,
+						'points' => 99000,
+						'best_time' => '00:45.23',
 					],
 					'BedWars' => [
-						'wins' => 6,
-						'loses' => 12,
-						'kills' => null
+						'wins' => 9,
+						'loses' => 4,
+						'kills' => 30,
+						'death' => 19,
+						'broken_beds' => 4,
+						'points' => 1133,
 					],
 					'SkyWars' => [
 						'wins' => 9,
 						'loses' => 25,
-						'kills' => 42
+						'kills' => 42,
+						'deaths' => 19,
+						'points' => 4420,
 					],
 					'Murder Mystery' => [
 						'wins' => 10,
 						'loses' => 2,
-						'kills' => 5
-					],
-					'Murder Mystery' => [
-						'wins' => 10,
-						'loses' => 2,
-						'kills' => 5
+						'murders' => 5,
+						'deaths' => 10,
+						'points' => 10540,
+						'murderer_eliminations' => 34,
 					],
 					'BuildBattle' => [
 						'wins' => 3,
 						'loses' => 8,
+						'rating' => [
+							'super_poop' => 1,
+							'poop' => 0,
+							'normal' => 7,
+							'epic' => 14,
+							'legengary' => 4,
+						]
 					],
 					'Arcades' => [
 						'wins' => 10,
@@ -135,6 +146,7 @@ class MainController extends Controller
 					'BlockParty' => [
 						'wins' => 41,
 						'loses' => 62,
+						'points' => 11563,
 					],
 				],
 				'isOwnProfile' => true,

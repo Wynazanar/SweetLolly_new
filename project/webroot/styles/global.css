@@ -426,6 +426,7 @@ footer {
 .footer-nav {
     display: grid;
     gap: 8px;
+    transition: all 0.25s ease-in-out;
 }
 
 .footer-nav a {
@@ -435,8 +436,19 @@ footer {
     gap: 8px;
 }
 
+.footer-nav a:hover {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.footer-nav a:hover svg {
+    transform: rotateY(180deg);
+    fill: var(--accent);
+}
+
 .footer-nav svg {
-    fill: var(--footer-gray-color)
+    fill: var(--footer-gray-color);
+    transition: all 0.25s ease-in-out;
 }
 
 .footer-bottom {
@@ -531,4 +543,39 @@ footer {
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.footer-top {
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-top::after {
+    content: '';
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 100%;
+
+    background-image: url('/SweetLolly_new/project/webroot/resources/footer_pixels.png');
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+
+    opacity: 0.15;
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.dark .footer-top::after {
+    opacity: 0.08;
+}
+
+.footer-top > * {
+    position: relative;
+    z-index: 1;
 }

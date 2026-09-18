@@ -184,6 +184,7 @@ if (empty($_SESSION['csrf_token'])) {
 	<?= $content ?>
 
 	<footer class="lolli-footer">
+		
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
@@ -290,6 +291,7 @@ if (empty($_SESSION['csrf_token'])) {
 				</div>
 			</div>
 		</div>
+
 		<div class="footer-bottom">
 			<p>SweetLolly.net © 2022-2026</p>
 		</div>
