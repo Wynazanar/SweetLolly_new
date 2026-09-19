@@ -5,6 +5,7 @@ function getDescription($minigame)
     'TNT Run' => 'Быстрый. Легкий. Взрывной.',
     'BedWars' => 'Защита кровати - путь к победе!',
     'SkyWars' => 'Один выживший. Один победитель.',
+    'Murder Mystery' => 'Один выживший. Один победитель.',
   ];
 
   foreach ($descriptions as $key => $description) {
