@@ -175,6 +175,5 @@ function getDescription($minigame)
                 </div>
             </div>
         <?php endif; ?>
-
     </div>
 </main>

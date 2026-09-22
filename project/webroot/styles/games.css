@@ -1,71 +1,35 @@
-.games-good-ip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin: 14px 0;
-    padding: 10px 12px;
-    border-radius: 999px;
-    background: rgba(168, 79, 236, .10);
-    border: 1px solid var(--border);
-}
-
-.games-good-ip code {
-    color: var(--accent);
-    font-weight: 900;
-}
-
-.games-good-ip button {
-    border: 0;
-    border-radius: 999px;
-    padding: 8px 13px;
-    background: linear-gradient(90deg, #ffbc73, #ff7ac8, #8b57ff);
-    color: #fff;
-    font-weight: 900;
-}
-
+/* ================== CATEGORY ================== */
 .games-good-filter {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    margin: 22px 0;
+    margin-bottom: 20px;
 }
 
 .games-good-filter button {
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     background: var(--card);
-    color: var(--text);
+    color: var(--footer-gray-color);
     border-radius: 999px;
-    padding: 9px 16px;
-    font-weight: 900;
+    padding: 4px 16px;
+    font-size: 13px;
+    line-height: 18px;
+    transition: all 0.2s ease-in-out;
 }
 
 .games-good-filter button.active {
+    padding: 5.5px 17.5px;
     background: linear-gradient(90deg, #ffbc73, #ff7ac8, #8b57ff);
+    font-weight: 600;
     color: #fff;
-    border-color: transparent;
-}
-
-.toast-copy {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    background: var(--lolli-grad);
-    color: #fff;
-    border-radius: 14px;
-    padding: 12px 16px;
-    box-shadow: 0 18px 44px rgba(0, 0, 0, .24);
-    font-weight: 900;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: .18s;
+    border: 1.5px solid var(--border);
 }
 
 /* ==================== GRID ==================== */
 .games-good-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 20px 15px;
 }
 
 /* ==================== CARD ==================== */
@@ -73,13 +37,12 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 22px;
+    border-radius: 20px;
     background: var(--card);
     border: 1px solid var(--border);
     box-shadow: var(--soft-shadow);
-    text-decoration: none !important;
     color: var(--text);
-    transition: .18s;
+    transition: 0.18s;
 }
 
 .game-good-card:hover {
@@ -90,7 +53,7 @@
 /* ==================== MEDIA ==================== */
 .game-good-media {
     aspect-ratio: 16/10;
-    background: #090612;
+    background: rebeccapurple;
     display: flex;
     align-items: center;
     justify-content: center;

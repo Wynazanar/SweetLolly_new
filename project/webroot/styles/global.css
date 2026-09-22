@@ -472,8 +472,8 @@ footer {
 
 .user-logged {
     display: flex;
-    align-items: center;   /* вертикальное выравнивание по центру */
-    gap: 10px;             /* расстояние между ником и кнопкой выхода */
+    align-items: center;
+    gap: 10px;
 }
 
 .user-logg-a {
@@ -529,8 +529,17 @@ footer {
     font-weight: 900;
     text-align: center;
     margin-top: 35px;
-    margin-bottom: 55px;
     position: relative;
+    text-transform: uppercase;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--footer-gray-color);
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 20px;
+    margin-bottom: 25px;
 }
 
 .section-title::after {
