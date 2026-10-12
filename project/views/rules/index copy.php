@@ -76,7 +76,9 @@ function getCategorySVG($categoryName)
           </a>
         <?php endforeach; ?>
       </div>
+
       <div class="rules-layout">
+
         <aside class="rules-sidebar">
           <h3>Разделы</h3>
           <?php foreach ($ruleCategories as $ruleCategory): ?>
@@ -86,6 +88,7 @@ function getCategorySVG($categoryName)
             </a>
           <?php endforeach; ?>
         </aside>
+        
         <div>
           <?php foreach ($ruleCategories as $keyC => $ruleCategory): ?>
             <section class="rules-section" id="<?= $ruleCategory['name'] ?>">

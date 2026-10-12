@@ -1,10 +1,10 @@
 <?php
 require_once $projectRoot . '/project/components/Accordion.php';
-echo Accordion::make(
-    title: 'FAQ',
-    description: 'Ответ на частый вопрос',
-    open: false
-);
+// echo Accordion::make(
+//     title: 'FAQ',
+//     description: 'Ответ на частый вопрос',
+//     open: false
+// );
 
 function get_category_icon($category) {
   $icons = [

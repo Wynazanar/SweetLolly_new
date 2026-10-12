@@ -565,3 +565,14 @@ body.dark .footer-top::after {
 
 
 
+.main-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 56px;
+    margin-bottom: 14px;
+}
+
+.main-subtitle {
+    color: var(--footer-gray-color);
+    margin-bottom: 28px;
+}
