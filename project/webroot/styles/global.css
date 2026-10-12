@@ -53,45 +53,6 @@ body {
     background: radial-gradient(circle at 12% -8%, rgba(255, 122, 200, 0.22), transparent 34%), radial-gradient(circle at 88% 0%, rgba(139, 87, 255, 0.16), transparent 34%), linear-gradient(rgb(255, 248, 239) 0%, rgb(255, 240, 248) 48%, rgb(246, 239, 255) 100%);
 }
 
-body.dark {
-    --header-background: rgba(22, 18, 31, 0.78);
-    --header-buttons: rgba(255, 255, 255, 0.1);
-    --header-buttons-shadow: rgba(255, 255, 255, 0.30);
-
-    --nav-background: #232031eb;
-
-    --menu-hover: rgba(255, 255, 255, 0.09);
-    --menu-separator: rgba(255, 255, 255, 0.12);
-    --menu-icon-color: #c8b8e0;
-    --menu-hover-gradient: rgba(255, 255, 255, 0.1);
-    --menu-hover-text: #fff;
-    --menu-hover-shadow: rgba(180, 100, 255, 0.25);
-
-    --footer-gray-color: #b9afc9;
-
-    --foreground: #fff;
-    --card-background: #222532;
-    --card: rgba(34, 37, 50, 0.8);
-    --card2: #2a2e3d;
-    --border: rgba(202, 137, 255, .22);
-
-    --hero-background: linear-gradient(180deg,rgba(31,26,43,.88),rgba(18,15,27,.94));
-    --hero-border: rgba(255, 255, 255, 0.15);
-
-    --ui-surface-2: #2a2e3d;
-    --muted: #b9afc9;
-    --text: #fff;
-    --shadow: 0 18px 55px rgba(0, 0, 0, .30);
-    --soft-shadow: 0 10px 32px rgba(0, 0, 0, .20);
-
-    --button-secondary: rgb(34, 37, 50, 0.8);
-    --button-secondary-border: rgba(255, 255, 255, 0.1098);
-    --button-color: #ffffff;
-    --button-shadow: 0px 4px 16px rgba(168, 79, 236, 0.2588);
-
-    background: radial-gradient(circle at 14% -5%, rgba(255, 122, 200, 0.18), transparent 32%), radial-gradient(circle at 88% 0%, rgba(123, 63, 211, 0.18), transparent 36%), linear-gradient(rgb(16, 9, 29) 0%, rgb(23, 16, 33) 48%, rgb(9, 6, 16) 100%);
-}
-
 * {
     font-family: var(--font-family);
     color: var(--foreground);
@@ -588,3 +549,19 @@ body.dark .footer-top::after {
     position: relative;
     z-index: 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
