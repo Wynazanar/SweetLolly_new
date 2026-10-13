@@ -47,4 +47,9 @@
 		{
 			return $this->findMany("SELECT * FROM subs ORDER BY id");
 		}
+
+		public function getBwInfo()
+		{
+			return $this->findMany("SELECT * FROM bedwars ORDER BY wins");
+		}
 	}

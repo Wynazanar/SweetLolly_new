@@ -33,10 +33,13 @@ class MainController extends Controller
 		$gameSlug = urldecode($gameName['game'] ?? '');
 		$gameInfo = $page->getGameByName($gameSlug);
 
+		$bw = $page->getBwInfo();
+
 		$this->title = $gameInfo ? $gameInfo['name'] . ' | SweetLolly' : $gameSlug . ' | SweetLolly';
 
 		return $this->render('games/gameInfo', [
-			"game" => $gameInfo
+			"game" => $gameInfo,
+			"bw_top" => $bw,
 		]);
 	}
 

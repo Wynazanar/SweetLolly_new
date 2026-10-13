@@ -354,3 +354,166 @@
     aspect-ratio: 4 / 3;
   }
 }
+
+
+
+
+
+
+
+
+/* ===== DataTable ===== */
+.dt-wrap {
+    background: var(--card-background, var(--surface, #fff));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--soft-shadow);
+    overflow: hidden;
+}
+
+.dt-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dt-search {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+}
+
+.dt-search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--footer-gray-color, var(--text-muted));
+    pointer-events: none;
+}
+
+.dt-search-input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card2, var(--surface-2));
+    font-weight: 600;
+    outline: none;
+    transition: 0.15s;
+}
+
+.dt-search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(168, 79, 236, 0.12);
+}
+
+.dt-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dt-filter {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card2, var(--surface-2));
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.dt-filter:focus {
+    border-color: var(--accent);
+}
+
+.dt-count {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--footer-gray-color, var(--text-muted));
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.dt-table-scroll {
+    overflow-x: auto;
+}
+
+.dt-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dt-table th,
+.dt-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.dt-table th {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--footer-gray-color, var(--text-muted));
+    background: var(--card2, var(--surface-2));
+    user-select: none;
+    white-space: nowrap;
+}
+
+.dt-table th.dt-sortable {
+    cursor: pointer;
+}
+
+.dt-table th.dt-sortable:hover {
+    color: var(--accent);
+}
+
+.dt-table th .dt-sort-icon::after {
+    content: "⇅";
+    margin-left: 6px;
+    opacity: 0.35;
+    font-size: 11px;
+}
+
+.dt-table th.asc .dt-sort-icon::after {
+    content: "↑";
+    opacity: 1;
+    color: var(--accent);
+}
+
+.dt-table th.desc .dt-sort-icon::after {
+    content: "↓";
+    opacity: 1;
+    color: var(--accent);
+}
+
+.dt-table tbody tr {
+    transition: background 0.15s;
+}
+
+.dt-table tbody tr:hover {
+    background: var(--accent-soft, rgba(168, 79, 236, 0.06));
+}
+
+.dt-table tbody tr.is-hidden {
+    display: none;
+}
+
+.dt-table .dt-empty td {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--footer-gray-color, var(--text-muted));
+    font-weight: 600;
+}
+
+/* тёмная тема — если используешь body.dark */
+body.dark .dt-search-input,
+body.dark .dt-filter {
+    background: var(--card2, #2a2e3d);
+}
