@@ -49,6 +49,10 @@
     --button-shadow: 0px 4px 16px rgba(155, 99, 255, 0.2588);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: radial-gradient(circle at 12% -8%, rgba(255, 122, 200, 0.22), transparent 34%), radial-gradient(circle at 88% 0%, rgba(139, 87, 255, 0.16), transparent 34%), linear-gradient(rgb(255, 248, 239) 0%, rgb(255, 240, 248) 48%, rgb(246, 239, 255) 100%);
 }
@@ -607,14 +611,21 @@ body.dark .footer-top::after {
 }
 
 .aside-help-link {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    font-weight: 600;
-    padding: 12px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 14px;
+    width: 100%;
+    font-weight: 700;
+    padding: 12px 18px;
+    font-size: 13.5px;
     background: var(--card);
     border: 1px solid var(--border);
+    transition: transform 0.15s ease;
+}
+
+.aside-help-link:hover {
+    transform: translateY(-2px);
 }
 
 .bottom-help {
@@ -622,7 +633,7 @@ body.dark .footer-top::after {
     padding: 22px; 
     gap:16px; 
     display: flex; 
-    align-items: center; 
+    align-items: center;
     background: #F0E8FF; 
     border-radius: 18px;
     border: 1px solid var(--border);
