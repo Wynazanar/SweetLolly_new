@@ -295,3 +295,75 @@ body.dark .punishment svg {
         font-size: 26px;
     }
 }
+
+.rules-search {
+    position: relative;
+    margin: 0 0 14px;
+}
+
+.rules-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: var(--muted);
+    pointer-events: none;
+}
+
+.rules-search input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--ui-surface-2);
+    padding: 11px 36px 11px 38px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-sizing: border-box;
+}
+
+.rules-search input::placeholder {
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.rules-search input:focus {
+    border-color: rgba(168, 79, 236, 0.45);
+    box-shadow: 0 0 0 3px rgba(168, 79, 236, 0.12);
+    background: var(--card);
+}
+
+.rules-search-clear {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(168, 79, 236, 0.12);
+    color: #c879ff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.rules-search-clear:hover {
+    background: rgba(168, 79, 236, 0.22);
+}
+
+.rules-search-clear[hidden] {
+    display: none !important;
+}
+
+.rule-item[hidden],
+.rules-section[hidden] {
+    display: none !important;
+}

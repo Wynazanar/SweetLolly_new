@@ -64,7 +64,17 @@ function ruleSlug(string $name): string
     <div class="rules-layout">
       <aside class="rules-sidebar">
         <div class="rules-sections">
+
           <h3 class="rules-sb-title">Разделы</h3>
+
+          <div class="rules-search">
+              <svg class="rules-search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+              <input type="text" id="rulesSearch" placeholder="Найти правило..." autocomplete="off">
+              <button type="button" class="rules-search-clear" id="rulesSearchClear" hidden aria-label="Очистить">×</button>
+            </div>
+
           <nav class="rules-nav" aria-label="Разделы правил">
             <?php foreach ($ruleCategories as $i => $ruleCategory):
               $slug = ruleSlug($ruleCategory['name']);
@@ -165,9 +175,9 @@ function ruleSlug(string $name): string
 
 <script>
 (function () {
+  /* —— плавная подсветка активного раздела —— */
   const links = document.querySelectorAll('.rules-nav-link');
   const sections = document.querySelectorAll('.rules-section[id]');
-  if (!links.length || !sections.length) return;
 
   function setActive(id) {
     links.forEach(function (a) {
@@ -175,14 +185,66 @@ function ruleSlug(string $name): string
     });
   }
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        setActive(entry.target.id);
-      }
-    });
-  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+  if (links.length && sections.length) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+  }
 
-  sections.forEach(function (s) { observer.observe(s); });
+  /* —— поиск по правилам —— */
+  const input = document.getElementById('rulesSearch');
+  const clearBtn = document.getElementById('rulesSearchClear');
+  if (!input) return;
+
+  const ruleItems = document.querySelectorAll('.rule-item[data-rule]');
+  const ruleSections = document.querySelectorAll('.rules-section');
+
+  function normalize(str) {
+    return (str || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  function filterRules() {
+    const q = normalize(input.value);
+    clearBtn.hidden = q.length === 0;
+
+    let anyVisible = false;
+
+    ruleSections.forEach(function (section) {
+      const items = section.querySelectorAll('.rule-item[data-rule]');
+      if (!items.length) {
+        /* блок «Наказания» — скрываем только при активном поиске, если нет совпадений в других */
+        if (section.id === 'punishments') {
+          section.hidden = q.length > 0;
+        }
+        return;
+      }
+
+      let sectionHasMatch = false;
+      items.forEach(function (item) {
+        const text = normalize(item.textContent);
+        const match = !q || text.indexOf(q) !== -1;
+        item.hidden = !match;
+        if (match) sectionHasMatch = true;
+      });
+      section.hidden = q.length > 0 && !sectionHasMatch;
+      if (sectionHasMatch) anyVisible = true;
+    });
+
+    /* если ничего не найдено — показать «наказания» или просто пусто */
+    if (q.length > 0 && !anyVisible) {
+      const pun = document.getElementById('punishments');
+      if (pun) pun.hidden = false;
+    }
+  }
+
+  input.addEventListener('input', filterRules);
+  clearBtn.addEventListener('click', function () {
+    input.value = '';
+    filterRules();
+    input.focus();
+  });
 })();
 </script>
