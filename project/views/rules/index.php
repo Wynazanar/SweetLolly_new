@@ -51,9 +51,14 @@ function ruleSlug(string $name): string
 <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/rules.css">
 <main class="rules-page">
   <div class="container">
-    <p class="main-page">SweetLolly / #Правила</p>
+
+    <h2 class="section-title">Правила сервера</h2>
+    <h2 class="section-subtitle">Играть проще, когда есть правила. Договоримся о главном:<br>уважение, честная игра и безопасность каждого игрока.</h2>
+
+
+    <!-- <p class="main-page">SweetLolly / #Правила</p>
     <h1 class="main-title">Играть проще, когда есть правила</h1>
-    <p class="main-subtitle">Договоримся о главном: уважение, честная игра и безопасность каждого игрока.</p>
+    <p class="main-subtitle">Договоримся о главном: уважение, честная игра и безопасность каждого игрока.</p> -->
 
     <div class="rules-warning">
       <b>Важно:</b>
