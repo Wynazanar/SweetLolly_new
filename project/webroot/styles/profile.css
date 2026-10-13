@@ -219,6 +219,8 @@
     border-radius: 999px;
 }
 
-.player-settings-info button {
-    background: red;
+.settings-button {
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    border-radius: 14px;
 }

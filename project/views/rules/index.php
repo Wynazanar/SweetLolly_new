@@ -127,9 +127,6 @@ function getCategorySVG($categoryName)
 
           <section class="rules-section">
             <h2>
-              <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" >
-                <path d="M12 2C6.58 2 2 6.58 2 12s4.58 10 10 10 10-4.58 10-10S17.42 2 12 2m5 11h-6V7h2v4h4z"></path>
-              </svg>
               Наказания и сроки
             </h2>
             <p class="muted">Срок наказания зависит от тяжести нарушения, истории аккаунта и поведения
@@ -144,14 +141,14 @@ function getCategorySVG($categoryName)
 
     </div>
 
-    <div style="margin-top: 24px;; padding: 22px; gap:16px; display: flex; align-items: center; background: #F0E8FF; border-radius: 18px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.6667 23.3333C18.095 23.3333 23.3333 18.095 23.3333 11.6667C23.3333 5.23833 18.095 0 11.6667 0C5.23833 0 0 5.23833 0 11.6667C0 18.095 5.23833 23.3333 11.6667 23.3333ZM10.5 5.83333H12.8333V8.16667H10.5V5.83333ZM10.5 10.5H12.8333V17.5H10.5V10.5Z" fill="#8B57FF"/>
-          </svg>
-          <div>
-            <p style="margin-bottom: 6px; font-size: 15px; font-weight: 700;">Заметил нарушение?</p>
-            <p style="font-size: 14px; color:var(--footer-gray-color);">Не вступай в конфликт. Сохрани доказательства и передай их в поддержку через раздел «Помощь».</p>
-          </div>
-        </div>
+    <div class="bottom-help">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.6667 23.3333C18.095 23.3333 23.3333 18.095 23.3333 11.6667C23.3333 5.23833 18.095 0 11.6667 0C5.23833 0 0 5.23833 0 11.6667C0 18.095 5.23833 23.3333 11.6667 23.3333ZM10.5 5.83333H12.8333V8.16667H10.5V5.83333ZM10.5 10.5H12.8333V17.5H10.5V10.5Z" fill="#8B57FF"/>
+      </svg>
+      <div>
+        <p class="bottom-help-title">Заметил нарушение?</p>
+        <p class="bottom-help-descr">Не вступай в конфликт. Сохрани доказательства и передай их в поддержку через раздел «Помощь».</p>
+      </div>
+    </div>
   </div>
 </main>

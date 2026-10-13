@@ -616,3 +616,25 @@ body.dark .footer-top::after {
     background: var(--card);
     border: 1px solid var(--border);
 }
+
+.bottom-help {
+    margin-top: 24px;
+    padding: 22px; 
+    gap:16px; 
+    display: flex; 
+    align-items: center; 
+    background: #F0E8FF; 
+    border-radius: 18px;
+    border: 1px solid var(--border);
+}
+
+.bottom-help-title {
+    margin-bottom: 6px; 
+    font-size: 15px; 
+    font-weight: 700;
+}
+
+.bottom-help-descr {
+    font-size: 14px;
+    color:var(--footer-gray-color);
+}
