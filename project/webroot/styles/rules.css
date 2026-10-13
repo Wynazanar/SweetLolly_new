@@ -13,24 +13,6 @@
     font-weight: 800;
 }
 
-.punishment {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    border-radius: 999px;
-    background: rgba(255, 93, 122, .10);
-    border: 1px solid rgba(255, 93, 122, .18);
-    color: #d84461;
-    font-weight: 900;
-    padding: 6px 10px;
-    font-size: 13px;
-}
-
-.punishment svg {
-    fill: #d84461;
-}
-
 .rules-toc {
     display: flex;
     gap: 8px;
@@ -55,7 +37,7 @@
 
 .rules-toc a:hover {
     transform: translateY(-2px);
-}
+} */
 
 .rules-warning {
     background: linear-gradient(135deg, rgba(255, 184, 77, .16), rgba(255, 93, 122, .10));
@@ -64,7 +46,6 @@
     padding: 18px;
     margin: 16px 0;
 }
- */
 
 .rules-layout {
     display: grid;
@@ -124,20 +105,6 @@
     font-size: 28px;
     margin-bottom: 8px;
     font-weight: 800;
-}
-
-.rules-help {
-    margin-top: 12px;
-    background: #F0E8FF;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: var(--soft-shadow);
-    padding: 28px;
-}
-
-.rules-sb-title {
-    font-size: 22px;
-    font-weight: 700;
 }
 
 .rules-section {
@@ -211,4 +178,22 @@
 
 .rule-note b {
     color: var(--footer-gray-color);
+}
+
+.punishment {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    border-radius: 999px;
+    background: rgba(255, 93, 122, .10);
+    border: 1px solid rgba(255, 93, 122, .18);
+    color: #d84461;
+    font-weight: 700;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.punishment svg {
+    fill: #d84461;
 }

@@ -80,6 +80,15 @@ class MainController extends Controller
 		return $this->render('help/index');
 	}
 
+	public function settings()
+	{
+		$this->title = "Настройки аккаунта | SweetLolly";
+		return $this->render('user/settings', [
+			// 'user' => $user,
+			// 'isOwnProfile' => $isOwnProfile,
+		]);
+	}
+
 	public function profile($params)
 	{
 		// ─── DEV MOCK: убрать перед деплоем ───────────────────────────

@@ -568,11 +568,51 @@ body.dark .footer-top::after {
 .main-title {
     font-size: 32px;
     font-weight: 800;
-    margin-top: 56px;
+    margin-top: 14px;
     margin-bottom: 14px;
 }
 
 .main-subtitle {
     color: var(--footer-gray-color);
     margin-bottom: 28px;
+}
+
+.main-page {
+    color: #8B57FF;
+    text-transform: uppercase;
+    margin-top: 56px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 12%;
+}
+
+.aside-help {
+    margin-top: 12px;
+    background: #F0E8FF;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--soft-shadow);
+    padding: 28px;
+}
+
+.aside-help-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.aside-help-descr {
+    font-size: 14px;
+    color: var(--footer-gray-color);
+    margin-block: 20px;
+}
+
+.aside-help-link {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
 }

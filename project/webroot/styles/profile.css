@@ -151,3 +151,74 @@
     overflow: auto;
     scrollbar-width: thin;
 }
+
+
+
+
+
+
+
+
+
+/* SETTINGS PAGE */
+.settings-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.settings-sidebar {
+    position: sticky;
+    top: 16px;
+}
+
+.player-settings-info {
+    display: grid;
+    gap: 20px;
+    background: var(--card);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    padding: 28px;
+}
+
+.player-settings-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    gap: 12px;
+}
+
+.settings-skin {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.player-settings-card h5 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.player-settings-card p {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B57FF;
+    text-transform: uppercase;
+}
+
+.settings-online {
+    width: 8px;
+    height: 8px;
+    background: #258566;
+    border-radius: 999px;
+}
+
+.player-settings-info button {
+    background: red;
+}

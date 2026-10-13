@@ -45,9 +45,16 @@ function getCategorySVG($categoryName)
 <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/rules.css">
 <main>
   <div class="container">
+    <p class="main-page">SweetLolly / #Правила</p>
     <h1 class="main-title">Играть проще, когда есть правила</h1>
     <p class="main-subtitle">Договоримся о главном: уважение, честная игра и безопасность каждого игрока.</p>
     
+    <div class="rules-warning">
+      <b>Важно:</b>
+      незнание правил не освобождает от ответственности. Если ситуация не
+      описана буквально, администрация принимает решение по смыслу правил и ради безопасности проекта.
+    </div>
+
     <div class="rules-layout">
       <aside class="rules-sidebar">
         <div class="rules-sections">
@@ -59,10 +66,10 @@ function getCategorySVG($categoryName)
             </a>
           <?php endforeach; ?>
         </div>
-        <div class="rules-help">
-          <p class="rules-sb-title">Нужна помощь?</p>
-          <p style="font-size: 14px; color: var(--footer-gray-color); margin-block: 20px;">Не уверен, как трактовать правило? Лучше уточнить до начала игры.</p>
-          <a href="#" style="display: inline-flex; font-weight: 600; padding: 12px 18px; border-radius: 14px; background: var(--card);">Задать вопрос</a>
+        <div class="aside-help">
+          <p class="aside-help-title">Нужна помощь?</p>
+          <p class="aside-help-descr">Не уверен, как трактовать правило? Лучше уточнить до начала игры.</p>
+          <a class="aside-help-link" href="#">Задать вопрос</a>
         </div>
       </aside>
         

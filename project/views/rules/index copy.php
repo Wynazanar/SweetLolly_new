@@ -66,8 +66,11 @@ function getCategorySVG($categoryName)
           </a>
         </div>
       </section>
-      <div class="rules-warning"><b>Важно:</b> незнание правил не освобождает от ответственности. Если ситуация не
-        описана буквально, администрация принимает решение по смыслу правил и ради безопасности проекта.</div>
+      <div class="rules-warning">
+        <b>Важно:</b>
+        незнание правил не освобождает от ответственности. Если ситуация не
+        описана буквально, администрация принимает решение по смыслу правил и ради безопасности проекта.
+      </div>
       <div class="rules-toc">
         <?php foreach ($ruleCategories as $ruleCategory): ?>
           <a href="#<?= htmlspecialchars($ruleCategory['name']) ?>">
