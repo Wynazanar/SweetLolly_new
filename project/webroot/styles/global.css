@@ -590,6 +590,15 @@ body.dark .footer-top::after {
     letter-spacing: 12%;
 }
 
+
+
+
+
+
+
+
+
+
 .aside-help {
     margin-top: 12px;
     background: #F0E8FF;
@@ -622,6 +631,17 @@ body.dark .footer-top::after {
     background: var(--card);
     border: 1px solid var(--border);
     transition: transform 0.15s ease;
+    cursor: pointer;
+}
+
+.aside-help-descr.purple {
+    color: #8B57FF;
+    font-weight: 700;
+}
+
+.aside-help-link.purple {
+    background: #8B57FF;
+    color: white;
 }
 
 .aside-help-link:hover {
@@ -649,3 +669,66 @@ body.dark .footer-top::after {
     font-size: 14px;
     color:var(--footer-gray-color);
 }
+
+
+
+
+
+
+
+
+/* ACCORDION */
+.questions {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+}
+
+.accordion {
+    border-bottom: 1px solid var(--border);
+    /* padding-block: 20px; */
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.accordion:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.accordion summary {
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion summary::after {
+    content: '+';
+    font-size: 22px;
+    font-weight: 400;
+    color: #8B57FF;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.accordion[open] summary::after {
+    content: '−';
+}
+
+.accordion p {
+    color: var(--footer-gray-color);
+    font-size: 16px;
+    margin-top: 14px;
+    line-height: 1.55;
+}
+
+/*  */

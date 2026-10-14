@@ -19,7 +19,7 @@ class Accordion {
         $openAttr = $this->open ? ' open' : '';
 
         return sprintf(
-            '<details %s>
+            '<details class='. "'accordion'" .' %s>
                 <summary>%s</summary>
                 <p>%s</p>
             </details>',
