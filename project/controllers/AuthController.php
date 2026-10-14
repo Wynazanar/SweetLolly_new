@@ -10,118 +10,122 @@ class AuthController extends Controller
     private const RATE_LIMIT_ENABLED = false;
 
     public function login()
-    {
-        $this->title = 'Вход | SweetLolly';
+{
+    $this->title = 'Вход | SweetLolly';
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->checkCsrf();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->checkCsrf();
 
-            $login    = trim($_POST['login'] ?? '');
-            $password = $_POST['password'] ?? '';
+        $login    = trim($_POST['login'] ?? '');
+        $password = $_POST['password'] ?? '';
 
-            if ($login === '' || $password === '') {
-                return $this->render('auth/login', [
-                    'error' => 'Введите логин и пароль'
-                ]);
-            }
+        if ($login === '' || $password === '') {
+            return $this->render('auth/login', [
+                'error' => 'Введите логин и пароль'
+            ]);
+        }
 
-            if (self::RATE_LIMIT_ENABLED && $this->isRateLimited($login)) {
-                return $this->render('auth/login', [
-                    'error' => 'Слишком много попыток. Попробуйте через 15 минут.'
-                ]);
-            }
+        if (self::RATE_LIMIT_ENABLED && $this->isRateLimited($login)) {
+            return $this->render('auth/login', [
+                'error' => 'Слишком много попыток. Попробуйте через 15 минут.'
+            ]);
+        }
 
-            $bridge = new BridgeApi();
-            $apiResult = $bridge->login($login, $password);
+        $bridge = new BridgeApi();
+        $apiResult = $bridge->login($login, $password);
 
-            if ($apiResult === null) {
-                if (self::RATE_LIMIT_ENABLED) {
-                    $this->incrementRateLimit($login);
-                }
-                return $this->render('auth/login', [
-                    'error' => $this->bridgeLoginErrorMessage($bridge->getLastError()),
-                ]);
-            }
-
-            if (empty($apiResult['success'])) {
-                if (self::RATE_LIMIT_ENABLED) {
-                    $this->incrementRateLimit($login);
-                }
-                return $this->render('auth/login', [
-                    'error' => $apiResult['message'] ?? 'Неверный логин или пароль'
-                ]);
-            }
-
-            // Успешный вход через API
-            session_regenerate_id(true);
-
-            // Данные, которые вернул AuthBridge
-            $username  = $apiResult['username'] ?? $login;
-            $_SESSION['logged_in']      = true;
-            $_SESSION['nickname']       = $username;
-            $_SESSION['email']          = $apiResult['email'] ?? null;
-            $_SESSION['unique_id']      = $apiResult['unique_id'] ?? null;
-            $_SESSION['creation_date']  = $apiResult['creation_date'] ?? null;
-            $_SESSION['last_login']     = $apiResult['last_login'] ?? null;
-            $_SESSION['user_id']        = $apiResult['unique_id'] ?? $username;
-
+        if ($apiResult === null || empty($apiResult['success'])) {
             if (self::RATE_LIMIT_ENABLED) {
-                $this->clearRateLimit($login);
+                $this->incrementRateLimit($login);
             }
-
-            $nickForHTTP = rawurlencode($username);
-            header("Location: /SweetLolly_new/profile/$nickForHTTP/");
-            exit;
+            $msg = $bridge->getLastError() ?: 'Неверный логин или пароль';
+            return $this->render('auth/login', [
+                'error' => $msg
+            ]);
         }
 
-        return $this->render('auth/login');
-    }
+        // Успешный вход
+        session_regenerate_id(true);
 
-    public function register()
-    {
-        $this->title = 'Регистрация | SweetLolly';
+        $username = $apiResult['username'] ?? $login;
+        $_SESSION['logged_in']     = true;
+        $_SESSION['nickname']      = $username;
+        $_SESSION['email']         = $apiResult['email'] ?? null;
+        $_SESSION['unique_id']     = $apiResult['unique_id'] ?? null;
+        $_SESSION['creation_date'] = $apiResult['creation_date'] ?? null;
+        $_SESSION['last_login']    = $apiResult['last_login'] ?? null;
+        $_SESSION['user_id']       = $apiResult['unique_id'] ?? $username;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->checkCsrf();
-
-            $username = trim($_POST['username'] ?? '');
-            $email = trim($_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
-            $confirm = $_POST['password_confirm'] ?? '';
-
-            $errors = [];
-            if (strlen($username) < 3 || strlen($username) > 32)
-                $errors[] = 'Ник 3–32 символа';
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-                $errors[] = 'Некорректный email';
-            if (strlen($password) < 8)
-                $errors[] = 'Пароль минимум 8 символов';
-            if ($password !== $confirm)
-                $errors[] = 'Пароли не совпадают';
-
-            if ($errors) {
-                return $this->render('auth/register', ['errors' => $errors]);
-            }
-
-            try {
-                if ((new User)->exists($username, $email)) {
-                    return $this->render('auth/register', [
-                        'errors' => ['Такой ник или email уже занят']
-                    ]);
-                }
-
-                (new User)->create($username, $email, $password);
-                header('Location: /SweetLolly_new/login/');
-                exit;
-            } catch (\Throwable $e) {
-                return $this->render('auth/register', [
-                    'errors' => ['Ошибка при регистрации. Попробуйте позже.']
-                ]);
-            }
+        if (self::RATE_LIMIT_ENABLED) {
+            $this->clearRateLimit($login);
         }
 
-        return $this->render('auth/register');
+        $nickForHTTP = rawurlencode($username);
+        header("Location: /SweetLolly_new/profile/$nickForHTTP/");
+        exit;
     }
+
+    return $this->render('auth/login');
+}
+
+public function register()
+{
+    $this->title = 'Регистрация | SweetLolly';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->checkCsrf();
+
+        $username = trim($_POST['username'] ?? '');
+        $email    = trim($_POST['email'] ?? '');   // пока не сохраняем в nlogin, можно оставить для будущего
+        $password = $_POST['password'] ?? '';
+        $confirm  = $_POST['password_confirm'] ?? '';
+
+        $errors = [];
+        if (strlen($username) < 3 || strlen($username) > 16) {
+            $errors[] = 'Ник 3–16 символов';
+        }
+        if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+            $errors[] = 'Ник может содержать только латиницу, цифры и _';
+        }
+        if (strlen($password) < 6) {
+            $errors[] = 'Пароль минимум 6 символов';
+        }
+        if ($password !== $confirm) {
+            $errors[] = 'Пароли не совпадают';
+        }
+
+        if ($errors) {
+            return $this->render('auth/register', ['errors' => $errors]);
+        }
+
+        $bridge = new BridgeApi();
+        $result = $bridge->register($username, $password);
+
+        if ($result === null || empty($result['success'])) {
+            $msg = $bridge->getLastError() ?: 'Ошибка при регистрации';
+            return $this->render('auth/register', [
+                'errors' => [$msg]
+            ]);
+        }
+
+        // Успех — сразу логиним или кидаем на страницу входа
+        // Вариант 1: сразу войти
+        session_regenerate_id(true);
+        $_SESSION['logged_in'] = true;
+        $_SESSION['nickname']  = $result['username'] ?? $username;
+        $_SESSION['unique_id'] = $result['unique_id'] ?? null;
+        $_SESSION['user_id']   = $result['unique_id'] ?? $username;
+
+        header('Location: /SweetLolly_new/profile/' . rawurlencode($_SESSION['nickname']) . '/');
+        exit;
+
+        // Вариант 2 (если хочешь только редирект на логин):
+        // header('Location: /SweetLolly_new/login/');
+        // exit;
+    }
+
+    return $this->render('auth/register');
+}
 
     public function logout()
     {

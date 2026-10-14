@@ -46,15 +46,14 @@ function getDescription($minigame)
                 <h2 class="section-title">Профиль игрока</h2>
                 <div class="grid-2">
                     <div class="left-panel">
+
                         <div class="avatar">
                             <?php
-                            $skinUuid = $user['mojang_uuid'] ?? $user['unique_id'] ?? '';
-                            $skinUrl = $skinUuid !== ''
-                                ? 'https://nmsr.nickac.dev/fullbody/' . rawurlencode($skinUuid)
-                                : 'https://nmsr.nickac.dev/fullbody/' . rawurlencode($user['nickname'] ?? 'Steve');
+                                $nickname = trim($user['nickname'] ?? 'Steve');
                             ?>
-                            <img src="<?= htmlspecialchars($skinUrl) ?>" alt="">
+                            <img src="https://nmsr.nickac.dev/fullbody/<?= htmlspecialchars($nickname, ENT_QUOTES, 'UTF-8') ?>">
                         </div>
+
                         <h2 class="nickname"><?= htmlspecialchars($user['nickname'] ?? '') ?></h2>
                         <h3 class="player-role-pill">
                             <svg  xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24" >
@@ -137,37 +136,29 @@ function getDescription($minigame)
                         <h3>Статистика по мини-играм</h3>
                         <div class="">
                             <div class="minigames_stats">
-                                <?php foreach ($minigame_stats as $minigame => $stats): ?>
-                                <div class="minigame_stat">
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <img style="width: 84px; height: 84px; border-radius: 11px;" src="/SweetLolly_new/project/webroot/resources/noavatar.jpg">
-                                        <div class="">
-                                            <h3><?= htmlspecialchars($minigame) ?></h3>
-                                            <p><?= getDescription($minigame) ?></p>
-                                        </div>
+                                <?php if (!empty($minigame_stats['BedWars'])): 
+                                    $bw = $minigame_stats['BedWars']; ?>
+                                    <div class="stat-card">
+                                        <h3>BedWars</h3>
+                                        <p>Побед: <?= (int)($bw['wins'] ?? 0) ?></p>
+                                        <p>Поражений: <?= (int)($bw['losses'] ?? 0) ?></p>
+                                        <p>Убийств: <?= (int)($bw['kills'] ?? 0) ?></p>
+                                        <p>Смертей: <?= (int)($bw['deaths'] ?? 0) ?></p>
+                                        <p>Кроватей: <?= (int)($bw['beds_destroyed'] ?? 0) ?></p>
+                                        <p>Рейтинг: <?= (int)($bw['rating'] ?? 0) ?></p>
                                     </div>
-                                    <div class="">
-                                        <p>Побед: <b><?= htmlspecialchars($stats['wins']) ?? 0 ?></b></p>
-                                        <p>Поражений: <b><?= htmlspecialchars($stats['loses']) ?? 0 ?></b></p>
-                                        <p>
-                                            <?php
-                                                if (!empty($stats['best_time'])) {
-                                                    $label = 'Лучшее время';
-                                                    $value = $stats['best_time'];
-                                                } else if (!empty($stats['kills'])) {
-                                                    $label = 'Убийств';
-                                                    $value = $stats['kills'];
-                                                } else {
-                                                    $label = '-';
-                                                    $value = '-';
-                                                }
-                                                echo $label;
-                                            ?>:
-                                            <b><?= htmlspecialchars($value ?? '0') ?></b>
-                                        </p>
+                                <?php endif; ?>
+
+                                <?php if (!empty($minigame_stats['Classic Duel'])): 
+                                    $cd = $minigame_stats['Classic Duel']; ?>
+                                    <div class="stat-card">
+                                        <h3>Classic Duel</h3>
+                                        <p>Побед: <?= (int)($cd['wins'] ?? 0) ?></p>
+                                        <p>Поражений: <?= (int)($cd['losses'] ?? 0) ?></p>
+                                        <p>Ничьих: <?= (int)($cd['draws'] ?? 0) ?></p>
+                                        <p>Хитов: <?= (int)($cd['hits'] ?? 0) ?></p>
                                     </div>
-                                </div>
-                                <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                             
                         </div>

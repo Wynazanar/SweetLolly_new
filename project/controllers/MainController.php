@@ -83,155 +83,16 @@ class MainController extends Controller
 	public function settings()
 	{
 		$this->title = "Настройки аккаунта | SweetLolly";
-		return $this->render('user/settings', [
-			'user' => [
-				'nickname'      => 'Wynazanar',
-				'unique_id'     => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-				'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
-				'email'         => 'steve@example.com',
-				'last_login'    => '2026-09-13 12:00:00',
-				'creation_date' => '2024-04-21 00:00:00',
-				'points'        => 1500,
-				'friends'       => 5,
-				'favorite_minigame' => 'BedWars',
-				'prefix' 		=> 'Developer',
-			],
-			'minigame_stats' => [
-				'TNT Run' => [
-					'wins' => 6,
-					'loses' => 7,
-					'points' => 99000,
-					'best_time' => '00:45.23',
-				],
-				'BedWars' => [
-					'wins' => 9,
-					'loses' => 4,
-					'kills' => 30,
-					'death' => 19,
-					'broken_beds' => 4,
-					'points' => 1133,
-				],
-				'SkyWars' => [
-					'wins' => 9,
-					'loses' => 25,
-					'kills' => 42,
-					'deaths' => 19,
-					'points' => 4420,
-				],
-				'Murder Mystery' => [
-					'wins' => 10,
-					'loses' => 2,
-					'murders' => 5,
-					'deaths' => 10,
-					'points' => 10540,
-					'murderer_eliminations' => 34,
-				],
-				'BuildBattle' => [
-					'wins' => 3,
-					'loses' => 8,
-					'rating' => [
-						'super_poop' => 1,
-						'poop' => 0,
-						'normal' => 7,
-						'epic' => 14,
-						'legengary' => 4,
-					]
-				],
-				'Arcades' => [
-					'wins' => 10,
-					'loses' => 3,
-				],
-				'BlockParty' => [
-					'wins' => 41,
-					'loses' => 62,
-					'points' => 11563,
-				],
-			],
-			'isOwnProfile' => true,
-		]);
 	}
 
-	public function profile($params)
-	{
-		// ─── DEV MOCK: убрать перед деплоем ───────────────────────────
-		if (getenv('APP_ENV') === 'local' || true) {   // ← уберите "|| true" когда не нужно
-			$this->title = 'Wynazanar | Профиль | SweetLolly';
-			return $this->render('user/profile', [
-				'user' => [
-					'nickname'      => 'Wynazanar',
-					'unique_id'     => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-					'mojang_uuid'   => 'd8cc6cb6-e884-47a0-a35b-80f41699f17c',
-					'email'         => 'steve@example.com',
-					'last_login'    => '2026-09-13 12:00:00',
-					'creation_date' => '2024-04-21 00:00:00',
-					'points'        => 1500,
-					'friends'       => 5,
-					'favorite_minigame' => 'BedWars',
-					'prefix' 		=> 'Developer',
-				],
-				'minigame_stats' => [
-					'TNT Run' => [
-						'wins' => 6,
-						'loses' => 7,
-						'points' => 99000,
-						'best_time' => '00:45.23',
-					],
-					'BedWars' => [
-						'wins' => 9,
-						'loses' => 4,
-						'kills' => 30,
-						'death' => 19,
-						'broken_beds' => 4,
-						'points' => 1133,
-					],
-					'SkyWars' => [
-						'wins' => 9,
-						'loses' => 25,
-						'kills' => 42,
-						'deaths' => 19,
-						'points' => 4420,
-					],
-					'Murder Mystery' => [
-						'wins' => 10,
-						'loses' => 2,
-						'murders' => 5,
-						'deaths' => 10,
-						'points' => 10540,
-						'murderer_eliminations' => 34,
-					],
-					'BuildBattle' => [
-						'wins' => 3,
-						'loses' => 8,
-						'rating' => [
-							'super_poop' => 1,
-							'poop' => 0,
-							'normal' => 7,
-							'epic' => 14,
-							'legengary' => 4,
-						]
-					],
-					'Arcades' => [
-						'wins' => 10,
-						'loses' => 3,
-					],
-					'BlockParty' => [
-						'wins' => 41,
-						'loses' => 62,
-						'points' => 11563,
-					],
-				],
-				'isOwnProfile' => true,
-			]);
-		}
-	    // ──────────────────────────────────────────────────────────────
-
-
+	public function profile($params) {
 		$nickname = trim(urldecode($params['player'] ?? ''));
 		if ($nickname === '') {
 			$this->title = 'Игрок не найден | SweetLolly';
 			return $this->render('user/profile', [
 				'user' => null,
 				'nickname' => '',
+				'minigame_stats' => [],
 			]);
 		}
 
@@ -240,25 +101,14 @@ class MainController extends Controller
 			&& $sessionNick !== ''
 			&& strcasecmp($sessionNick, $nickname) === 0;
 
-		$fallbackUuid = $isOwnProfile ? ($_SESSION['unique_id'] ?? null) : null;
 		$bridge = new BridgeApi();
-		$resolved = $bridge->resolveProfile(
-			$nickname,
-			is_string($fallbackUuid) ? $fallbackUuid : null
-		);
-		$user = $resolved['user'];
 
+		// 1. Основные данные из nlogin
+		$user = $bridge->getProfile($nickname);
+
+		// Если API недоступен, но это свой профиль — берём из сессии
 		if ($user === null && $isOwnProfile) {
 			$user = $this->profileFromSession($nickname);
-		}
-
-		if ($user === null && !$resolved['bridgeAvailable']) {
-			$this->title = 'Профиль | SweetLolly';
-			return $this->render('user/profile', [
-				'user' => null,
-				'nickname' => $nickname,
-				'bridgeError' => true,
-			]);
 		}
 
 		if ($user === null) {
@@ -266,25 +116,23 @@ class MainController extends Controller
 			return $this->render('user/profile', [
 				'user' => null,
 				'nickname' => $nickname,
+				'minigame_stats' => [],
+				'bridgeError' => $bridge->getLastError() !== null,
 			]);
 		}
 
-		$uuid = $user['unique_id'] ?? null;
-		$nick = $user['nickname'] ?? $nickname;
-		if (is_string($uuid) && $uuid !== '') {
-			$user['points'] = $bridge->playerPoints($uuid, is_string($nick) ? $nick : null);
-		} elseif (is_string($nick) && $nick !== '') {
-			$user['points'] = $bridge->playerPoints('', $nick);
-		}
+		// 2. Статистика мини-игр
+		$minigameStats = $bridge->getMinigameStats($nickname);
 
-		$displayNick = $user['nickname'] ?? $nickname;
-		$user['mojang_uuid'] = $this->getMojangUuid($displayNick);
-
-		$this->title = $user['nickname'] . ' | Профиль | SweetLolly';
+		// 3. Скин (Mojang)
+		$user['mojang_uuid'] = $this->getMojangUuid($user['nickname'] ?? $nickname);
+		
+		$this->title = ($user['nickname'] ?? $nickname) . ' | Профиль | SweetLolly';
 
 		return $this->render('user/profile', [
-			'user' => $user,
-			'isOwnProfile' => $isOwnProfile,
+			'user'           => $user,
+			'minigame_stats' => $minigameStats,
+			'isOwnProfile'   => $isOwnProfile,
 		]);
 	}
 
