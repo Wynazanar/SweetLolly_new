@@ -180,6 +180,7 @@ class BridgeApi
             'last_ip'       => $data['last_ip'] ?? null,
             'last_login'    => $data['last_login'] ?? null,
             'creation_date' => $data['creation_date'] ?? null,
+            'prefix'        => $data['prefix'] ?? 'Игрок',
         ];
     }
 

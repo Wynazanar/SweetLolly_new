@@ -14,10 +14,10 @@ require_once $projectRoot . '/project/components/Accordion.php';
             <div></div>
         </div>
 
-        <div>
-            <div>
+        <div style="margin-top: 28px;">
+            <div class="div-title">
                 <h2>Популярные вопросы</h2>
-                <div>
+                <div class="div-quick-questions">
                     <p>Все вопросы</p>
                     <p>Подключение</p>
                     <p>Аккаунт</p>
@@ -62,9 +62,9 @@ require_once $projectRoot . '/project/components/Accordion.php';
                 <div class="aside-help">
                     <h3 class="aside-help-title">Не нашёл ответ?</h3>
                     <p class="aside-help-descr">Напиши нам. Приложи никнейм и короткое описание ситуации.</p>
-                    <a style="display: flex;" href="sweetauth.project@gmail.com" class="aside-help-descr purple">sweetauth.project@gmail.com</a>
+                    <a style="display: flex; margin-block: 0px;" href="sweetauth.project@gmail.com" class="aside-help-descr purple">sweetauth.project@gmail.com</a>
                     <a class="aside-help-link purple">Написать на email</a>
-                    <p class="aside-help-descr">Не отправляй пароли и платёжные данные. Срок ответа не фиксирован.</p>
+                    <p class="aside-help-descr" style="margin-block: 0px;">Не отправляй пароли и платёжные данные. Срок ответа не фиксирован.</p>
                     <a class="aside-help-link">Открыть форум</a>
                 </div>
             </div>
