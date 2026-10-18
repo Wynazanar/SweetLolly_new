@@ -78,7 +78,7 @@ if (empty($_SESSION['csrf_token'])) {
 						<div class="user user-logged">
 							<a class="user-logg-a"
 								href="/SweetLolly_new/profile/<?= htmlspecialchars($_SESSION['nickname'] ?? '') ?>/">
-								<img src="/SweetLolly_new/project/webroot/resources/noavatar.jpg" alt="avatar">
+								<img src="https://nmsr.nickac.dev/bust/<?= htmlspecialchars($_SESSION['nickname']) ?>" alt="avatar">
 								<p><?= htmlspecialchars($_SESSION['nickname'] ?? 'Игрок') ?></p>
 							</a>
 							<a href="/SweetLolly_new/logout/" class="logout">

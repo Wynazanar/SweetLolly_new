@@ -133,67 +133,93 @@ $minigames_config = [
                 <section class="profile-section">
     <div class="section-header">
         <h4>Статистика по мини-играм</h4>
-        <span class="section-count"><?= count(array_filter($minigame_stats ?? [])) ?> режимов</span>
+        <span class="section-count">
+            <?= count(array_filter($minigame_stats ?? [])) ?> режимов
+        </span>
     </div>
 
-    <div class="stats-grid">
-        <?php foreach ($minigames_config as $gameName => $config): 
-            if (empty($minigame_stats[$gameName])) continue;
+    <?php if (empty($minigame_stats)): ?>
+        <p class="empty-stats">Статистика пока отсутствует</p>
+    <?php else: ?>
+        <div class="stats-grid">
+            <?php foreach ($minigames_config as $gameName => $config): ?>
+                <?php
+                    if (empty($minigame_stats[$gameName])) continue;
+                    $stats = $minigame_stats[$gameName];
+                    $hasModes = !empty($config['has_modes']);
+                    $modes = $config['modes'] ?? [];
+                ?>
+                <div class="stat-card" data-game="<?= htmlspecialchars($gameName) ?>">
+                    
+                    <div class="stat-card-header">
+                        <h3><?= htmlspecialchars($gameName) ?></h3>
+                        <?php if (isset($stats['rating'])): ?>
+                            <span class="stat-badge">Рейтинг <?= (int)$stats['rating'] ?></span>
+                        <?php endif; ?>
+                    </div>
 
-            $stats = $minigame_stats[$gameName];
-
-            // Считаем винрейт
-            $wins   = (int)($stats['wins'] ?? 0);
-            $losses = (int)($stats['losses'] ?? 0);
-            $draws  = (int)($stats['draws'] ?? 0);
-            $total  = $wins + $losses + $draws;
-            $winrate = $total > 0 ? round(($wins / $total) * 100) : 0;
-
-            // K/D (если нужно)
-            $kd = null;
-            if ($config['show_kd']) {
-                $kills  = (int)($stats['kills'] ?? 0);
-                $deaths = (int)($stats['deaths'] ?? 0);
-                $kd = $deaths > 0 ? round($kills / $deaths, 2) : $kills;
-            }
-        ?>
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <h3><?= htmlspecialchars($gameName) ?></h3>
-                    <?php if (!empty($stats['rating'])): ?>
-                        <span class="stat-badge">Рейтинг <?= (int)$stats['rating'] ?></span>
-                    <?php endif; ?>
-                </div>
-
-                <div class="stat-main">
-                    <?php if ($config['show_winrate']): ?>
-                        <div class="stat-big">
-                            <span class="stat-number"><?= $winrate ?>%</span>
-                            <span class="stat-label">Винрейт</span>
+                    <?php if ($hasModes): ?>
+                        <div class="mode-switcher">
+                            <?php foreach ($modes as $modeKey => $modeLabel): ?>
+                                <button type="button" 
+                                        class="mode-btn <?= $modeKey === 'overall' ? 'active' : '' ?>"
+                                        data-mode="<?= $modeKey ?>">
+                                    <?= $modeLabel ?>
+                                </button>
+                            <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($kd !== null): ?>
-                        <div class="stat-big">
-                            <span class="stat-number"><?= $kd ?></span>
-                            <span class="stat-label">K/D</span>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                    <div class="stat-body" data-mode-content="overall">
+                        <?php
+                            // Пока показываем overall (или единственный набор)
+                            $current = $stats; // позже можно будет брать $stats[$modeKey]
+                            
+                            $wins   = (int)($current['wins'] ?? 0);
+                            $losses = (int)($current['losses'] ?? 0);
+                            $draws  = (int)($current['draws'] ?? 0);
+                            $total  = $wins + $losses + $draws;
+                            $winrate = $total > 0 ? round(($wins / $total) * 100) : 0;
 
-                <div class="stat-details">
-                    <?php foreach ($config['fields'] as $key => $label): 
-                        if (!isset($stats[$key])) continue;
-                    ?>
-                        <div class="stat-row">
-                            <span><?= $label ?></span>
-                            <strong><?= (int)$stats[$key] ?></strong>
+                            $kd = null;
+                            if (!empty($config['show_kd'])) {
+                                $kills  = (int)($current['kills'] ?? 0);
+                                $deaths = (int)($current['deaths'] ?? 0);
+                                $kd = $deaths > 0 ? round($kills / $deaths, 2) : $kills;
+                            }
+                        ?>
+
+                        <div class="stat-main">
+                            <?php if (!empty($config['show_winrate'])): ?>
+                                <div class="stat-big">
+                                    <span class="stat-number"><?= $winrate ?>%</span>
+                                    <span class="stat-label">Винрейт</span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($kd !== null): ?>
+                                <div class="stat-big">
+                                    <span class="stat-number"><?= $kd ?></span>
+                                    <span class="stat-label">K/D</span>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endforeach; ?>
+
+                        <div class="stat-details">
+                            <?php foreach ($config['fields'] as $key => $label): ?>
+                                <?php if (!isset($current[$key])) continue; ?>
+                                <div class="stat-row">
+                                    <span><?= $label ?></span>
+                                    <strong><?= (int)$current[$key] ?></strong>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </section>
 
                 <!-- Достижения -->
