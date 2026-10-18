@@ -33,11 +33,83 @@ class MainController extends Controller
 		$gameSlug = urldecode($gameName['game'] ?? '');
 		$gameInfo = $page->getGameByName($gameSlug);
 
-		$this->title = $gameInfo ? $gameInfo['name'] . ' | SweetLolly' : $gameSlug . ' | SweetLolly';
+		$this->title = $gameInfo
+			? $gameInfo['name'] . ' | SweetLolly'
+			: $gameSlug . ' | SweetLolly';
+
+		// маппинг: slug/название игры → endpoint плагина + колонки
+		$tops = $this->resolveTopConfig($gameInfo, $gameSlug);
+
+		$topRows = [];
+		$topMeta = ['page' => 1, 'pages' => 1, 'total' => 0, 'limit' => 20];
+
+		if ($tops !== null) {
+			$bridge = new BridgeApi();
+			$result = $bridge->getTop($tops['endpoint'], [
+				'page'    => 1,
+				'limit'   => 20,
+				'orderBy' => $tops['orderBy'],
+				'order'   => 'desc',
+			]);
+			if ($result !== null) {
+				$topRows = $result['rows'];
+				$topMeta = $result['meta'];
+			}
+		}
 
 		return $this->render('games/gameInfo', [
-			"game" => $gameInfo,
+			'game'      => $gameInfo,
+			'topConfig' => $tops,      // null, если для этой игры топа нет
+			'topRows'   => $topRows,
+			'topMeta'   => $topMeta,
 		]);
+	}
+
+	/**
+	 * Какая мини-игра → какой endpoint и колонки таблицы
+	 */
+	private function resolveTopConfig(?array $gameInfo, string $slug): ?array
+	{
+		// ключ — то, что в URL /games/.../ (или name из БД, как удобнее)
+		$map = [
+			'bedwars' => [
+				'endpoint' => 'bw-top',
+				'orderBy'  => 'rating',
+				'columns'  => [
+					'player_name'    => 'Игрок',
+					'kills'          => 'Убийства',
+					'deaths'         => 'Смерти',
+					'wins'           => 'Победы',
+					'losses'         => 'Поражения',
+					'beds_destroyed' => 'Кровати',
+					'rating'         => 'Рейтинг',
+				],
+			],
+			'bow duel' => [
+				'endpoint' => 'bow-top',
+				'orderBy'  => 'wins',
+				'columns'  => [
+					'player_name' => 'Игрок',
+					'wins'        => 'Победы',
+					'losses'      => 'Поражения',
+					'kills'       => 'Убийства',
+					'deaths'      => 'Смерти',
+				],
+			],
+			'classic duel' => [
+				'endpoint' => 'classic-top',
+				'orderBy'  => 'wins',
+				'columns'  => [
+					'player_name' => 'Игрок',
+					'wins'        => 'Победы',
+					'losses'      => 'Поражения',
+				],
+			],
+			// добавь остальные по аналогии
+		];
+
+		$key = mb_strtolower($gameInfo['name'] ?? $slug);
+		return $map[$key] ?? null;
 	}
 
 	public function rules()

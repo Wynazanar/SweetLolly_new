@@ -267,4 +267,47 @@ class BridgeApi
         $data = json_decode($response, true);
         return is_array($data) ? $data : null;
     }
+
+    /**
+     * Топ мини-игры с пагинацией
+     * @return array{rows: array, meta: array}|null
+     */
+    public function getTop(string $endpoint, array $params = []): ?array
+    {
+        $endpoint = trim($endpoint, '/');
+        $allowed = [
+            'bw-top', 'bow-top', 'bow-top-mode', 'boxing-top',
+            'classic-top', 'uhc-top', 'sumo-top', 'bridge-solo',
+        ];
+        if (!in_array($endpoint, $allowed, true)) {
+            $this->lastError = self::ERR_ENDPOINT;
+            return null;
+        }
+
+        $query = array_filter([
+            'page'    => $params['page']    ?? 1,
+            'limit'   => $params['limit']   ?? 20,
+            'orderBy' => $params['orderBy'] ?? null,
+            'order'   => $params['order']   ?? 'desc',
+            'search'  => $params['search']  ?? null,
+        ], fn($v) => $v !== null && $v !== '');
+
+        $path = '/' . $endpoint . '?' . http_build_query($query);
+        $data = $this->get($path);
+
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+
+        return [
+            'rows' => $data[$endpoint] ?? [],
+            'meta' => $data['meta'] ?? [
+                'page'  => (int)($query['page'] ?? 1),
+                'limit' => (int)($query['limit'] ?? 20),
+                'total' => count($data[$endpoint] ?? []),
+                'pages' => 1,
+            ],
+        ];
+    }
 }

@@ -1,47 +1,35 @@
 <?php
 require_once $projectRoot . '/project/components/Table.php';
-
-$apiBase = "http://127.0.0.1:3000/bw-top";
-$page    = 1;
-$limit   = 20;
-
-$url  = $apiBase . '?page=' . $page . '&limit=' . $limit . '&orderBy=rating&order=desc';
-$json = json_decode(@file_get_contents($url), true) ?: [];
-
-$rows = $json['bw-top'] ?? [];
-$meta = $json['meta'] ?? ['page' => 1, 'pages' => 1, 'total' => 0];
-
-$columns = [
-    'player_name'      => 'Игрок',
-    'kills'            => 'Убийства',
-    'deaths'           => 'Смерти',
-    'wins'             => 'Победы',
-    'losses'           => 'Поражения',
-    'beds_destroyed'   => 'Кровати',
-    'rating'           => 'Рейтинг',
-];
-
 ?>
-
 <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/gameInfo.css">
 <main>
   <div class="container">
-    <?php
-      echo Table::make(
-        columns:   $columns,
-        rows:      $rows,
-        id:        'bw-top',
-        searchable: true,
-        sortable:  true,
-        apiUrl:    $apiBase,           // ← без этого JS не выведется
-        dataKey:   'bw-top',
-        page:      (int)($meta['page'] ?? 1),
-        pageSize:  $limit,
-        total:     (int)($meta['total'] ?? 0),
-        pages:     (int)($meta['pages'] ?? 1),
-        orderBy:   'rating',
-        order:     'desc'
-      );
-    ?>
+    <?php if (!empty($game)): ?>
+      <h1><?= htmlspecialchars($game['name'] ?? '') ?></h1>
+      <!-- остальная вёрстка режима -->
+    <?php endif; ?>
+
+    <?php if ($topConfig !== null): ?>
+      <h2 class="section-title">Топ игроков</h2>
+      <?php
+        $endpoint = $topConfig['endpoint'];
+        echo Table::make(
+            columns:    $topConfig['columns'],
+            rows:       $topRows,
+            id:         $endpoint,
+            searchable: true,
+            sortable:   true,
+            // только путь сайта — IP плагина здесь нет
+            apiUrl:     '/SweetLolly_new/api/top/' . $endpoint,
+            dataKey:    $endpoint,
+            page:       (int)($topMeta['page'] ?? 1),
+            pageSize:   (int)($topMeta['limit'] ?? 20),
+            total:      (int)($topMeta['total'] ?? 0),
+            pages:      (int)($topMeta['pages'] ?? 1),
+            orderBy:    $topConfig['orderBy'],
+            order:      'desc'
+        );
+      ?>
+    <?php endif; ?>
   </div>
 </main>

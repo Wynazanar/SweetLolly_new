@@ -18,5 +18,7 @@
 		new Route('/login/',  'auth', 'login'),
 		new Route('/register/','auth', 'register'),
 		new Route('/logout/', 'auth', 'logout'),
+
+		new Route('/api/top/:endpoint', 'api', 'top'),
 	];
 	
