@@ -8,10 +8,17 @@ $projectRoot = $_SERVER['DOCUMENT_ROOT'] . '/SweetLolly_new';
 $baseUrl = '/SweetLolly_new';
 
 $uri = $_SERVER['REQUEST_URI'];
+// убираем базовый путь
 if (strpos($uri, $baseUrl) === 0) {
     $uri = substr($uri, strlen($baseUrl));
 }
-if (empty($uri) || $uri === '/') {
+
+// убираем ?page=2&limit=20...  ← ЭТОГО НЕ ХВАТАЛО
+if (($qPos = strpos($uri, '?')) !== false) {
+    $uri = substr($uri, 0, $qPos);
+}
+
+if ($uri === '' || $uri === false) {
     $uri = '/';
 }
 
