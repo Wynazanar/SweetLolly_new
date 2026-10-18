@@ -1,21 +1,24 @@
 <?php
 require_once $projectRoot . '/project/components/Table.php';
 
-$rows = [
-  ['nickname' => 'Wynazanar', 'role' => 'Developer', 'points' => 1500, 'status' => 'Онлайн'],
-  ['nickname' => 'Steve',     'role' => 'Игрок',     'points' => 320,  'status' => 'Оффлайн'],
-  ['nickname' => 'Alex',      'role' => 'Модератор', 'points' => 890,  'status' => 'Онлайн'],
-];
+$apiBase = "http://127.0.0.1:3000/bw-top";
+$page    = 1;
+$limit   = 20;
 
-$filters = [
-  'role' => [
-  'label'   => 'Роль',
-  'options' => ['Developer', 'Модератор', 'Игрок'],
-  ],
-  'status' => [
-  'label'   => 'Статус',
-  'options' => ['Онлайн', 'Оффлайн'],
-  ],
+$url  = $apiBase . '?page=' . $page . '&limit=' . $limit . '&orderBy=rating&order=desc';
+$json = json_decode(@file_get_contents($url), true) ?: [];
+
+$rows = $json['bw-top'] ?? [];
+$meta = $json['meta'] ?? ['page' => 1, 'pages' => 1, 'total' => 0];
+
+$columns = [
+    'player_name'      => 'Игрок',
+    'kills'            => 'Убийства',
+    'deaths'           => 'Смерти',
+    'wins'             => 'Победы',
+    'losses'           => 'Поражения',
+    'beds_destroyed'   => 'Кровати',
+    'rating'           => 'Рейтинг',
 ];
 
 ?>
@@ -25,11 +28,19 @@ $filters = [
   <div class="container">
     <?php
       echo Table::make(
-          columns: ['nickname' => 'Игрок', 'wins' => 'Победы', 'kills' => 'Убийства', 'deaths' => 'Смерти', 'points' => 'Очки'],
-          rows: $rows,
-          id: 'players-table',
-          searchable: false,
-          sortable: false,
+        columns:   $columns,
+        rows:      $rows,
+        id:        'bw-top',
+        searchable: true,
+        sortable:  true,
+        apiUrl:    $apiBase,           // ← без этого JS не выведется
+        dataKey:   'bw-top',
+        page:      (int)($meta['page'] ?? 1),
+        pageSize:  $limit,
+        total:     (int)($meta['total'] ?? 0),
+        pages:     (int)($meta['pages'] ?? 1),
+        orderBy:   'rating',
+        order:     'desc'
       );
     ?>
   </div>

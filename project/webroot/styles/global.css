@@ -731,4 +731,7 @@ body.dark .footer-top::after {
     line-height: 1.55;
 }
 
-/*  */
+/* TABLE */
+.dt-wrap {
+    background: var(--card);
+}
