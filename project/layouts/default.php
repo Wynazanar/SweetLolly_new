@@ -297,7 +297,4 @@ if (empty($_SESSION['csrf_token'])) {
 		</div>
 	</footer>
 </body>
-
-<script src="/SweetLolly_new/project/webroot/scripts/test.js"></script>
-
 </html>
