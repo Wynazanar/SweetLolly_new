@@ -1,7 +1,7 @@
 /* —— Warning —— */
 .rules-warning {
-    background: linear-gradient(135deg, rgba(255, 184, 77, 0.16), rgba(255, 93, 122, 0.10));
-    border: 1px solid rgba(255, 184, 77, 0.28);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
     border-radius: 18px;
     padding: 16px 18px;
     margin: 20px 0 28px;
@@ -10,11 +10,7 @@
 }
 
 .rules-warning b {
-    color: #c97a1a;
-}
-
-body.dark .rules-warning b {
-    color: #ffc46b;
+    color: var(--warning);
 }
 
 /* —— Layout —— */
@@ -34,7 +30,7 @@ body.dark .rules-warning b {
 }
 
 .rules-sections {
-    background: var(--card);
+    background: var(--surface-translucent);
     border: 1px solid var(--border);
     border-radius: 20px;
     box-shadow: var(--soft-shadow);
@@ -62,7 +58,7 @@ body.dark .rules-warning b {
     gap: 10px;
     padding: 10px 12px;
     border-radius: 12px;
-    color: var(--foreground);
+    color: var(--text-secondary);
     font-weight: 700;
     font-size: 14.5px;
     text-decoration: none;
@@ -72,26 +68,26 @@ body.dark .rules-warning b {
 
 .rules-nav-link svg {
     flex-shrink: 0;
-    fill: var(--menu-icon-color);
+    fill: var(--menu-icon);
     transition: fill 0.15s ease;
 }
 
 .rules-nav-link:hover {
-    background: rgba(168, 79, 236, 0.10);
-    color: #c879ff;
+    background: var(--pill-bg);
+    color: var(--accent);
 }
 
 .rules-nav-link:hover svg {
-    fill: #c879ff;
+    fill: var(--accent);
 }
 
 .rules-nav-link.active {
-    background: rgba(168, 79, 236, 0.14);
-    color: #c879ff;
+    background: var(--pill-bg);
+    color: var(--accent);
 }
 
 .rules-nav-link.active svg {
-    fill: #c879ff;
+    fill: var(--accent);
 }
 
 /* —— Content sections —— */
@@ -100,7 +96,7 @@ body.dark .rules-warning b {
 }
 
 .rules-section {
-    background: var(--card);
+    background: var(--surface-translucent);
     border: 1px solid var(--border);
     border-radius: 22px;
     box-shadow: var(--soft-shadow);
@@ -126,7 +122,7 @@ body.dark .rules-warning b {
     grid-template-columns: 48px minmax(0, 1fr);
     gap: 14px;
     align-items: start;
-    background: var(--ui-surface-2);
+    background: var(--surface-3);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 14px 16px;
@@ -134,14 +130,14 @@ body.dark .rules-warning b {
 }
 
 .rule-item:hover {
-    border-color: rgba(168, 79, 236, 0.35);
+    border-color: var(--focus-border);
 }
 
 .rule-num {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: var(--lolli-grad);
+    background: var(--grad-lolli);
     color: #fff;
     font-weight: 900;
     font-size: 13px;
@@ -159,31 +155,31 @@ body.dark .rules-warning b {
 }
 
 .rule-body p {
-    color: var(--footer-gray-color);
+    color: var(--muted-strong);
     font-size: 14.5px;
     line-height: 1.55;
     margin: 0;
 }
 
 .rules-section .muted {
-    color: var(--footer-gray-color);
+    color: var(--muted-strong);
     margin: 12px 0 16px;
     line-height: 1.6;
     font-size: 15px;
 }
 
 .rule-note {
-    border-left: 4px solid #c879ff;
-    background: var(--ui-surface-2);
-    border-radius: 0 14px 14px 0;
+    border-left: 4px solid var(--accent);
+    background: var(--surface-3);
+    border-radius: 10px 0px 0px 10px;
     padding: 14px 16px;
-    color: var(--footer-gray-color);
+    color: var(--muted-strong);
     line-height: 1.6;
     font-size: 14.5px;
 }
 
 .rule-note b {
-    color: var(--foreground);
+    color: var(--text-secondary);
 }
 
 /* —— Punishment badge —— */
@@ -193,9 +189,9 @@ body.dark .rules-warning b {
     gap: 6px;
     margin-top: 10px;
     border-radius: 999px;
-    background: rgba(255, 93, 122, 0.10);
-    border: 1px solid rgba(255, 93, 122, 0.18);
-    color: #d84461;
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    color: var(--danger);
     font-weight: 700;
     padding: 5px 10px;
     font-size: 12.5px;
@@ -204,18 +200,8 @@ body.dark .rules-warning b {
 }
 
 .punishment svg {
-    fill: #d84461;
+    fill: var(--danger);
     flex-shrink: 0;
-}
-
-body.dark .punishment {
-    color: #ff8a9e;
-    background: rgba(255, 93, 122, 0.14);
-    border-color: rgba(255, 93, 122, 0.28);
-}
-
-body.dark .punishment svg {
-    fill: #ff8a9e;
 }
 
 /* —— Responsive —— */
@@ -268,6 +254,7 @@ body.dark .punishment svg {
     }
 }
 
+/* —— Search —— */
 .rules-search {
     position: relative;
     margin: 0 0 14px;
@@ -286,11 +273,11 @@ body.dark .punishment svg {
     width: 100%;
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: var(--ui-surface-2);
+    background: var(--surface-3);
     padding: 11px 36px 11px 38px;
     font-weight: 600;
     font-size: 14px;
-    color: var(--foreground);
+    color: var(--text-secondary);
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
     box-sizing: border-box;
@@ -302,9 +289,9 @@ body.dark .punishment svg {
 }
 
 .rules-search input:focus {
-    border-color: rgba(168, 79, 236, 0.45);
-    box-shadow: 0 0 0 3px rgba(168, 79, 236, 0.12);
-    background: var(--card);
+    border-color: var(--focus-border);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+    background: var(--surface-translucent);
 }
 
 .rules-search-clear {
@@ -316,8 +303,8 @@ body.dark .punishment svg {
     height: 24px;
     border: 0;
     border-radius: 50%;
-    background: rgba(168, 79, 236, 0.12);
-    color: #c879ff;
+    background: var(--pill-bg);
+    color: var(--accent);
     font-size: 16px;
     line-height: 1;
     cursor: pointer;
@@ -328,7 +315,7 @@ body.dark .punishment svg {
 }
 
 .rules-search-clear:hover {
-    background: rgba(168, 79, 236, 0.22);
+    background: var(--pill-bg-strong);
 }
 
 .rules-search-clear[hidden] {

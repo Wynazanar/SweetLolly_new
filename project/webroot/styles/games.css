@@ -8,8 +8,8 @@
 
 .games-good-filter button {
     border: 1.5px solid var(--border);
-    background: var(--card);
-    color: var(--footer-gray-color);
+    background: var(--surface-translucent);
+    color: var(--muted-strong);
     border-radius: 999px;
     padding: 4px 16px;
     font-size: 13px;
@@ -19,7 +19,7 @@
 
 .games-good-filter button.active {
     padding: 5.5px 17.5px;
-    background: linear-gradient(90deg, #ffbc73, #ff7ac8, #8b57ff);
+    background: var(--grad-games-active);
     font-weight: 600;
     color: #fff;
     border: 1.5px solid var(--border);
@@ -38,7 +38,7 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 20px;
-    background: var(--card);
+    background: var(--surface-translucent);
     border: 1px solid var(--border);
     box-shadow: var(--soft-shadow);
     color: var(--text);
@@ -85,15 +85,14 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.2);
-    background: var(--card2);
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+    background: var(--surface-2);
     border-radius: 20px;
     position: relative;
     z-index: 1;
     margin-top: -115px;
 }
 
-/* Категория — фиксированная высота */
 .game-good-body > p:first-child {
     font-size: 12px;
     margin: 0 0 8px 0;
@@ -106,7 +105,7 @@
 
 .game-good-body h3 {
     font-size: 28px;
-    margin-bottom: 2px;;
+    margin-bottom: 2px;
     line-height: 42px;
     font-weight: 800;
 }
@@ -119,7 +118,6 @@
 }
 
 /* ========== PILL ========== */
-
 .body-pill {
     position: absolute;
     left: 23px;
@@ -130,15 +128,15 @@
 }
 
 .body-pill p {
-    background: #FBFBFE;
+    background: var(--surface);
     border-radius: 25px;
     padding: 4px 8px 4px 24px;
     margin: 0 0 0 -20px;
-    color: #421DC9;
+    color: var(--accent-purple);
     font-weight: 600;
     font-size: 12px;
     line-height: 14px;
-    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
     white-space: nowrap;
@@ -148,19 +146,19 @@
     position: relative;
     width: 26px;
     height: 26px;
-    background: #FFFFFF;
+    background: var(--surface);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.15),
-                inset 1px 0 0 rgba(0, 0, 0, .07);
+    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.15),
+                inset 1px 0 0 rgba(0, 0, 0, 0.07);
     z-index: 2;
     flex-shrink: 0;
 }
 
 .body-pill svg {
-    fill: #421DC9;
+    fill: var(--accent-purple);
     display: block;
 }
 
@@ -174,11 +172,11 @@
 
 .game-good-tags p {
     border-radius: 999px;
-    background: rgba(168, 79, 236, .10);
+    background: var(--pill-bg);
     border: 1px solid var(--border);
     font-size: 13px;
     line-height: 20px;
-    color: var(--footer-gray-color);
+    color: var(--muted-strong);
     padding: 2px 10px;
 }
 
@@ -189,7 +187,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(90deg, #A251F8, #D663ED);
+    background: var(--grad-game-btn);
     border-radius: 999px;
 }
 
@@ -197,7 +195,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .good-footer-msg {
@@ -207,16 +204,14 @@
 }
 
 .good-footer-msg p {
-    color: var(--footer-gray-color);
+    color: var(--muted-strong);
     font-size: 13px;
     line-height: 20px;
 }
 
 .good-footer-msg svg {
-    fill: var(--footer-gray-color);
+    fill: var(--muted-strong);
 }
-
-
 
 /* ==================== ОСТАЛЬНОЕ ==================== */
 .games-good-gallery {
@@ -235,7 +230,7 @@
 .game-good-body span {
     width: max-content;
     border-radius: 999px;
-    background: rgba(168, 79, 236, .10);
+    background: var(--pill-bg);
     border: 1px solid var(--border);
     font-size: 12px;
     font-weight: 900;
@@ -276,18 +271,17 @@
 .games-good-view figcaption {
     padding: 12px;
     color: #fff;
-    background: rgba(255, 255, 255, .06);
+    background: rgba(255, 255, 255, 0.06);
     font-weight: 900;
 }
 
 /* ==================== АДАПТИВ ==================== */
-
 @media (max-width: 1024px) {
     .games-good-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
     }
-    
+
     .game-good-body {
         padding: 14px;
     }
@@ -298,19 +292,19 @@
         grid-template-columns: 1fr;
         gap: 14px;
     }
-    
+
     .game-good-card {
         border-radius: 18px;
     }
-    
+
     .game-good-media {
-        aspect-ratio: 16/9;
+        aspect-ratio: 16 / 9;
     }
-    
+
     .game-good-body {
         padding: 14px;
     }
-    
+
     .game-good-body h3 {
         font-size: 20px;
     }
