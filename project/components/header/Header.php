@@ -1,5 +1,7 @@
 <?php
 
+require_once $projectRoot . '/project/components/notify/Notify.php';
+
 class Header
 {
     public function render(): string
@@ -29,6 +31,8 @@ class Header
                         <div class="theme-toggle" data-theme-toggle></div>
 
                         <?php if ($loggedIn): ?>
+                            <?php echo Notify::make(); ?>
+
                             <div class="user user-logged">
                                 <a class="user-logg-a"
                                    href="/SweetLolly_new/profile/<?= htmlspecialchars($nickname) ?>/">
