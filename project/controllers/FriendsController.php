@@ -74,9 +74,18 @@ class FriendsController extends Controller
         $me = $this->requireLogin();
         $this->checkCsrf();
 
-        $from = trim($_POST['from'] ?? ''); // кто кинул заявку
+        $from = trim($_POST['from'] ?? '');
+        if ($from === '') {
+            header('Location: /SweetLolly_new/friends/');
+            exit;
+        }
+
         $bridge = new BridgeApi();
-        $bridge->acceptFriend($from, $me);
+        $ok = $bridge->acceptFriend($from, $me);
+
+        if ($ok) {
+            (new Notification())->markFriendRequestRead($me, $from);
+        }
 
         header('Location: /SweetLolly_new/friends/');
         exit;
@@ -90,7 +99,10 @@ class FriendsController extends Controller
 
         $from = trim($_POST['from'] ?? '');
         $bridge = new BridgeApi();
-        $bridge->rejectFriend($from, $me);
+        $ok = $bridge->rejectFriend($from, $me);
+        if ($ok) {
+            (new Notification())->markFriendRequestRead($me, $from);
+        }
 
         header('Location: /SweetLolly_new/friends/');
         exit;

@@ -44,4 +44,20 @@ class Notification extends Model
             WHERE id = $id AND player_name = '$playerName'
         ");
     }
+
+    public function markFriendRequestRead(string $playerName, string $fromNick): void
+    {
+        $playerName = mysqli_real_escape_string(self::$link, $playerName);
+        $fromNick = mysqli_real_escape_string(self::$link, $fromNick);
+
+        // MySQL 5.7+ / 8: JSON_UNQUOTE + JSON_EXTRACT
+        mysqli_query(self::$link, "
+            UPDATE site_notifications
+            SET is_read = 1
+            WHERE player_name = '$playerName'
+            AND is_read = 0
+            AND event_type = 'friend_request'
+            AND JSON_UNQUOTE(JSON_EXTRACT(payload, '$.from')) = '$fromNick'
+        ");
+    }
 }
