@@ -126,4 +126,62 @@ class ApiController extends Controller
         echo json_encode(['ok' => true]);
         exit;
     }
+
+    /** GET /api/notifications — список + счётчик (для polling) */
+    public function notifications()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        if (empty($_SESSION['logged_in']) || empty($_SESSION['nickname'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            exit;
+        }
+
+        $me = $_SESSION['nickname'];
+        $model = new Notification();
+        $items = $model->recentFor($me, 30);
+
+        // кто ещё ждёт ответа по заявке
+        $bridge = new BridgeApi();
+        $pending = [];
+        foreach ($bridge->getFriendRequests($me) ?? [] as $r) {
+            $n = $r['player_name'] ?? '';
+            if ($n !== '') {
+                $pending[strtolower($n)] = true;
+            }
+        }
+
+        foreach ($items as &$item) {
+            $from = $item['payload']['from'] ?? '';
+            $item['can_act'] = ($item['event_type'] === 'friend_request')
+                && $from !== ''
+                && !empty($pending[strtolower($from)]);
+        }
+        unset($item);
+
+        echo json_encode([
+            'unread' => $model->unreadCount($me),
+            'items'  => $items,
+            'csrf'   => $_SESSION['csrf_token'] ?? '',
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    /** POST /api/notifications/opened — открыли меню */
+    public function notificationsOpened()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        if (empty($_SESSION['logged_in']) || empty($_SESSION['nickname'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            exit;
+        }
+        (new Notification())->markOpened($_SESSION['nickname']);
+        echo json_encode([
+            'ok' => true,
+            'unread' => (new Notification())->unreadCount($_SESSION['nickname']),
+        ]);
+        exit;
+    }
 }

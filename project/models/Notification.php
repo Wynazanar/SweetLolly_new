@@ -60,4 +60,68 @@ class Notification extends Model
             AND JSON_UNQUOTE(JSON_EXTRACT(payload, '$.from')) = '$fromNick'
         ");
     }
+
+    public function recentFor(string $playerName, int $limit = 30): array
+    {
+        $playerName = mysqli_real_escape_string(self::$link, $playerName);
+        $limit = max(1, min(50, $limit));
+        $res = mysqli_query(self::$link, "
+            SELECT id, event_type, payload, is_read, created_at
+            FROM site_notifications
+            WHERE player_name = '$playerName'
+            ORDER BY id DESC
+            LIMIT $limit
+        ");
+        $rows = [];
+        while ($row = mysqli_fetch_assoc($res)) {
+            $row['payload'] = json_decode($row['payload'], true) ?: [];
+            $row['is_read'] = (int)$row['is_read'];
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function unreadCount(string $playerName): int
+    {
+        $playerName = mysqli_real_escape_string(self::$link, $playerName);
+        $res = mysqli_query(self::$link, "
+            SELECT COUNT(*) AS c FROM site_notifications
+            WHERE player_name = '$playerName' AND is_read = 0
+        ");
+        $row = mysqli_fetch_assoc($res);
+        return (int)($row['c'] ?? 0);
+    }
+
+    /** Прочитать всё, кроме активных friend_request (их гасим только accept/reject) */
+    public function markOpened(string $playerName): void
+    {
+        $playerName = mysqli_real_escape_string(self::$link, $playerName);
+        mysqli_query(self::$link, "
+            UPDATE site_notifications
+            SET is_read = 1
+            WHERE player_name = '$playerName'
+            AND is_read = 0
+            AND event_type <> 'friend_request'
+        ");
+    }
+
+    public function unreadAfterId(string $playerName, int $afterId): array
+    {
+        $playerName = mysqli_real_escape_string(self::$link, $playerName);
+        $afterId = (int)$afterId;
+        $res = mysqli_query(self::$link, "
+            SELECT id, event_type, payload, is_read, created_at
+            FROM site_notifications
+            WHERE player_name = '$playerName' AND id > $afterId
+            ORDER BY id ASC
+            LIMIT 20
+        ");
+        $rows = [];
+        while ($row = mysqli_fetch_assoc($res)) {
+            $row['payload'] = json_decode($row['payload'], true) ?: [];
+            $row['is_read'] = (int)$row['is_read'];
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

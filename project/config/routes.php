@@ -30,5 +30,7 @@
 		new Route('/friends/accept/', 'friends', 'accept'),
 		new Route('/friends/reject/', 'friends', 'reject'),
 		new Route('/friends/notification-read/', 'friends', 'readNotification'),
+		new Route('/api/notifications', 'api', 'notifications'),
+		new Route('/api/notifications/opened', 'api', 'notificationsOpened'),
+		
 	];
-	
