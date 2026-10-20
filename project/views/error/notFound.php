@@ -2,7 +2,7 @@
     <div style="text-align: center; max-width: 620px; margin: 0 auto;">
         
         <div style="font-size: 180px; font-weight: 900; line-height: 1; 
-                    background: var(--lolli-grad); 
+                    background: var(--grad-lolli); 
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     margin-bottom: -20px;">

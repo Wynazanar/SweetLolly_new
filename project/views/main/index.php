@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="ru">
+<?php
+require_once $projectRoot . '/project/components/hero/Hero.php';
+?>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Главная | SweetLolly</title>
-  <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/reset.css">
-  <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/global.css">
-  <link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/main.css">
-</head>
+<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/main.css">
+<main>
+    <?php
+      echo Hero::make();
+    ?>
 
-<body>
-  <main>
     <div class="container">
-
       <section class="beauty-hero">
         <span class="beauty-eyebrow"><span class="status-dot"></span> Сервер открыт</span>
         <h1>Добро пожаловать на SweetLolly</h1>
@@ -157,7 +152,3 @@
 
     </div>
   </main>
-
-</body>
-
-</html>
