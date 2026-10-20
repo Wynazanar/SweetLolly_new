@@ -10,6 +10,7 @@ class BridgeApi
     public const ERR_INVALID_JSON = 'invalid_json';
 
     private string $baseUrl;
+    private string $apiKey;
     private int $timeout;
     private ?string $lastError = null;
 
@@ -20,6 +21,7 @@ class BridgeApi
         }
 
         $this->baseUrl = rtrim($config['base_url'] ?? '', '/');
+        $this->apiKey  = (string) ($config['api_key'] ?? '');
         $this->timeout = (int) ($config['timeout'] ?? 8);
     }
 
@@ -110,16 +112,21 @@ class BridgeApi
             return null;
         }
 
+        $headers = [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($body),
+        ];
+        if ($this->apiKey !== '') {
+            $headers[] = 'X-Api-Key: ' . $this->apiKey;
+        }
+
         $ch = curl_init($this->baseUrl . $path);
         curl_setopt_array($ch, [
             CURLOPT_POST           => true,
             CURLOPT_POSTFIELDS     => $body,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT        => $this->timeout,
-            CURLOPT_HTTPHEADER     => [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($body),
-            ],
+            CURLOPT_HTTPHEADER     => $headers,
         ]);
 
         $response = curl_exec($ch);
@@ -309,5 +316,56 @@ class BridgeApi
                 'pages' => 1,
             ],
         ];
+    }
+
+    public function getFriends(string $nick): ?array
+    {
+        $data = $this->get('/friends/' . rawurlencode($nick));
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data['friends'] ?? [];
+    }
+
+    public function getFriendRequests(string $nick): ?array
+    {
+        $data = $this->get('/friends/' . rawurlencode($nick) . '/requests');
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data['requests'] ?? [];
+    }
+
+    public function sendFriendRequest(string $from, string $to): ?array
+    {
+        $data = $this->post('/friends/request', ['from' => $from, 'to' => $to]);
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data;
+    }
+
+    public function acceptFriend(string $from, string $to): ?array
+    {
+        // from = кто отправил заявку, to = кто принимает (текущий юзер)
+        $data = $this->post('/friends/accept', ['from' => $from, 'to' => $to]);
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data;
+    }
+
+    public function rejectFriend(string $from, string $to): ?array
+    {
+        $data = $this->post('/friends/reject', ['from' => $from, 'to' => $to]);
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data;
     }
 }

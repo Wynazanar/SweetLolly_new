@@ -3,6 +3,7 @@ namespace Project\Controllers;
 
 use Core\Controller;
 use Project\Services\BridgeApi;
+use Project\Models\Notification;
 
 class ApiController extends Controller
 {
@@ -76,5 +77,53 @@ class ApiController extends Controller
         file_put_contents($file, json_encode($data), LOCK_EX);
 
         return $data['n'] <= $max;
+    }
+
+    /**
+     * POST /api/internal/notify
+     * Принимает уведомления от плагина BedwarsAPI
+     */
+    public function notify()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['error' => 'Method Not Allowed']);
+            exit;
+        }
+
+        $cfg = require dirname(__DIR__) . '/config/notify.php';
+        $key = $_SERVER['HTTP_X_API_KEY'] ?? '';
+
+        if (empty($cfg['api_key']) || !hash_equals((string)$cfg['api_key'], (string)$key)) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Invalid API key']);
+            exit;
+        }
+
+        $raw = file_get_contents('php://input');
+        $data = json_decode($raw ?: '', true);
+
+        if (!is_array($data)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid JSON']);
+            exit;
+        }
+
+        $event = (string)($data['event'] ?? '');
+        $to = trim((string)($data['to'] ?? ''));
+        $payload = is_array($data['data'] ?? null) ? $data['data'] : [];
+
+        if ($event === '' || $to === '') {
+            http_response_code(400);
+            echo json_encode(['error' => 'event and to required']);
+            exit;
+        }
+
+        (new Notification())->create($to, $event, $payload);
+
+        echo json_encode(['ok' => true]);
+        exit;
     }
 }

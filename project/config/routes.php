@@ -20,5 +20,15 @@
 		new Route('/logout/', 'auth', 'logout'),
 
 		new Route('/api/top/:endpoint', 'api', 'top'),
+
+		// уведомления от плагина
+		new Route('/api/internal/notify', 'api', 'notify'),
+
+		// друзья
+		new Route('/friends/', 'friends', 'index'),
+		new Route('/friends/request/', 'friends', 'request'),
+		new Route('/friends/accept/', 'friends', 'accept'),
+		new Route('/friends/reject/', 'friends', 'reject'),
+		new Route('/friends/notification-read/', 'friends', 'readNotification'),
 	];
 	
