@@ -45,7 +45,17 @@
 <h2>Мои друзья</h2>
 <ul>
 <?php foreach ($friends as $f): ?>
-  <li><?= htmlspecialchars($f['player_name'] ?? '') ?></li>
+  <?php $fname = $f['player_name'] ?? ''; ?>
+  <li>
+    <?= htmlspecialchars($fname) ?>
+    <form method="post" action="/SweetLolly_new/friends/remove/" style="display:inline">
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+      <input type="hidden" name="to" value="<?= htmlspecialchars($fname) ?>">
+      <button type="submit" onclick="return confirm('Удалить <?= htmlspecialchars($fname) ?> из друзей?')">
+        Удалить
+      </button>
+    </form>
+  </li>
 <?php endforeach; ?>
 </ul>
 

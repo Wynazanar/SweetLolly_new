@@ -383,4 +383,14 @@ class BridgeApi
         }
         return $data;
     }
+
+    public function removeFriend(string $from, string $to): ?array
+    {
+        $data = $this->post('/friends/remove', ['from' => $from, 'to' => $to]);
+        if ($data === null || isset($data['error'])) {
+            $this->lastError = $data['error'] ?? self::ERR_NETWORK;
+            return null;
+        }
+        return $data;
+    }
 }

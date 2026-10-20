@@ -125,6 +125,32 @@ class FriendsController extends Controller
         exit;
     }
 
+    /** POST: удалить из друзей */
+    public function remove()
+    {
+        $me = $this->requireLogin();
+        $this->checkCsrf();
+
+        $to = trim($_POST['to'] ?? '');
+        if ($to === '') {
+            header('Location: /SweetLolly_new/friends/');
+            exit;
+        }
+
+        $bridge = new BridgeApi();
+        session_release();
+        $ok = $bridge->removeFriend($me, $to);
+        $err = $bridge->getLastError();
+        session_resume();
+
+        $_SESSION['flash'] = $ok
+            ? 'Игрок удалён из друзей'
+            : $this->friendErrorMessage($err);
+
+        header('Location: /SweetLolly_new/friends/');
+        exit;
+    }
+
     /** POST: прочитать уведомление */
     public function readNotification()
     {
