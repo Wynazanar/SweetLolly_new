@@ -131,12 +131,12 @@ $minigames_config = [
 
                 <!-- Статистика -->
                 <section class="profile-section">
-    <div class="section-header">
-        <h4>Статистика по мини-играм</h4>
-        <span class="section-count">
-            <?= count(array_filter($minigame_stats ?? [])) ?> режимов
-        </span>
-    </div>
+                    <div class="section-header">
+                        <h4>Статистика по мини-играм</h4>
+                        <span class="section-count">
+                            <?= count(array_filter($minigame_stats ?? [])) ?> режимов
+                        </span>
+                    </div>
 
     <?php if (empty($minigame_stats)): ?>
         <p class="empty-stats">Статистика пока отсутствует</p>
