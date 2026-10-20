@@ -41,6 +41,7 @@ class ApiController extends Controller
         $search  = trim($_GET['search'] ?? '');
 
         $bridge = new BridgeApi();
+        session_release();
         $result = $bridge->getTop($endpoint, [
             'page'    => $page,
             'limit'   => $limit,
@@ -127,61 +128,89 @@ class ApiController extends Controller
         exit;
     }
 
-    /** GET /api/notifications — список + счётчик (для polling) */
+    /**
+     * GET /api/notifications
+     * Без full=1 → только { unread }
+     * С ?full=1 → + items + can_act (Bridge вызывается только здесь, не на каждой странице)
+     */
     public function notifications()
     {
         header('Content-Type: application/json; charset=utf-8');
 
         if (empty($_SESSION['logged_in']) || empty($_SESSION['nickname'])) {
             http_response_code(401);
-            echo json_encode(['error' => 'Unauthorized']);
+            echo json_encode(['error' => 'Unauthorized', 'unread' => 0, 'items' => []]);
             exit;
         }
 
-        $me = $_SESSION['nickname'];
-        $model = new Notification();
-        $items = $model->recentFor($me, 30);
+        $nick = $_SESSION['nickname'];
+        session_release();
 
-        // кто ещё ждёт ответа по заявке
-        $bridge = new BridgeApi();
+        $model = new Notification();
+        $unread = $model->unreadCount($nick);
+
+        $full = isset($_GET['full']) && $_GET['full'] !== '0' && $_GET['full'] !== '';
+
+        if (!$full) {
+            echo json_encode(['unread' => $unread], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $items = $model->recentFor($nick, 30);
+
+        // Bridge только при открытии списка, не на SSR
         $pending = [];
-        foreach ($bridge->getFriendRequests($me) ?? [] as $r) {
-            $n = $r['player_name'] ?? '';
+        $bridge = new BridgeApi();
+        foreach ($bridge->getFriendRequests($nick) ?? [] as $r) {
+            $n = $r['player_name'] ?? $r['from'] ?? '';
             if ($n !== '') {
                 $pending[strtolower($n)] = true;
             }
         }
 
-        foreach ($items as &$item) {
-            $from = $item['payload']['from'] ?? '';
-            $item['can_act'] = ($item['event_type'] === 'friend_request')
+        $out = [];
+        foreach ($items as $it) {
+            $from = $it['payload']['from'] ?? '';
+            $it['can_act'] = ($it['event_type'] === 'friend_request')
                 && $from !== ''
                 && !empty($pending[strtolower($from)]);
+            $out[] = $it;
         }
-        unset($item);
 
         echo json_encode([
-            'unread' => $model->unreadCount($me),
-            'items'  => $items,
-            'csrf'   => $_SESSION['csrf_token'] ?? '',
+            'unread' => $unread,
+            'items'  => $out,
         ], JSON_UNESCAPED_UNICODE);
         exit;
     }
 
-    /** POST /api/notifications/opened — открыли меню */
+    /**
+     * POST /api/notifications/opened
+     * Пометить прочитанными всё, кроме активных friend_request
+     */
     public function notificationsOpened()
     {
         header('Content-Type: application/json; charset=utf-8');
-        if (empty($_SESSION['logged_in']) || empty($_SESSION['nickname'])) {
-            http_response_code(401);
-            echo json_encode(['error' => 'Unauthorized']);
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['error' => 'Method Not Allowed']);
             exit;
         }
-        (new Notification())->markOpened($_SESSION['nickname']);
-        echo json_encode([
-            'ok' => true,
-            'unread' => (new Notification())->unreadCount($_SESSION['nickname']),
-        ]);
+
+        if (empty($_SESSION['logged_in']) || empty($_SESSION['nickname'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized', 'unread' => 0]);
+            exit;
+        }
+
+        $nick = $_SESSION['nickname'];
+        session_release();
+
+        $model = new Notification();
+        $model->markOpened($nick);
+
+        echo json_encode(['ok' => true, 'unread' => $model->unreadCount($nick)], JSON_UNESCAPED_UNICODE);
         exit;
     }
 }

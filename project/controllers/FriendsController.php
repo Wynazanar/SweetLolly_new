@@ -32,8 +32,19 @@ class FriendsController extends Controller
         $this->title = 'Друзья | SweetLolly';
 
         $bridge = new BridgeApi();
-        $friends = $bridge->getFriends($me) ?? [];
-        $requests = $bridge->getFriendRequests($me) ?? [];
+        session_release();
+        $friends = $bridge->getFriends($me);
+        $requests = [];
+        if ($friends === null && $bridge->getLastError() === BridgeApi::ERR_NETWORK) {
+            session_resume();
+            $_SESSION['flash'] = $_SESSION['flash']
+                ?? 'Игровой API недоступен. Запусти BedwarsAPI на порту 3000.';
+            $friends = [];
+        } else {
+            $friends = $friends ?? [];
+            $requests = $bridge->getFriendRequests($me) ?? [];
+            session_resume();
+        }
         $notifications = (new Notification())->unreadFor($me);
 
         return $this->render('friends/index', [
@@ -57,12 +68,14 @@ class FriendsController extends Controller
         }
 
         $bridge = new BridgeApi();
+        session_release();
         $ok = $bridge->sendFriendRequest($me, $to);
+        $err = $bridge->getLastError();
+        session_resume();
 
-        // можно flash-сообщение в сессию
         $_SESSION['flash'] = $ok
             ? 'Заявка отправлена'
-            : ('Ошибка: ' . ($bridge->getLastError() ?? 'неизвестно'));
+            : $this->friendErrorMessage($err);
 
         header('Location: /SweetLolly_new/friends/');
         exit;
@@ -81,7 +94,9 @@ class FriendsController extends Controller
         }
 
         $bridge = new BridgeApi();
+        session_release();
         $ok = $bridge->acceptFriend($from, $me);
+        session_resume();
 
         if ($ok) {
             (new Notification())->markFriendRequestRead($me, $from);
@@ -99,7 +114,9 @@ class FriendsController extends Controller
 
         $from = trim($_POST['from'] ?? '');
         $bridge = new BridgeApi();
+        session_release();
         $ok = $bridge->rejectFriend($from, $me);
+        session_resume();
         if ($ok) {
             (new Notification())->markFriendRequestRead($me, $from);
         }
@@ -119,5 +136,19 @@ class FriendsController extends Controller
         }
         header('Location: /SweetLolly_new/friends/');
         exit;
+    }
+
+    private function friendErrorMessage(?string $err): string
+    {
+        if ($err === BridgeApi::ERR_NETWORK) {
+            return 'Игровой API недоступен. Запусти BedwarsAPI на порту 3000.';
+        }
+        if ($err === BridgeApi::ERR_ENDPOINT) {
+            return 'Плагин не знает этот метод друзей. Обнови BedwarsAPI.';
+        }
+        if ($err === BridgeApi::ERR_SERVER) {
+            return 'Плагин вернул ошибку сервера.';
+        }
+        return 'Ошибка: ' . ($err ?? 'неизвестно');
     }
 }

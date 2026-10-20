@@ -66,6 +66,17 @@ try {
                                             path_image VARCHAR(500) NOT NULL
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
+    $sql[] = "CREATE TABLE IF NOT EXISTS site_notifications (
+                                            id INT AUTO_INCREMENT PRIMARY KEY,
+                                            player_name VARCHAR(32) NOT NULL,
+                                            event_type VARCHAR(64) NOT NULL,
+                                            payload JSON NULL,
+                                            is_read TINYINT(1) NOT NULL DEFAULT 0,
+                                            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                            INDEX idx_player_read (player_name, is_read),
+                                            INDEX idx_player_id (player_name, id)
+                                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
 
 
     foreach ($sql as $q)

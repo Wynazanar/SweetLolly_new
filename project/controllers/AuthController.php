@@ -32,7 +32,9 @@ class AuthController extends Controller
         }
 
         $bridge = new BridgeApi();
+        session_release();
         $apiResult = $bridge->login($login, $password);
+        session_resume();
 
         if ($apiResult === null || empty($apiResult['success'])) {
             if (self::RATE_LIMIT_ENABLED) {
@@ -99,7 +101,9 @@ public function register()
         }
 
         $bridge = new BridgeApi();
+        session_release();
         $result = $bridge->register($username, $password);
+        session_resume();
 
         if ($result === null || empty($result['success'])) {
             $msg = $bridge->getLastError() ?: 'Ошибка при регистрации';

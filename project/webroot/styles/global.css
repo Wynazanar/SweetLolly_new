@@ -270,6 +270,95 @@ header {
     justify-content: center;
 }
 
+.notify {
+    position: relative;
+}
+
+.notify-bell {
+    position: relative;
+    border: 0;
+    color: var(--text);
+}
+
+.notify-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+}
+
+.notify-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 320px;
+    max-height: 360px;
+    overflow: auto;
+    z-index: 50;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 10px;
+}
+
+.notify-dropdown-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.notify-empty {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 12px 4px;
+}
+
+.notify-item {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.notify-item.unread {
+    background: var(--surface-2);
+}
+
+.notify-item-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.notify-accept,
+.notify-reject {
+    border: 0;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.notify-accept {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.notify-reject {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
 
 .hero-nav {
     color: var(--foreground);

@@ -12,6 +12,7 @@ class BridgeApi
     private string $baseUrl;
     private string $apiKey;
     private int $timeout;
+    private int $connectTimeout;
     private ?string $lastError = null;
 
     public function __construct(?array $config = null)
@@ -22,7 +23,8 @@ class BridgeApi
 
         $this->baseUrl = rtrim($config['base_url'] ?? '', '/');
         $this->apiKey  = (string) ($config['api_key'] ?? '');
-        $this->timeout = (int) ($config['timeout'] ?? 8);
+        $this->timeout = (int) ($config['timeout'] ?? 4);
+        $this->connectTimeout = (int) ($config['connect_timeout'] ?? 1);
     }
 
     public function getLastError(): ?string
@@ -125,6 +127,7 @@ class BridgeApi
             CURLOPT_POST           => true,
             CURLOPT_POSTFIELDS     => $body,
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
             CURLOPT_TIMEOUT        => $this->timeout,
             CURLOPT_HTTPHEADER     => $headers,
         ]);
@@ -228,6 +231,10 @@ class BridgeApi
             $stats = $this->getPlayerStats($endpoint, $nickname);
             if ($stats !== null) {
                 $result[$title] = $stats;
+                continue;
+            }
+            if ($this->lastError === self::ERR_NETWORK) {
+                break;
             }
         }
         return $result;
@@ -245,18 +252,26 @@ class BridgeApi
             return null;
         }
 
+        $headers = ['Accept: application/json'];
+        if ($this->apiKey !== '') {
+            $headers[] = 'X-Api-Key: ' . $this->apiKey;
+        }
+
         $ch = curl_init($this->baseUrl . $path);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
             CURLOPT_TIMEOUT        => $this->timeout,
-            CURLOPT_HTTPHEADER     => ['Accept: application/json'],
+            CURLOPT_HTTPHEADER     => $headers,
         ]);
 
         $response = curl_exec($ch);
         $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error    = curl_error($ch);
         curl_close($ch);
 
         if ($response === false) {
+            error_log("Bridge API error ($path): $error");
             $this->lastError = self::ERR_NETWORK;
             return null;
         }

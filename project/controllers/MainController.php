@@ -45,6 +45,7 @@ class MainController extends Controller
 
 		if ($tops !== null) {
 			$bridge = new BridgeApi();
+			session_release();
 			$result = $bridge->getTop($tops['endpoint'], [
 				'page'    => 1,
 				'limit'   => 20,
@@ -55,6 +56,7 @@ class MainController extends Controller
 				$topRows = $result['rows'];
 				$topMeta = $result['meta'];
 			}
+			session_resume();
 		}
 
 		return $this->render('games/gameInfo', [
@@ -174,22 +176,27 @@ class MainController extends Controller
 			&& strcasecmp($sessionNick, $nickname) === 0;
 
 		$bridge = new BridgeApi();
+		session_release();
 
 		// 1. Основные данные из nlogin
 		$user = $bridge->getProfile($nickname);
 
 		// Если API недоступен, но это свой профиль — берём из сессии
 		if ($user === null && $isOwnProfile) {
+			session_resume();
 			$user = $this->profileFromSession($nickname);
+			session_release();
 		}
 
 		if ($user === null) {
+			$bridgeError = $bridge->getLastError() !== null;
+			session_resume();
 			$this->title = 'Игрок не найден | SweetLolly';
 			return $this->render('user/profile', [
 				'user' => null,
 				'nickname' => $nickname,
 				'minigame_stats' => [],
-				'bridgeError' => $bridge->getLastError() !== null,
+				'bridgeError' => $bridgeError,
 			]);
 		}
 
@@ -198,6 +205,7 @@ class MainController extends Controller
 
 		// 3. Скин (Mojang)
 		$user['mojang_uuid'] = $this->getMojangUuid($user['nickname'] ?? $nickname);
+		session_resume();
 		
 		$this->title = ($user['nickname'] ?? $nickname) . ' | Профиль | SweetLolly';
 
