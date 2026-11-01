@@ -1,38 +1,43 @@
 <?php
-	use \Core\Route;
-	
-	return [
-		new Route('/', 'main', 'index'),
-		new Route('/games/', 'main', 'games'),
-		new Route('/games/:game/', 'main', 'gameInfo'),
+use Core\Route;
 
-		new Route('/rules/', 'main', 'rules'),
-		new Route('/candies/','main', 'donats'),
+return [
+    new Route('/', 'main', 'index'),
 
-		new Route('/help/','main', 'help'),
-		new Route('/team/','main', 'team'),
+    // Игры
+    new Route('/games/', 'games', 'index'),
+    new Route('/games/:game/', 'games', 'show'),
 
-		new Route('/profile/:player', 'main', 'profile'),
-		new Route('/settings/', 'main', 'settings'),
+    // Правила
+    new Route('/rules/', 'rules', 'index'),
 
-		new Route('/login/',  'auth', 'login'),
-		new Route('/register/','auth', 'register'),
-		new Route('/logout/', 'auth', 'logout'),
+    // Донат
+    new Route('/candies/', 'donats', 'index'),
 
-		new Route('/api/top/:endpoint', 'api', 'top'),
+    // Помощь
+    new Route('/help/', 'help', 'index'),
+    new Route('/team/', 'help', 'team'),
 
-		// уведомления от плагина
-		new Route('/api/internal/notify', 'api', 'notify'),
+    // Профиль
+    new Route('/profile/:player', 'profile', 'show'),
+    new Route('/settings/', 'profile', 'settings'),
 
-		// друзья
-		new Route('/friends/', 'friends', 'index'),
-		new Route('/friends/request/', 'friends', 'request'),
-		new Route('/friends/accept/', 'friends', 'accept'),
-		new Route('/friends/reject/', 'friends', 'reject'),
-		new Route('/friends/remove/', 'friends', 'remove'),
-		new Route('/friends/notification-read/', 'friends', 'readNotification'),
-		
-		new Route('/api/notifications', 'api', 'notifications'),
-		new Route('/api/notifications/opened', 'api', 'notificationsOpened'),
-		
-	];
+    // Auth
+    new Route('/login/', 'auth', 'login'),
+    new Route('/register/', 'auth', 'register'),
+    new Route('/logout/', 'auth', 'logout'),
+
+    // API
+    new Route('/api/top/:endpoint', 'api', 'top'),
+    new Route('/api/internal/notify', 'api', 'notify'),
+    new Route('/api/notifications', 'api', 'notifications'),
+    new Route('/api/notifications/opened', 'api', 'notificationsOpened'),
+
+    // Друзья
+    new Route('/friends/', 'friends', 'index'),
+    new Route('/friends/request/', 'friends', 'request'),
+    new Route('/friends/accept/', 'friends', 'accept'),
+    new Route('/friends/reject/', 'friends', 'reject'),
+    new Route('/friends/remove/', 'friends', 'remove'),
+    new Route('/friends/notification-read/', 'friends', 'readNotification'),
+];
