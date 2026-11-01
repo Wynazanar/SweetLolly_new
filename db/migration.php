@@ -10,6 +10,16 @@ try {
     require_once __DIR__ . '/app/db.php';
     $sql = [];
     
+    $sql[] = "CREATE TABLE IF NOT EXISTS site_notifications(
+                                            id INT AUTO_INCREMENT PRIMARY KEY,
+                                            player_name VARCHAR(16) NOT NULL,
+                                            event_type VARCHAR(32) NOT NULL,
+                                            payload JSON NOT NULL,
+                                            is_read TINYINT(1) NOT NULL DEFAULT 0,
+                                            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                            KEY idx_player_read (player_name, is_read)
+                                        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
     $sql[] = "CREATE TABLE IF NOT EXISTS prefixes(
                                             id INT AUTO_INCREMENT PRIMARY KEY,
                                             name VARCHAR(100) NOT NULL,
