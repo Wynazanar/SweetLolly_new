@@ -12,11 +12,10 @@ $dotenv->safeLoad();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// Сессия + CSRF + session_release/resume
+require $basePath . '/app/Config/auth.php';
 
-// Временные константы для старого Model (потом уберём)
+// Временные константы для старого Model
 $db = require $basePath . '/app/Config/database.php';
 define('DB_HOST', $db['host']);
 define('DB_USER', $db['username']);
@@ -42,6 +41,6 @@ if ($uri === '' || $uri === false) {
 $routes = require $basePath . '/app/Config/routes.php';
 
 $track = (new Core\Router())->getTrack($routes, $uri);
-$page = (new Core\Dispatcher())->getPage($track);
+$page  = (new Core\Dispatcher())->getPage($track);
 
 echo (new Core\View())->render($page);

@@ -48,7 +48,7 @@ function ruleSlug(string $name): string
 }
 ?>
 
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/rules.css">
+<link rel="stylesheet" href="<?= asset('styles/rules.css') ?>">
 <main class="rules-page">
   <div class="container">
 

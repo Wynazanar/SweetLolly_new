@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/profile.css">
+<link rel="stylesheet" href="<?= asset('styles/profile.css') ?>">
 <main>
     <div class="container">
         <p class="main-page">SweetLolly / #Настройки</p>

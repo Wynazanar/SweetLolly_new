@@ -1,7 +1,7 @@
 <?php
 require_once $projectRoot . '/project/components/Table.php';
 ?>
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/gameInfo.css">
+<link rel="stylesheet" href="<?= asset('styles/gameInfo.css') ?>">
 <main>
   <div class="container">
     <?php if (!empty($game)): ?>

@@ -32,7 +32,7 @@ function get_category_icon($category) {
 }
 ?>
 
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/games.css">
+<link rel="stylesheet" href="<?= asset('styles/games.css') ?>">
 <main style="Margin-top: 50px;">
     <div class="container games-good">
       

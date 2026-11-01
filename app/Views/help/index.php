@@ -2,7 +2,7 @@
 require_once $projectRoot . '/project/components/Accordion.php';
 ?>
 
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/help.css">
+<link rel="stylesheet" href="<?= asset('styles/help.css') ?>">
 <main>
     <div class="container">
         <div></div>

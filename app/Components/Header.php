@@ -91,7 +91,7 @@ class Header
             loop();
         })();
         </script>
-        <script src="/SweetLolly_new/project/webroot/scripts/theme.js"></script>
+        <script src="<?= asset('scripts/theme.js') ?>"></script>
         <?php
         return ob_get_clean();
     }

@@ -4,7 +4,7 @@ namespace App\Components;
 
 ?>
 
-<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/main.css">
+<link rel="stylesheet" href="<?= asset('styles/main.css') ?>">
 <main>
     <?php
       echo Hero::make();

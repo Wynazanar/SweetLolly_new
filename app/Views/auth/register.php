@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/SweetLolly_new/Project/webroot/styles/auth.css">
+<link rel="stylesheet" href="<?= asset('styles/auth.css') ?>">
 <main>
     <div class="container auth-match-wrap">
 

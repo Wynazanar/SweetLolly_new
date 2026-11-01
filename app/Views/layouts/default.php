@@ -14,9 +14,9 @@ use App\Components\Footer;
 <head>
 	<meta charset="UTF-8">
 	<title><?= $title ?></title>
-	<link rel="icon" href="/SweetLolly_new/project/webroot/resources/logo.png" type="image/png">
-	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/reset.css">
-	<link rel="stylesheet" href="/SweetLolly_new/project/webroot/styles/global.css">
+	<link rel="icon" href="<?= asset('resources/logo.png') ?>" type="image/png">
+	<link rel="stylesheet" href="<?= asset('styles/reset.css') ?>">
+	<link rel="stylesheet" href="<?= asset('styles/global.css') ?>">
 </head>
 
 <body>

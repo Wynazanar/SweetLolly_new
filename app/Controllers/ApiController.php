@@ -41,7 +41,7 @@ class ApiController extends Controller
         $search  = trim($_GET['search'] ?? '');
 
         $bridge = new BridgeApi();
-        session_release();
+        \session_release();
         $result = $bridge->getTop($endpoint, [
             'page'    => $page,
             'limit'   => $limit,
@@ -94,7 +94,7 @@ class ApiController extends Controller
             exit;
         }
 
-        $cfg = require dirname(__DIR__) . '/config/notify.php';
+        $cfg = require dirname(__DIR__) . '/Config/notify.php';
         $key = $_SERVER['HTTP_X_API_KEY'] ?? '';
 
         if (empty($cfg['api_key']) || !hash_equals((string)$cfg['api_key'], (string)$key)) {
@@ -144,7 +144,7 @@ class ApiController extends Controller
         }
 
         $nick = $_SESSION['nickname'];
-        session_release();
+        \session_release();
 
         $model = new Notification();
         $unread = $model->unreadCount($nick);
@@ -205,7 +205,7 @@ class ApiController extends Controller
         }
 
         $nick = $_SESSION['nickname'];
-        session_release();
+        \session_release();
 
         $model = new Notification();
         $model->markOpened($nick);
