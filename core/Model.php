@@ -1,29 +1,54 @@
 <?php
-	namespace Core;
-	
-	class Model
-	{
-		protected static $link;
-		
-		public function __construct()
-		{
-			if (!self::$link) {
-				self::$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-				mysqli_query(self::$link, "SET NAMES 'utf8'");
-			}
-		}
-		
-		protected function findOne($query)
-		{
-			$result = mysqli_query(self::$link, $query) or die(mysqli_error(self::$link));
-			return mysqli_fetch_assoc($result);
-		}
-		
-		protected function findMany($query)
-		{
-			$result = mysqli_query(self::$link, $query) or die(mysqli_error(self::$link));
-			for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-			
-			return $data;
-		}
-	}
+namespace Core;
+
+class Model
+{
+    protected static $link;
+
+    public function __construct()
+    {
+        if (!self::$link) {
+            self::$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            mysqli_set_charset(self::$link, 'utf8mb4');
+        }
+    }
+
+    protected function findOne(string $sql, array $params = []): ?array
+    {
+        $stmt = $this->execute($sql, $params);
+        $row = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        return $row ?: null;
+    }
+
+    protected function findMany(string $sql, array $params = []): array
+    {
+        $stmt = $this->execute($sql, $params);
+        $result = $stmt->get_result();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        $stmt->close();
+        return $data;
+    }
+
+    private function execute(string $sql, array $params): \mysqli_stmt
+    {
+        $stmt = self::$link->prepare($sql);
+        if (!$stmt) {
+            throw new \RuntimeException(mysqli_error(self::$link));
+        }
+
+        if ($params) {
+            $types = str_repeat('s', count($params)); // упрощённо, всё как string
+            $stmt->bind_param($types, ...$params);
+        }
+
+        if (!$stmt->execute()) {
+            throw new \RuntimeException($stmt->error);
+        }
+
+        return $stmt;
+    }
+}
