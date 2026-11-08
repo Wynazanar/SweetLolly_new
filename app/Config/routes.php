@@ -5,18 +5,18 @@ return [
     new Route('/', 'main', 'index'),
 
     // Игры
-    new Route('/games/', 'games', 'index'),
-    new Route('/games/:game/', 'games', 'show'),
+    new Route('/games', 'games', 'index'),
+    new Route('/games/:game', 'games', 'show'),
 
     // Правила
-    new Route('/rules/', 'rules', 'index'),
+    new Route('/rules', 'rules', 'index'),
 
     // Донат
-    new Route('/candies/', 'donats', 'index'),
+    new Route('/candies', 'donats', 'index'),
 
     // Помощь
-    new Route('/help/', 'help', 'index'),
-    new Route('/team/', 'help', 'team'),
+    new Route('/help', 'help', 'index'),
+    new Route('/team', 'help', 'team'),
 
     // Профиль
     new Route('/profile/:player', 'profile', 'show'),

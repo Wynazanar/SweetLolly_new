@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Components;
+
 function get_category_icon($category) {
   $icons = [
     'PvP' => '<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -30,6 +33,14 @@ function get_category_icon($category) {
 
   return '';
 }
+
+echo SubHeader::make([
+    ['title' => 'Как начать играть', 'href' => url('/start')],
+    ['title' => 'Правила',           'href' => url('/rules')],
+    ['title' => 'Леденцы',           'href' => url('/candies')],
+    ['title' => 'Помощь',            'href' => url('/help')],
+]);
+
 ?>
 
 <link rel="stylesheet" href="<?= asset('styles/games.css') ?>">
@@ -52,10 +63,10 @@ function get_category_icon($category) {
         <div class="games-good-grid">
           <?php foreach ($games as $game): ?>
             <a class="game-good-card" data-mode-card="" data-cats="<?= $game['category_name']?>"
-              href="./<?= htmlspecialchars($game['name'] ?? $game->name) ?>/">
+              href="<?= url('/games').'/'.htmlspecialchars($game['name'] ?? $game->name) ?>">
 
               <div class="game-good-media">
-                <img src="/SweetLolly_new/project/webroot/images/minigames/<?= htmlspecialchars($game['path_image'] ?? '') ?>"
+                <img src="<?= asset('images/minigames/'.htmlspecialchars($game['path_image'] ?? '')) ?>"
                   alt="<?= htmlspecialchars($game['name'] ?? '') ?>">
               </div>
 

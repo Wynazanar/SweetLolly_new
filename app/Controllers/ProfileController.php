@@ -49,6 +49,8 @@ class ProfileController extends Controller
 
         $minigameStats = $bridge->getMinigameStats($nickname);
         $user['mojang_uuid'] = $this->getMojangUuid($user['nickname'] ?? $nickname);
+        
+        $friends = $bridge->getFriends($nickname);
 
         session_resume();
 
@@ -57,6 +59,7 @@ class ProfileController extends Controller
         return $this->render('user/profile', [
             'user'           => $user,
             'minigame_stats' => $minigameStats,
+            'friends'        => $friends,
             'isOwnProfile'   => $isOwnProfile,
         ]);
     }

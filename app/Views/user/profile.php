@@ -267,34 +267,17 @@ $minigames_config = [
                         <a href="#" class="section-link">Все друзья →</a>
                     </div>
                     <div class="friends-grid">
-                        <div class="friend-card">
-                            <img src="https://nmsr.nickac.dev/face/Notch" alt="Notch" class="friend-avatar">
-                            <div class="friend-info">
-                                <span class="friend-name">Notch</span>
-                                <span class="friend-status online">Онлайн</span>
+
+                        <?php foreach ($friends as $friend): ?>
+                            <div class="friend-card">
+                                <img src="https://nmsr.nickac.dev/face/<?= htmlspecialchars($friend['player_name'] ?? '')?>" alt="<?= htmlspecialchars($friend['player_name'] ?? '')?>" class="friend-avatar">
+                                <div class="friend-info">
+                                    <span class="friend-name"><?= htmlspecialchars($friend['player_name'] ?? '')?></span>
+                                    <span class="friend-status online">Онлайн</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="friend-card">
-                            <img src="https://nmsr.nickac.dev/face/jeb_" alt="jeb_" class="friend-avatar">
-                            <div class="friend-info">
-                                <span class="friend-name">jeb_</span>
-                                <span class="friend-status online">Онлайн</span>
-                            </div>
-                        </div>
-                        <div class="friend-card">
-                            <img src="https://nmsr.nickac.dev/face/Dinnerbone" alt="Dinnerbone" class="friend-avatar">
-                            <div class="friend-info">
-                                <span class="friend-name">Dinnerbone</span>
-                                <span class="friend-status offline">Оффлайн</span>
-                            </div>
-                        </div>
-                        <div class="friend-card">
-                            <img src="https://nmsr.nickac.dev/face/CaptainSparklez" alt="CaptainSparklez" class="friend-avatar">
-                            <div class="friend-info">
-                                <span class="friend-name">CaptainSparklez</span>
-                                <span class="friend-status offline">Оффлайн</span>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
+
                     </div>
                 </section>
 

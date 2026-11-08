@@ -29,8 +29,14 @@ class GamesController extends Controller
             ? $game['name'] . ' | SweetLolly'
             : $slug . ' | SweetLolly';
 
+        $mode = isset($_GET['mode']) ? (string)$_GET['mode'] : null;
+
         $topService = new TopService();
-        $topConfig  = $topService->resolveConfig($game, $slug);
+        $top        = $topService->resolve($game, $slug, $mode);
+
+        $topConfig  = $top['config'];
+        $topModes   = $top['modes'];
+        $activeMode = $top['activeMode'];
 
         $topRows = [];
         $topMeta = ['page' => 1, 'pages' => 1, 'total' => 0, 'limit' => 20];
@@ -50,10 +56,12 @@ class GamesController extends Controller
         }
 
         return $this->render('games/gameInfo', [
-            'game'      => $game,
-            'topConfig' => $topConfig,
-            'topRows'   => $topRows,
-            'topMeta'   => $topMeta,
+            'game'       => $game,
+            'topConfig'  => $topConfig,
+            'topModes'   => $topModes,
+            'activeMode' => $activeMode,
+            'topRows'    => $topRows,
+            'topMeta'    => $topMeta,
         ]);
     }
 }
